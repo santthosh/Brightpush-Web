@@ -1,0 +1,8 @@
+<ul>
+  <li><%= link_to('Subscriptions', saas_admin_subscriptions_path) %></li>
+  <li><%= link_to('Accounts', saas_admin_accounts_path) %></li>
+  <li><%= link_to('Plans', saas_admin_subscription_plans_path) %></li>
+  <li><%= link_to('Discounts', saas_admin_subscription_discounts_path) %></li>
+  <li><%= link_to('Affiliates', saas_admin_subscription_affiliates_path) %></li>
+  <li><%= link_to("Log out #{current_saas_admin.email}", destroy_saas_admin_session_path) %></li>
+</ul>

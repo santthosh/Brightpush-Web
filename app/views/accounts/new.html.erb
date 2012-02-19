@@ -1,0 +1,60 @@
+<h1>Create an account</h1>
+
+<%= form_for @account, :url => { :action => 'create' } do |account| %>
+  <%= hidden_field_tag 'plan', params[:plan] %>
+  <p>
+    Enter the name of your business and the subdomain you'd like to use for your site.
+  </p>
+  
+  <% if @account.errors.any? %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your account information:</h2>
+      <ul>
+        <% @account.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <%= account.label :name %>
+    <%= account.text_field :name %>
+    <%= account.label :domain %>
+    <%= account.text_field :domain %>.<%= Saas::Config.base_domain %>
+  </fieldset>
+
+  <p>
+    Enter info for the administrator account.
+  </p>
+
+  <fieldset>  
+    <%= account.fields_for :admin do |admin| %>
+      <%= admin.label :email %>
+      <%= admin.text_field :email %>
+      <%= admin.label :password %>
+      <%= admin.password_field :password %>
+      <%= admin.label :password_confirmation %>
+      <%= admin.password_field :password_confirmation %>
+    <% end %>
+  </fieldset>
+
+  <% if @account.needs_payment_info? %>
+    <p>
+      Your payment info will be collected after you have created your account and logged in.
+    </p>
+
+    <p>
+      You will be charged <%= number_to_currency(@account.plan.setup_amount) + ' now and ' if  @account.plan.setup_amount? && !@account.plan.trial_period? %>
+      <%= number_to_currency(@account.plan.amount) %> <%= @account.plan.renewal_period == 1 ? 'every month' : "every #{@account.plan.renewal_period} months" %>
+      for the <%= @account.plan.name %> plan
+      <%= @account.plan.trial_period? ? 'after the trial period' : 'starting immediately' %>.
+    </p>
+
+  <% end %>
+
+  <fieldset>
+    <input type="submit" value="Create my account" />
+  </fieldset>
+
+<% end %>

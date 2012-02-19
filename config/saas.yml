@@ -1,0 +1,33 @@
+defaults: &defaults
+  app_name: newsstand
+  from_email: support@newsstand.io
+  base_domain: newsstand.io
+
+  gateway: bogus
+  credentials:
+    gateway:
+      :login: demo
+      :password: password
+    stripe_publishable_key:
+    paypal:
+      :login: demo
+      :password: password
+      :signature: signature
+    
+development:
+  <<: *defaults
+  base_domain: newsstand.dev # Edit /etc/hosts to add subscriptions.dev, test.subscriptions.dev, etc., or use Pow: http://pow.cx
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  credentials:
+    gateway:
+      :login: demo
+      :password: password
+    paypal:
+      :login: demo
+      :password: password
+      :signature: signature
