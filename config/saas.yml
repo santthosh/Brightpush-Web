@@ -21,6 +21,10 @@ development:
 test:
   <<: *defaults
 
+staging:
+  <<: *defaults
+  base_domain: newsstandbeta.com
+
 production:
   <<: *defaults
   credentials:
