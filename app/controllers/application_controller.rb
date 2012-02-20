@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
     # This is used throughout the app to scope queries, like
     # current_account.users, etc.
     def current_account(raise_on_not_found = true)
+      if(request.host.to_s == Saas::Config.base_domain.to_s)
+        @current_account = Account.first
+        return @current_account
+      end
+
       @current_account ||= Account.find_by_full_domain(request.host) || (Rails.env.development? ? Account.first : nil)
       raise ActiveRecord::RecordNotFound if !@current_account && raise_on_not_found
       @current_account
