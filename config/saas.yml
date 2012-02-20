@@ -20,6 +20,8 @@ development:
 
 test:
   <<: *defaults
+  from_email: support@newsstandbeta.com
+  base_domain: newsstandbeta.com
 
 production:
   <<: *defaults
