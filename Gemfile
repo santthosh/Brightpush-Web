@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'mysql2'
 gem 'rails3_acts_as_paranoid'
 gem 'ssl_requirement'
+gem 'airbrake'
 
 gem "saas-kit"
 
