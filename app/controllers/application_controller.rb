@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     # This is used throughout the app to scope queries, like
     # current_account.users, etc.
     def current_account(raise_on_not_found = true)
-      if(request.host.to_s == Saas::Config.base_domain.to_s)
+      if !request.subdomain.present? || request.subdomain.casecmp("www") == 0
         @current_account = Account.first
         return @current_account
       end
