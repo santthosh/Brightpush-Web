@@ -50,6 +50,8 @@ Subscriptions::Application.configure do
   # Other static files we want to be included
   config.assets.precompile += %w( stripe_form.js )
 
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.default_url_options = { :host => "newsstand.io" }
 
 end
