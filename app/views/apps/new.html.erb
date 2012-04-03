@@ -1,0 +1,40 @@
+<h1>Create an application</h1>
+
+<%= form_for(@application, :html => { :multipart => true }) do |application| %>
+  <p>
+    Enter the following information for your application .
+  </p>
+  
+  <% if @application.errors.any? %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your application information:</h2>
+      <ul>
+        <% @application.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <%= application.label :name %>
+    <%= application.text_field :name %>
+    <%= application.label :key %>
+    <%= application.text_field :key %>
+    <%= application.label :Development_push_certificate %>
+    <%= application.file_field :development_push_certificate %>
+    <%= application.label :Crypted_development_push_certificate_password %>
+    <%= application.password_field :crypted_development_push_certificate_password %>
+    <%= application.label :Production_push_certificate %>
+    <%= application.file_field :production_push_certificate %>
+    <%= application.label :Crypted_production_push_certificate_password %>
+    <%= application.password_field :crypted_production_push_certificate_password %>
+  </fieldset>
+
+  <fieldset>
+    <input type="submit" value="Create my application" />
+    
+    <%= link_to :cancel, :action => 'index' %>
+  </fieldset>
+
+<% end %>

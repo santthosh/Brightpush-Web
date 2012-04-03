@@ -3,7 +3,8 @@ class Account < ActiveRecord::Base
   has_many :users, :dependent => :destroy
   has_one :admin, :class_name => "User", :conditions => { :admin => true }
   accepts_nested_attributes_for :admin
-
+  has_many :apps, :dependent => :destroy
+  
   #
   # Set up the account to own subscriptions. An alternative would be to
   # call 'has_subscription' on the user model, if you only want one user per

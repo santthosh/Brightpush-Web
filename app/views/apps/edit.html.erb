@@ -1,0 +1,29 @@
+<h1>Change account settings</h1>
+
+<%= form_for @application, :url => { :action => 'update' }, :html => { :method => :put, :multipart => true } do |f| %>
+ 
+  <p>
+    Enter the following information for your application .
+  </p>
+  
+  <%= f.error_messages %>
+
+  <fieldset>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :key %>
+    <%= f.text_field :key %>
+    <%= f.label :Development_push_certificate %>
+    <%= f.file_field :development_push_certificate %>
+    <%= f.label :Crypted_development_push_certificate_password %>
+    <%= f.password_field :crypted_development_push_certificate_password, value: @application.crypted_development_push_certificate_password %>
+    <%= f.label :Production_push_certificate %>
+    <%= f.file_field :production_push_certificate %>
+    <%= f.label :Crypted_production_push_certificate_password %>
+    <%= f.password_field :crypted_production_push_certificate_password, value: @application.crypted_production_push_certificate_password %>
+  </fieldset>
+
+  <fieldset>
+    <%= submit_or_cancel :action => 'index' %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,15 @@
+<h1><%= @page_title = 'View Application' %></h1>
+<table id="application"  cellpadding=10 cellspacing=10>
+  <tr>
+    <th>Name: </th>
+    <td><%= h(@application.name) %></td>
+  </tr>
+  <tr>
+    <th>Key: </th>
+    <td><%= @application.key %></td>
+  </tr>
+  <tr>
+    <th>Created: </th>
+    <td><%= @application.created_at.to_s(:short_day) %></td>
+  </tr>
+</table>

@@ -1,0 +1,33 @@
+<h1><%= @page_title = 'Accounts' %></h1>
+<table id="applications" cellpadding=10 cellspacing=10>
+  <tr>
+    <%= link_to('Add a new Application', new_app_url) %>
+  </tr>
+<% if @applications.blank? %>
+  <tr>
+    <th>No Record Found</th>
+  </tr>
+<% else %>
+  <tr>
+    <th>Name</th>
+    <th>Key</th>
+    <th>Created</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @applications.each do |application| %>
+    <tr>
+      <td><%= application.name %></td>
+      <td><%= application.key %></td>
+      <td><%= application.created_at.to_s(:short_day) %></td>
+      <td><%= link_to 'Show', application %></td>
+      <td><%= link_to 'Download Development Certificate', development_push_certificates_app_url(application) if application.development_push_certificate_file %></td>
+      <td><%= link_to 'Download Production Certificate', production_push_certificates_app_url(application) if application.production_push_certificate_file %></td>
+      <td><%= link_to 'Edit', edit_app_path(application) %></td>
+      <td><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  <%#= will_paginate(@applications) %>
+<% end %>
+</table>

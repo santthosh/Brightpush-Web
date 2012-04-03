@@ -40,6 +40,13 @@ Subscriptions::Application.routes.draw do
       match :billing, :paypal, :plan, :plan_paypal, :cancel
     end
   end
+  resources :apps do
+    member do
+      get 'development_push_certificates'
+      get 'production_push_certificates'
+    end
+  end
+  resources :notifications
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

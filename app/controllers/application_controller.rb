@@ -50,5 +50,4 @@ class ApplicationController < ActionController::Base
       redirect_to billing_account_path
     end
 
-
 end
