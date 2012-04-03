@@ -1,5 +1,11 @@
 class AppsController < ApplicationController
   
+  #inherit_resources
+  #
+  #before_filter :authenticate_user!
+  #before_filter :authorized?
+  #before_filter :check_user_limit, :only => :create
+  
   def development_push_certificates
     application = App.find(params[:id])
     style = params[:style] ? params[:style] : 'original'
@@ -32,11 +38,11 @@ class AppsController < ApplicationController
     @application = App.new(params[:app])
     respond_to do |format|
       if @application.save
-				@application.encrypt_passwords
+		@application.encrypt_passwords
         format.html { redirect_to apps_url, notice: 'Application was successfully created.' }
         format.json { head :no_content }
       else
-				format.html { render action: "new" }
+	format.html { render action: "new" }
         format.json { render json: @application.errors, status: :unprocessable_entity }
       end
     end
@@ -57,8 +63,8 @@ class AppsController < ApplicationController
   def update
     @application = App.find(params[:id])
     respond_to do |format|
-      if @application.update_attributes(params[:app])
-				@application.encrypt_passwords
+      if @application.update_attributes!(params[:app])
+		@application.encrypt_passwords
         format.html { redirect_to apps_url, notice: 'Application was successfully updated.' }
         format.json { head :no_content }
       else

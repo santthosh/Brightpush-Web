@@ -22,8 +22,6 @@
       <td><%= application.key %></td>
       <td><%= application.created_at.to_s(:short_day) %></td>
       <td><%= link_to 'Show', application %></td>
-      <td><%= link_to 'Download Development Certificate', development_push_certificates_app_url(application) if application.development_push_certificate_file %></td>
-      <td><%= link_to 'Download Production Certificate', production_push_certificates_app_url(application) if application.production_push_certificate_file %></td>
       <td><%= link_to 'Edit', edit_app_path(application) %></td>
       <td><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
