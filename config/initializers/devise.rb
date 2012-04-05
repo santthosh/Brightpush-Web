@@ -4,7 +4,8 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = 'configure.devise.sender@example.com'
-
+  config.case_insensitive_keys = [:email]
+  
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 

@@ -8,7 +8,6 @@ gem 'rails3_acts_as_paranoid'
 gem 'ssl_requirement'
 gem 'airbrake'
 gem 'cocaine'
-
 gem "saas-kit"
 
 group :test, :development do
@@ -18,4 +17,3 @@ group :test, :development do
   gem "factory_girl_rails"
   gem "faker"
 end
-
