@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include ActionView::Helpers::NumberHelper
 
 describe App do
-
+  
   fixtures :apps
 
   before(:each) do
