@@ -1,0 +1,20 @@
+class CreateApps < ActiveRecord::Migration
+  def self.up
+    create_table :applications do |t|
+      t.string :name
+      t.string :key
+      t.blob :development_push_certificate
+      t.string :crypted_development_push_certificate_password
+      t.blob :production_push_certificate
+      t.string :crypted_production_push_certificate_password
+      t.integer :account_id
+      t.timestamps
+
+      t.datetime "deleted_at"
+    end
+  end
+
+  def self.down
+    drop_table :applications
+  end
+end
