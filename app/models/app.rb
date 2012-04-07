@@ -12,9 +12,10 @@ class App < ActiveRecord::Base
                     :storage => :database 
   #default_scope select_without_file_columns_for(:development_push_certificate)
   
+  validates_presence_of :name
   validates_presence_of :key
   validates_uniqueness_of :key
-  #validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
+  validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
   
   def encrypt_passwords
     # encryption for development certificate password with salt
