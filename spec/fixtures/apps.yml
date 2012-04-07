@@ -8,8 +8,8 @@
 
 user_1:
   id: 1
-  name: Application1
-  key: Key111
+  name: application_first
+  key: key_first
   development_push_certificate_file: !binary |-
     MIIMSQIBAzCCDBAGCSqGSIb3DQEHAaCCDAEEggv9MIIL+TCCBo8GCSqGSIb3
     DQEHBqCCBoAwggZ8AgEAMIIGdQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYw

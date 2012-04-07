@@ -6,7 +6,16 @@
     Enter the following information for your application .
   </p>
   
-  <%= f.error_messages %>
+  <% if @application.errors.any? %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your application information:</h2>
+      <ul>
+        <% @application.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <fieldset>
     <%= f.label :name %>
