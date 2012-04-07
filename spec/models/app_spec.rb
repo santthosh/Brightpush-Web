@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include ActionView::Helpers::NumberHelper
 
 describe App do
-
+  
   fixtures :apps
 
   before(:each) do
@@ -12,7 +12,7 @@ describe App do
   }
   end
 
-  it "it should not create the app with same key" do
+  it "should not create the application with same key" do
     #app1 = App.create(:name => 'Test Application', :key => 'Key111')
     app1 = App.new(@app)
     app1.should_not be_valid
@@ -20,7 +20,7 @@ describe App do
     #app2.should_not be_valid
   end
 
-  it "it should create the app with different key" do
+  it "should create the application with different key" do
     old_app = App.all
     old_app.size.should == 1
     app = App.create(:name => 'My New Application', :key => 'New Key')
