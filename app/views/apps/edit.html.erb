@@ -24,10 +24,12 @@
     <%= f.text_field :key %>
     <%= f.label :Development_push_certificate %>
     <%= f.file_field :development_push_certificate %>
+    <i><%= " [Development Push Certificate]" if @application.development_push_certificate_file %></i>
     <%= f.label :Crypted_development_push_certificate_password %>
     <%= f.password_field :crypted_development_push_certificate_password, value: @application.crypted_development_push_certificate_password %>
     <%= f.label :Production_push_certificate %>
     <%= f.file_field :production_push_certificate %>
+    <i><%= " [Production Push Certificate]" if @application.production_push_certificate_file %></i>
     <%= f.label :Crypted_production_push_certificate_password %>
     <%= f.password_field :crypted_production_push_certificate_password, value: @application.crypted_production_push_certificate_password %>
   </fieldset>

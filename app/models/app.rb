@@ -22,13 +22,13 @@ class App < ActiveRecord::Base
 
   def encrypt_passwords
     # encryption for development certificate password with salt
-    unless crypted_development_push_certificate_password == nil
+    unless crypted_development_push_certificate_password.blank?
       crypted_development_push_certificate_salt = SecureRandom.base64(8)
       crypted_development_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_development_push_certificate_password + crypted_development_push_certificate_salt)
       update_attributes!(crypted_development_push_certificate_salt: crypted_development_push_certificate_salt, crypted_development_push_certificate_password: crypted_development_push_certificate_password)
     end
     # encryption for production certificate password without salt
-    unless crypted_production_push_certificate_password == nil
+    unless crypted_production_push_certificate_password.blank?
       crypted_production_push_certificate_salt = SecureRandom.base64(8)
       crypted_production_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_production_push_certificate_password + crypted_production_push_certificate_salt)
       update_attributes!(crypted_production_push_certificate_salt: crypted_production_push_certificate_salt, crypted_production_push_certificate_password: crypted_production_push_certificate_password)
