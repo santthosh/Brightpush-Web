@@ -8,8 +8,23 @@
     <th>Key: </th>
     <td><%= @application.key %></td>
   </tr>
+  <% if @application.development_push_certificate %>
+    <tr>
+      <th>Developement Push Certificate : </th>
+      <td><%= "[password]" %></td>
+    </tr>
+  <% end %>
+  <% if @application.production_push_certificate %>
+    <tr>
+      <th>Production Push Certificate : </th>
+      <td><%= "[password]" %></td>
+    </tr>
+  <% end %>
   <tr>
     <th>Created: </th>
     <td><%= @application.created_at.to_s(:short_day) %></td>
+  </tr>
+  <tr>
+    <td><%= link_to :back, :action => 'index' %></td>
   </tr>
 </table>

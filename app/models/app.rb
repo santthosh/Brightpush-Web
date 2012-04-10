@@ -12,19 +12,23 @@ class App < ActiveRecord::Base
                     :storage => :database 
   #default_scope select_without_file_columns_for(:development_push_certificate)
   
+  validates_presence_of :name
   validates_presence_of :key
   validates_uniqueness_of :key
-  #validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
-  
+  validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
+  validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate_file?
+  validates_attachment_content_type :production_push_certificate, :content_type => 'application/x-pkcs12'
+  validates_presence_of :crypted_production_push_certificate_password, :if => :production_push_certificate_file?
+
   def encrypt_passwords
     # encryption for development certificate password with salt
-    unless crypted_development_push_certificate_password == nil
+    unless crypted_development_push_certificate_password.blank?
       crypted_development_push_certificate_salt = SecureRandom.base64(8)
       crypted_development_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_development_push_certificate_password + crypted_development_push_certificate_salt)
       update_attributes!(crypted_development_push_certificate_salt: crypted_development_push_certificate_salt, crypted_development_push_certificate_password: crypted_development_push_certificate_password)
     end
     # encryption for production certificate password without salt
-    unless crypted_production_push_certificate_password == nil
+    unless crypted_production_push_certificate_password.blank?
       crypted_production_push_certificate_salt = SecureRandom.base64(8)
       crypted_production_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_production_push_certificate_password + crypted_production_push_certificate_salt)
       update_attributes!(crypted_production_push_certificate_salt: crypted_production_push_certificate_salt, crypted_production_push_certificate_password: crypted_production_push_certificate_password)

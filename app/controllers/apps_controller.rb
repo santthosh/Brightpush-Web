@@ -42,7 +42,7 @@ class AppsController < ApplicationController
         format.html { redirect_to apps_url, notice: 'Application was successfully created.' }
         format.json { head :no_content }
       else
-	format.html { render action: "new" }
+        format.html { render action: "new" }
         format.json { render json: @application.errors, status: :unprocessable_entity }
       end
     end
@@ -63,7 +63,7 @@ class AppsController < ApplicationController
   def update
     @application = App.find(params[:id])
     respond_to do |format|
-      if @application.update_attributes!(params[:app])
+      if @application.update_attributes(params[:app])
 		@application.encrypt_passwords
         format.html { redirect_to apps_url, notice: 'Application was successfully updated.' }
         format.json { head :no_content }
