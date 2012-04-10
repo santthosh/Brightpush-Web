@@ -14,7 +14,7 @@ class App < ActiveRecord::Base
   
   validates_presence_of :name
   validates_presence_of :key
-  validates_uniqueness_of :key
+  validates_uniqueness_of :key, :if => :is_deleted_at?
   validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
   validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate_file?
   validates_attachment_content_type :production_push_certificate, :content_type => 'application/x-pkcs12'
@@ -42,5 +42,9 @@ class App < ActiveRecord::Base
   def check_production_password(str)
     production_password == Digest::SHA2.hexdigest(str + crypted_production_push_certificate_salt)
   end
-
+  
+  def is_deleted_at?
+    App.find_by_key_and_deleted_at(self.key,nil)
+  end
+  
 end

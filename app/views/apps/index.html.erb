@@ -18,7 +18,7 @@
   </tr>
   <% @applications.each do |application| %>
     <tr>
-      <td><%= application.name %></td>
+      <td><%= link_to application.name, notifications_path(application.id)%></td>
       <td><%= application.key %></td>
       <td><%= application.created_at.to_s(:short_day) %></td>
       <td><%= link_to 'Show', application %></td>

@@ -1,11 +1,11 @@
 <h1>Change account settings</h1>
 
 <%= form_for @application, :url => { :action => 'update' }, :html => { :method => :put, :multipart => true } do |f| %>
- 
+
   <p>
     Enter the following information for your application .
   </p>
-  
+
   <% if @application.errors.any? %>
     <div class="errorExplanation">
       <h2>Errors encountered with your application information:</h2>
