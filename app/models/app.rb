@@ -16,9 +16,9 @@ class App < ActiveRecord::Base
   validates_presence_of :key
   validates_uniqueness_of :key, :if => :is_deleted_at?
   validates_attachment_content_type :development_push_certificate, :content_type => 'application/x-pkcs12'
-  validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate_file?
+  validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate?
   validates_attachment_content_type :production_push_certificate, :content_type => 'application/x-pkcs12'
-  validates_presence_of :crypted_production_push_certificate_password, :if => :production_push_certificate_file?
+  validates_presence_of :crypted_production_push_certificate_password, :if => :production_push_certificate?
 
   def encrypt_passwords
     # encryption for development certificate password with salt

@@ -49,12 +49,12 @@ describe App do
   end
   
   it "should have development push certificate password if developement push certificate available" do
-    @application = App.new(:name => "application_eight", :key => "key_eight", :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "")
+    @application = App.new(:name => "application_eight", :key => "key_eight", :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "")
     @application.should_not be_valid
   end
   
   it "should have production push certificate password if production push certificate available" do
-    @application = App.new(:name => "application_nine", :key => "key_nine", :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'), :crypted_production_push_certificate_password => "")
+    @application = App.new(:name => "application_nine", :key => "key_nine", :production_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'), :crypted_production_push_certificate_password => "")
     @application.should_not be_valid
   end
 
