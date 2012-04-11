@@ -1,0 +1,30 @@
+<h1><%= @page_title = 'View notification' %></h1>
+<table id="notification"  cellpadding=10 cellspacing=10>
+  <tr>
+    <th>Name: </th>
+    <td><%= h(@notification.name) %></td>
+  </tr>
+  <tr>
+    <th>Key: </th>
+    <td><%= @notification.key %></td>
+  </tr>
+  <% if @notification.development_push_certificate %>
+    <tr>
+      <th>Developement Push Certificate : </th>
+      <td><%= "[password]" %></td>
+    </tr>
+  <% end %>
+  <% if @notification.production_push_certificate %>
+    <tr>
+      <th>Production Push Certificate : </th>
+      <td><%= "[password]" %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th>Created: </th>
+    <td><%= @notification.created_at.to_s(:short_day) %></td>
+  </tr>
+  <tr>
+    <td><%= link_to :back, :action => 'index' %></td>
+  </tr>
+</table>

@@ -1,0 +1,31 @@
+<h1><%= @page_title = 'Notifications' %></h1>
+<table id="notifications" cellpadding=10 cellspacing=10>
+  <tr>
+    <%= link_to('Add a new Notification', new_app_url) %>
+  </tr>
+<% if @notification.blank? %>
+  <tr>
+    <th>No Record Found</th>
+  </tr>
+<% else %>
+  <tr>
+    <th>Name</th>
+    <th>Key</th>
+    <th>Created</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @notifications.each do |notification| %>
+    <tr>
+      <td><%= link_to notification.name, notifications_path(notification.id)%></td>
+      <td><%= notification.key %></td>
+      <td><%= notification.created_at.to_s(:short_day) %></td>
+      <td><%= link_to 'Show', notification %></td>
+      <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
+      <td><%= link_to 'Destroy', notification, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  <%#= will_paginate(@notifications) %>
+<% end %>
+</table>

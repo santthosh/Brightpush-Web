@@ -1,0 +1,40 @@
+<h1>Create an notification</h1>
+
+<%= form_for(@notification, :html => { :multipart => true }) do |notification| %>
+  <p>
+    Enter the following information for your notification .
+  </p>
+  
+  <% if @notification.errors.any? %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your notification information:</h2>
+      <ul>
+        <% @notification.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <%= notification.label :name %>
+    <%= notification.text_field :name %>
+    <%= notification.label :key %>
+    <%= notification.text_field :key %>
+    <%= notification.label :Development_push_certificate %>
+    <%= notification.file_field :development_push_certificate %>
+    <%= notification.label :Crypted_development_push_certificate_password %>
+    <%= notification.password_field :crypted_development_push_certificate_password %>
+    <%= notification.label :Production_push_certificate %>
+    <%= notification.file_field :production_push_certificate %>
+    <%= notification.label :Crypted_production_push_certificate_password %>
+    <%= notification.password_field :crypted_production_push_certificate_password %>
+  </fieldset>
+
+  <fieldset>
+    <input type="submit" value="Create my notification" />
+    
+    <%= link_to :cancel, :action => 'index' %>
+  </fieldset>
+
+<% end %>
