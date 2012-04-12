@@ -10,12 +10,12 @@ class NotificationsController < ApplicationController
     @notifications = Notification.find_by_app_id(params[:id])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @notifications }
+      format.json { render json: @notification }
     end
   end
   
   def new
-    @notifications = Notification.new
+    @notification = Notification.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @notifications }

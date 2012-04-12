@@ -1,8 +1,8 @@
 <h1>Create an notification</h1>
 
-<%= form_for(@notification, :html => { :multipart => true }) do |notification| %>
+<%= form_for(notifications_path(params[:id])) do |notification| %>
   <p>
-    Enter the following information for your notification .
+    Enter the following information for your notification.
   </p>
   
   <% if @notification.errors.any? %>
