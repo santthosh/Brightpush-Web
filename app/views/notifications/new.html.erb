@@ -1,6 +1,6 @@
 <h1>Create an notification</h1>
 
-<%= form_for(notifications_path(params[:id])) do |notification| %>
+<%= form_for(@notification, :url => { :action => 'create' }) do |notification| %>
   <p>
     Enter the following information for your notification.
   </p>
@@ -15,26 +15,22 @@
       </ul>
     </div>
   <% end %>
-
-  <fieldset>
-    <%= notification.label :name %>
-    <%= notification.text_field :name %>
-    <%= notification.label :key %>
-    <%= notification.text_field :key %>
-    <%= notification.label :Development_push_certificate %>
-    <%= notification.file_field :development_push_certificate %>
-    <%= notification.label :Crypted_development_push_certificate_password %>
-    <%= notification.password_field :crypted_development_push_certificate_password %>
-    <%= notification.label :Production_push_certificate %>
-    <%= notification.file_field :production_push_certificate %>
-    <%= notification.label :Crypted_production_push_certificate_password %>
-    <%= notification.password_field :crypted_production_push_certificate_password %>
+  
+  <fieldset id="notify">
+    <%= notification.label :Badge %>
+    <%= notification.text_field :badge, :id => "id_badge" %>
+    <%= notification.label :Alert %>
+    <%= notification.text_field :alert, :id => "id_alert" %>
+    <%= notification.label :Sound %>
+    <%= notification.text_field :sound, :id => "id_sound" %>
+    <%= notification.label :Payload %>
+    <%= notification.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5" %>
+    <%= notification.hidden_field :app_id, :value => params[:id] %>
   </fieldset>
 
   <fieldset>
-    <input type="submit" value="Create my notification" />
-    
-    <%= link_to :cancel, :action => 'index' %>
+    <input type="submit" value="Create notification" />    
+    <%= link_to :cancel, notifications_path(params[:id]) %>
   </fieldset>
 
 <% end %>

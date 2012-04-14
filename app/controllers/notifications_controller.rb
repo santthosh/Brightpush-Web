@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
   #before_filter :check_user_limit, :only => :create
   
   def index
-    @notifications = Notification.find_by_app_id(params[:id])
+    @notifications = Notification.find_all_by_app_id(params[:id])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @notification }
@@ -15,7 +15,7 @@ class NotificationsController < ApplicationController
   end
   
   def new
-    @notification = Notification.new
+    @notification = Notification.new(:id => params[:id])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @notifications }
@@ -23,10 +23,10 @@ class NotificationsController < ApplicationController
   end
   
   def create
-    @notifications = Notification.new(params[:app])
+    @notifications = Notification.new(params[:notification])
     respond_to do |format|
       if @notifications.save
-        format.html { redirect_to notifications_url, notice: 'Notification was successfully created.' }
+        format.html { redirect_to notifications_path(@notifications.app_id), notice: 'Notification was successfully created.' }
         format.json { head :no_content }
       else
         format.html { render action: "new" }

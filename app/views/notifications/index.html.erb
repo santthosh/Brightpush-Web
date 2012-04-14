@@ -1,9 +1,9 @@
 <h1><%= @page_title = 'Notifications' %></h1>
 <table id="notifications" cellpadding=10 cellspacing=10>
   <tr>
-    <%= link_to('Add a new Notification', new_notification_url(params[:id])) %>
+    <%= link_to('Add a new Notification', add_notification_path(params[:id])) %>
   </tr>
-<% if @notification.blank? %>
+<% if @notifications.blank? %>
   <tr>
     <th>No Record Found</th>
   </tr>
@@ -12,7 +12,6 @@
     <th>Badge</th>
     <th>Alert</th>
     <th>Sound</th>
-    <th>Payload</th>
     <th>Status</th>
     <th></th>
     <th></th>
@@ -23,7 +22,6 @@
       <td><%= notification.badge %></td>
       <td><%= notification.alert %></td>
       <td><%= notification.sound %></td>
-      <td><%= notification.payload %></td>
       <td><%= notification.status %></td>
       <td><%= link_to 'Show', notification %></td>
       <td><%= link_to 'Edit', edit_notification_path(notification) %></td>

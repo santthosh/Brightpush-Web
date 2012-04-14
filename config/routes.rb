@@ -48,7 +48,7 @@ Subscriptions::Application.routes.draw do
   end
   resources :notifications
   match '/index/:id' => 'notifications#index', :as => 'notifications'
-  match '/new/:id' => 'notifications#new'
+  match 'notification/new/:id' => 'notifications#new', :as => 'add_notification'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
