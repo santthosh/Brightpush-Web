@@ -4,12 +4,11 @@
   <p>
     Enter the following information for your notification.
   </p>
-  
-  <% if @notification.errors.any? %>
+  <% if flash[:err] %>
     <div class="errorExplanation">
       <h2>Errors encountered with your notification information:</h2>
       <ul>
-        <% @notification.errors.full_messages.each do |m| %>
+        <% flash[:err].full_messages.each do |m| %>
           <li><%= m %></li>
         <% end %>
       </ul>

@@ -29,7 +29,8 @@ class NotificationsController < ApplicationController
         format.html { redirect_to notifications_path(@notifications.app_id), notice: 'Notification was successfully created.' }
         format.json { head :no_content }
       else
-        format.html { render action: "new" }
+        flash[:err] = @notifications.errors
+        format.html { redirect_to add_notification_path(@notifications.app_id)}
         format.json { render json: @notifications.errors, status: :unprocessable_entity }
       end
     end
@@ -65,7 +66,7 @@ class NotificationsController < ApplicationController
     @notifications = Notification.find(params[:id])
     @notifications.destroy
     respond_to do |format|
-      format.html { redirect_to notifications_url }
+      format.html { redirect_to notifications_url(@notifications.app_id) }
       format.json { head :no_content }
     end
   end
