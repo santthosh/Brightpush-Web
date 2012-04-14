@@ -19,7 +19,7 @@ class AppsController < ApplicationController
   end
   
   def index
-    @applications = App.all
+    @applications = App.paginate(:per_page => 5, :page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @applications }
