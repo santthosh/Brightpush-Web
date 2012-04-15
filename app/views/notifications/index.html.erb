@@ -22,9 +22,21 @@
       <td><%= notification.badge %></td>
       <td><%= notification.alert %></td>
       <td><%= notification.sound %></td>
-      <td><%= notification.status %></td>
-      <td><%= link_to 'Show', notification %></td>
-      <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
+      <td>
+        <%=
+          if notification.status_is_preparing?
+            "Preparing"
+          elsif notification.status_is_scheduling?
+            "Scheduling"
+          elsif notification.status_is_dispatching?
+            "Dispatching"
+          elsif notification.status_is_done?
+            "Done"
+          end 
+        %>
+      </td>
+      <td><%= link_to 'Show', show_notification_path(notification,:app_id => params[:id]) %></td>
+      <td><%= link_to 'Edit', edit_notification_path(notification,:app_id => params[:id]) %></td>
       <td><%= link_to 'Destroy', notification, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>

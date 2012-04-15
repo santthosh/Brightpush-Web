@@ -37,7 +37,7 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    @notifications = Notification.find(params[:id])
+    @notification = Notification.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @notifications }
@@ -52,11 +52,11 @@ class NotificationsController < ApplicationController
     @notifications = Notification.find(params[:id])
     respond_to do |format|
       if @notifications.update_attributes(params[:notification])
-		@notifications.encrypt_passwords
-        format.html { redirect_to apps_url, notice: 'Notification was successfully updated.' }
+        format.html { redirect_to notifications_path(@notifications.app_id), notice: 'Notification was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        flash[:err] = @notifications.errors
+        format.html { redirect_to edit_notification_path(@notification,:app_id => @notifications.app_id) }
         format.json { render json: @notifications.errors, status: :unprocessable_entity }
       end
     end
