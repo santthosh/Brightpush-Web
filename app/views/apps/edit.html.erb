@@ -22,6 +22,8 @@
     <%= f.text_field :name %>
     <%= f.label :key %>
     <%= f.text_field :key %>
+    <%= f.label :Application_Icon %>
+    <%= f.file_field :application_icon %>
     <%= f.label :Development_push_certificate %>
     <%= f.file_field :development_push_certificate %>
     <i><%= " [Development Push Certificate]" if @application.development_push_certificate_file %></i>

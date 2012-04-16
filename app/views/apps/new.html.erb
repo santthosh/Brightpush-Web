@@ -19,8 +19,10 @@
   <fieldset>
     <%= application.label :name %>
     <%= application.text_field :name %>
-    <%= application.label :key %>
+    <%= application.label :Bundle_ID %>
     <%= application.text_field :key %>
+    <%= application.label :Application_Icon %>
+    <%= application.file_field :application_icon %>
     <%= application.label :Development_push_certificate %>
     <%= application.file_field :development_push_certificate %>
     <%= application.label :Crypted_development_push_certificate_password %>
