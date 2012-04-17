@@ -8,6 +8,10 @@
     <th>Key: </th>
     <td><%= @application.key %></td>
   </tr>
+  <tr>
+    <th>Application Icon: </th>
+    <td><%= image_tag (@application.application_icon(:thumb))%></td>
+  </tr>
   <% if @application.development_push_certificate %>
     <tr>
       <th>Developement Push Certificate : </th>
