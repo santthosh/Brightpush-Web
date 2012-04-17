@@ -77,9 +77,9 @@ class AppsController < ApplicationController
   def destroy
     @application = App.find(params[:id])
     if @application.application_icon
-			@application.application_icon.destroy
-			@application.application_icon.clear
-		end	
+      @application.application_icon.destroy
+      @application.application_icon.clear
+    end	
     @application.destroy
     respond_to do |format|
       format.html { redirect_to apps_url }
