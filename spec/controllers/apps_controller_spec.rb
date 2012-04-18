@@ -97,9 +97,6 @@ describe AppsController do
          flash[:notice].should =~ /Application was successfully created./i
        end
      end
-
    end 
-
  end
-
 end

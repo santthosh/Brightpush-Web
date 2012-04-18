@@ -6,7 +6,11 @@ class App < ActiveRecord::Base
   attr_accessible :name, :key, :application_icon, :application_icon_content_type, :development_push_certificate, :development_push_certificate_content_type, :crypted_development_push_certificate_password, :crypted_development_push_certificate_salt, :production_push_certificate, :production_push_certificate_content_type, :crypted_production_push_certificate_password, :crypted_production_push_certificate_salt
   attr_accessor :development_push_certificate_file_name, :production_push_certificate_file_name
   
-  has_attached_file :application_icon, :styles => { :thumb => "48x48>" }
+  has_attached_file :application_icon, :styles => { :thumb => "48x48>" } ,:storage => :s3,
+    :bucket => 'newsstand.alpha', :s3_credentials => {
+      access_key_id:  'AKIAIOJ33KAWISJPCVLQ',
+      secret_access_key: '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'
+  }
   has_attached_file :development_push_certificate,
                     :storage => :database
   has_attached_file :production_push_certificate,
