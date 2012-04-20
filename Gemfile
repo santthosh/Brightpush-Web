@@ -8,7 +8,9 @@ gem 'rails3_acts_as_paranoid'
 gem 'ssl_requirement'
 gem 'airbrake'
 gem 'cocaine'
-gem "saas-kit"
+gem 'saas-kit'
+gem 'aws-s3', '0.6.2'
+gem 'aws-sdk'
 
 group :test, :development do
   gem "mocha"
