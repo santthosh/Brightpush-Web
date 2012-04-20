@@ -61,6 +61,9 @@ describe AppsController do
        it "should render the 'new' page" do
          post :create, :app => @attr
          response.should render_template('new')
+         #Job.any_instance.stubs(:valid?).returns(false)
+         #post :create
+         #response.should render_template(:new)
        end
 
        it "should not create a app" do
