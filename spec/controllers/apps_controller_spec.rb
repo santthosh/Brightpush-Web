@@ -18,37 +18,37 @@ describe AppsController do
         #@user = test_sign_in(Factory(:user))
         @apps = App.all
       end
-       
+      
       it "should returns index" do
         get :index, :format => :html
         response.should be_success
         response.should render_template('index')
         @apps.size.should == 1
       end
-       
+      
       it "should have the right title" do
         get :index
         response.should have_selector("title", :content => "Accounts | newsstand")
       end
-   end
-       
-   describe "GET 'new'" do
+    end
+      
+    describe "GET 'new'" do
      it "should be successful" do
        get 'new'
        response.should be_success
      end
-   end
+    end
        
-   describe "POST 'create'" do
-     describe "failure" do
-       before(:each) do
+    describe "POST 'create'" do
+      describe "failure" do
+        before(:each) do
          @attr = { :name => "",
-                   :key => "",
-                   :application_icon_file => "",
-                   :development_push_certificate_file => "",
-                   :crypted_development_push_certificate_password => "",
-                   :production_push_certificate_file =>	"", 
-                   :crypted_production_push_certificate_password => ""}
+          :key => "",
+          :application_icon_file => "",
+          :development_push_certificate_file => "",
+          :crypted_development_push_certificate_password => "",
+          :production_push_certificate_file =>	"", 
+          :crypted_production_push_certificate_password => ""}
        end
        
        it "should have the right title" do
@@ -69,17 +69,17 @@ describe AppsController do
            post :create, :app => @attr
          end.should_not change(App, :count)
        end
-     end
+    end
         
-     describe "success" do
-       before(:each) do
-         @attr = { :name => "application_ten", 
-		     :key => "key_ten", 
-                   :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'), 
-                   :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
-                   :crypted_development_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54",
-                   :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
-                   :crypted_production_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54"}
+    describe "success" do
+      before(:each) do
+        @attr = { :name => "application_ten", 
+		  :key => "key_ten", 
+            :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'), 
+            :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
+            :crypted_development_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54",
+            :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
+            :crypted_production_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54"}
        end
        
        it "should create a app" do
@@ -98,6 +98,59 @@ describe AppsController do
          flash[:notice].should =~ /Application was successfully created./i
        end
      end
-   end 
+    end
+    
+    describe "GET 'show'" do
+      it "renders the show view" do
+        get :show, :id => 1
+        response.should render_template('apps/show')
+        response.should render_template('layouts/application')
+      end
+    end
+    
+    describe "PUT apps/:id" do
+      describe "with valid params" do
+        before(:each) do
+          @application = mock_model(App, :update_attributes => true)
+          App.stub!(:find).with("1").and_return(@application)
+        end
+        
+        it "should find application and return object" do
+          App.should_receive(:find).with("1").return(@application)
+        end
+        
+        it "should update the application object's attributes" do
+          @application.should_receive(:update_attributes).and_return(true)
+        end
+        
+        it "should redirect to the application's show page" do
+          response.should redirect_to(apps_url(@application))
+        end
+      end
+  
+      describe "with invalid params" do
+        before(:each) do
+          @application = mock_model(App, :update_attributes => false)
+          App.stub!(:find).with("1").and_return(@application)
+        end
+  
+        it "should find application and return object" do
+          App.should_receive(:find).with("1").return(@application)
+        end
+  
+        it "should update the application object's attributes" do
+          @application.should_receive(:update_attributes).and_return(false)
+        end
+  
+        it "should render the edit form" do
+          response.should render_template('edit')
+        end
+        
+        it "should have a flash notice" do
+          flash[:notice].should_not be_blank
+        end
+      end
+    end 
+    
  end
 end
