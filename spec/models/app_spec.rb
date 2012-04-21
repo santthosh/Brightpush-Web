@@ -6,7 +6,7 @@ describe App do
   fixtures :apps
 
   before(:each) do
-    @app = apps(:user_1)
+    @app = apps(:app_1)
   end
 
   it "should not have name blank" do

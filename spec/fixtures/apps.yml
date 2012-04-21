@@ -6,7 +6,7 @@
 # two:
 #   column: value
 
-user_1:
+app_1:
   id: 1
   name: application_first
   key: key_first

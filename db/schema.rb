@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330174438) do
+ActiveRecord::Schema.define(:version => 20120421104625) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(:version => 20120330174438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "application_icon_file_name"
+    t.string   "application_icon_content_type"
   end
 
   add_index "apps", ["account_id"], :name => "index_apps_on_account_id"
-  add_index "apps", ["key"], :name => "index_apps_on_key", :unique => true
   add_index "apps", ["name"], :name => "index_apps_on_name"
 
   create_table "notifications", :force => true do |t|
@@ -149,15 +150,15 @@ ActiveRecord::Schema.define(:version => 20120330174438) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "email",                                   :null => false
-    t.string   "encrypted_password",                      :null => false
-    t.string   "password_salt",                           :null => false
+    t.string   "email",                                     :null => false
+    t.string   "encrypted_password",                        :null => false
+    t.string   "password_salt",                             :null => false
     t.datetime "last_sign_in_at"
     t.datetime "current_sign_in_at"
     t.string   "last_sign_in_ip"
     t.string   "current_sign_in_ip"
     t.integer  "account_id"
-    t.boolean  "admin",                :default => false
+    t.boolean  "admin",                  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "confirmation_token"
@@ -165,10 +166,11 @@ ActiveRecord::Schema.define(:version => 20120330174438) do
     t.datetime "confirmation_sent_at"
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",        :default => 0
-    t.integer  "failed_attempts",      :default => 0
+    t.integer  "sign_in_count",          :default => 0
+    t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.datetime "reset_password_sent_at"
   end
 
   add_index "users", ["account_id"], :name => "index_users_on_account_id"
