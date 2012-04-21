@@ -1,10 +1,10 @@
 class AppsController < ApplicationController
 
   inherit_resources
-
-   before_filter :authenticate_user!
-   before_filter :authorized?
-   #before_filter :check_user_limit, :only => :create
+  
+  before_filter :authenticate_user!
+  before_filter :authorized?
+  #before_filter :check_user_limit, :only => :create
 
   def development_push_certificates
     application = App.find(params[:id])
