@@ -19,7 +19,7 @@ class AppsController < ApplicationController
   end
 
   def index
-    @applications = App.paginate(:per_page => 5, :page => params[:page])
+    @applications = App.paginate(:per_page => 5, :page => params[:page]).find_all_by_account_id(current_account.id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @applications }
@@ -86,7 +86,4 @@ class AppsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  def authorized?
-      redirect_to new_user_session_url unless (user_signed_in? && self.action_name == 'index') || admin?
-    end
 end

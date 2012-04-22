@@ -31,6 +31,7 @@
     <%= application.file_field :production_push_certificate %>
     <%= application.label :Crypted_production_push_certificate_password %>
     <%= application.password_field :crypted_production_push_certificate_password %>
+    <%= application.hidden_field :account_id, :value => current_account.id %>
   </fieldset>
 
   <fieldset>

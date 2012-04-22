@@ -2,10 +2,16 @@
   Welcome to newsstand!
 </p>
 
+<% unless current_user %>
 <p>
   <%= link_to('Sign up', plans_path) %>
 </p>
 
 <p>
-  <%= link_to('Sign in', '/saas_admin') %>
+  <%= link_to('Users Sign in', '/users/sign_in') %>
 </p>
+
+<p>
+  <%= link_to('Admin Sign in', '/saas_admin') %>
+</p>
+<% end %>
