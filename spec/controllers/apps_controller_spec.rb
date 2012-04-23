@@ -7,7 +7,6 @@ describe AppsController do
   before(:each) do
     controller.stubs(:current_account).returns(@account = accounts(:localhost))
     @admin = @account.users.where(:admin => true).first
-    @user = @account.users.where(:admin => false).first
   end
   
   describe "for non-signed-in users" do
@@ -21,7 +20,7 @@ describe AppsController do
   describe "for signed-in users" do
     
     before(:each) do
-      sign_in @user
+      sign_in @admin
     end 
    
     describe "GET index" do
@@ -43,6 +42,9 @@ describe AppsController do
     end
       
     describe "GET 'new'" do
+      before(:each) do
+        sign_in @admin
+      end
       it "should be successful" do
         get 'new'
         response.should be_success
@@ -50,8 +52,10 @@ describe AppsController do
     end
        
     describe "POST 'create'" do
+      
       describe "failure" do
         before(:each) do
+         sign_in @admin  
          @attr = { :name => "",
           :key => "",
           :application_icon_file => "",
@@ -83,6 +87,7 @@ describe AppsController do
         
     describe "success" do
       before(:each) do
+        sign_in @admin
         @attr = { :name => "application_ten", 
 		  :key => "key_ten", 
             :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'), 
@@ -112,6 +117,7 @@ describe AppsController do
     
     describe "GET 'edit'" do
       before(:each) do
+       sign_in @admin
         @attr = App.find(:first)
       end 
 
@@ -140,6 +146,7 @@ describe AppsController do
 
    describe "PUT 'update'" do
      before(:each) do
+       sign_in @admin
        @app = apps(:app_1)
      end
 
@@ -167,6 +174,7 @@ describe AppsController do
 
     describe "success" do
         before(:each) do
+             sign_in @admin
              @attr = {:name => "application_elven", 
 		      :key => "key_elven", 
             	      :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'), 
@@ -197,6 +205,7 @@ describe AppsController do
     
     describe "GET 'show'" do
       before(:each) do
+        sign_in @admin
         @app = apps(:app_1)
       end
 

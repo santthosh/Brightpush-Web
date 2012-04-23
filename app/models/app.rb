@@ -1,5 +1,5 @@
 class App < ActiveRecord::Base
-  
+  require 'fileutils'
   belongs_to :account
   has_many :notifications, :dependent => :destroy
   acts_as_paranoid
@@ -26,19 +26,19 @@ class App < ActiveRecord::Base
   #validate :valid_production_certificate?
   validates_attachment_content_type :production_push_certificate, :content_type => ['application/x-pkcs12','application/octet-stream']
   validates_presence_of :crypted_production_push_certificate_password, :if => :production_push_certificate?
-
+ 
   def encrypt_passwords
     # encryption for development certificate password with salt
     unless crypted_development_push_certificate_password.blank?
       crypted_development_push_certificate_salt = SecureRandom.base64(8)
       crypted_development_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_development_push_certificate_password + crypted_development_push_certificate_salt)
-      update_attributes!(crypted_development_push_certificate_salt: crypted_development_push_certificate_salt, crypted_development_push_certificate_password: crypted_development_push_certificate_password)
+      update_attributes(crypted_development_push_certificate_salt: crypted_development_push_certificate_salt, crypted_development_push_certificate_password: crypted_development_push_certificate_password)
     end
     # encryption for production certificate password without salt
     unless crypted_production_push_certificate_password.blank?
       crypted_production_push_certificate_salt = SecureRandom.base64(8)
       crypted_production_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_production_push_certificate_password + crypted_production_push_certificate_salt)
-      update_attributes!(crypted_production_push_certificate_salt: crypted_production_push_certificate_salt, crypted_production_push_certificate_password: crypted_production_push_certificate_password)
+      update_attributes(crypted_production_push_certificate_salt: crypted_production_push_certificate_salt, crypted_production_push_certificate_password: crypted_production_push_certificate_password)
     end
   end
   
@@ -54,12 +54,17 @@ class App < ActiveRecord::Base
     App.find_by_key_and_deleted_at(self.key,nil)
   end
   
-  #def valid_development_certificate?
-  #  p12 = OpenSSL::PKCS12.new(File.read("tamil4g Production Push.p12"), self.crypted_development_push_certificate_password)
-  #  unless p12.certificate
-  #    errors.add :crypted_development_push_certificate_password, "Please enter correct password for development certificate"
-  #  end  
-  #end
+  def valid_development_certificate?
+    begin
+      if (OpenSSL::PKCS12.new(File.read(self.development_push_certificate.to_file.path), self.crypted_development_push_certificate_password))
+        return true
+      end
+    rescue => e
+      #logger.error(e)
+      errors.add(:crypted_development_push_certificate_password, "is wrong.")
+      return false
+    end
+  end
   #
   #def valid_production_certificate?
   #  p12 = OpenSSL::PKCS12.new(File.read("tamil4g Production Push.p12"), self.crypted_production_push_certificate_password)
