@@ -22,8 +22,8 @@ class App < ActiveRecord::Base
   validates_attachment_content_type :application_icon, :content_type => ['image/png','image/jpeg','image/gif' ]
   validates_attachment_content_type :development_push_certificate, :content_type => ['application/x-pkcs12','application/octet-stream']
   validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate?
-  #validate :valid_development_certificate?
-  #validate :valid_production_certificate?
+  validate :valid_development_certificate?, :if => :development_push_certificate?
+  validate :valid_production_certificate?, :if => :production_push_certificate?
   validates_attachment_content_type :production_push_certificate, :content_type => ['application/x-pkcs12','application/octet-stream']
   validates_presence_of :crypted_production_push_certificate_password, :if => :production_push_certificate?
  
@@ -65,11 +65,16 @@ class App < ActiveRecord::Base
       return false
     end
   end
-  #
-  #def valid_production_certificate?
-  #  p12 = OpenSSL::PKCS12.new(File.read("tamil4g Production Push.p12"), self.crypted_production_push_certificate_password)
-  #  unless p12.certificate
-  #    errors.add :crypted_development_push_certificate_password, "Please enter correct password for production certificate"
-  #  end  
-  #end
+  
+  def valid_production_certificate?
+    begin
+      if (OpenSSL::PKCS12.new(File.read(self.production_push_certificate.to_file.path), self.crypted_production_push_certificate_password))
+        return true
+      end
+    rescue => e
+      #logger.error(e)
+      errors.add(:crypted_production_push_certificate_password, "is wrong.")
+      return false
+    end 
+  end
 end
