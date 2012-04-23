@@ -45,6 +45,15 @@ GEM
       activesupport
       builder
     arel (2.2.3)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
+    aws-sdk (1.4.0)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     braintree (2.15.0)
       builder (>= 2.0.0)
@@ -68,6 +77,9 @@ GEM
       i18n (~> 0.4)
     has_scope (0.5.1)
     hike (1.2.1)
+    httparty (0.8.2)
+      multi_json
+      multi_xml
     i18n (0.6.0)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
@@ -87,6 +99,7 @@ GEM
     money (3.7.1)
       i18n (~> 0.4)
     multi_json (1.2.0)
+    multi_xml (0.4.4)
     mysql2 (0.3.11)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
@@ -154,6 +167,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.33)
+    uuidtools (2.1.2)
     warden (1.1.1)
       rack (>= 1.0)
     webrat (0.7.3)
@@ -161,12 +175,15 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.3)
+    xml-simple (1.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   airbrake
+  aws-s3 (= 0.6.2)
+  aws-sdk
   cocaine
   factory_girl_rails
   faker
