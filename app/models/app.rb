@@ -32,13 +32,17 @@ class App < ActiveRecord::Base
     unless crypted_development_push_certificate_password.blank?
       crypted_development_push_certificate_salt = SecureRandom.base64(8)
       crypted_development_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_development_push_certificate_password + crypted_development_push_certificate_salt)
-      self.update_attributes!(crypted_development_push_certificate_salt: crypted_development_push_certificate_salt, crypted_development_push_certificate_password: crypted_development_push_certificate_password)
+      self.crypted_development_push_certificate_salt = crypted_development_push_certificate_salt
+      self.crypted_development_push_certificate_password = crypted_development_push_certificate_password
+      self.save(:validate => false)
     end
     # encryption for production certificate password without salt
     unless crypted_production_push_certificate_password.blank?
       crypted_production_push_certificate_salt = SecureRandom.base64(8)
       crypted_production_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_production_push_certificate_password + crypted_production_push_certificate_salt)
-      self.update_attributes!(crypted_production_push_certificate_salt: crypted_production_push_certificate_salt, crypted_production_push_certificate_password: crypted_production_push_certificate_password)
+      self.crypted_production_push_certificate_salt = crypted_production_push_certificate_salt
+      self.crypted_production_push_certificate_password = crypted_production_push_certificate_password
+      self.save(:validate => false)
     end
   end
   
