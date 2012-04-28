@@ -1,16 +1,16 @@
 class NotificationsController < ApplicationController
   
-  #inherit_resources
-  #
-  #before_filter :authenticate_user!
-  #before_filter :authorized?
+  inherit_resources
+  
+  before_filter :authenticate_user!
+  before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
   
   def index
     @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]],:per_page =>5, :page => params[:page] )
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @notification }
+      format.html # index.html.erb  
+      format.json { render :json => @notification }
     end
   end
   
@@ -18,7 +18,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(:id => params[:id])
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @notifications }
+      format.json { render :json => @notifications }
     end
   end
   
@@ -26,12 +26,12 @@ class NotificationsController < ApplicationController
     @notifications = Notification.new(params[:notification])
     respond_to do |format|
       if @notifications.save
-        format.html { redirect_to notifications_path(@notifications.app_id), notice: 'Notification was successfully created.' }
+        format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
         flash[:err] = @notifications.errors
         format.html { redirect_to add_notification_path(@notifications.app_id)}
-        format.json { render json: @notifications.errors, status: :unprocessable_entity }
+        format.json { render :json => @notifications.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -40,7 +40,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @notifications }
+      format.json { render :json => @notifications }
     end
   end
 
@@ -52,12 +52,12 @@ class NotificationsController < ApplicationController
     @notifications = Notification.find(params[:id])
     respond_to do |format|
       if @notifications.update_attributes(params[:notification])
-        format.html { redirect_to notifications_path(@notifications.app_id), notice: 'Notification was successfully updated.' }
+        format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully updated.' }
         format.json { head :no_content }
       else
         flash[:err] = @notifications.errors
         format.html { redirect_to edit_notification_path(@notification,:app_id => @notifications.app_id) }
-        format.json { render json: @notifications.errors, status: :unprocessable_entity }
+        format.json { render :json => @notifications.errors, :status => :unprocessable_entity }
       end
     end
   end

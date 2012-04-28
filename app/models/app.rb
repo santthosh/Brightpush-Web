@@ -8,8 +8,8 @@ class App < ActiveRecord::Base
   
   has_attached_file :application_icon, :styles => { :thumb => "48x48>" } ,:storage => :s3,
     :bucket => 'newsstand.alpha', :s3_credentials => {
-      access_key_id:  'AKIAIOJ33KAWISJPCVLQ',
-      secret_access_key: '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'
+      :access_key_id => 'AKIAIOJ33KAWISJPCVLQ',
+      :secret_access_key => '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'
   }
   has_attached_file :development_push_certificate,
                     :storage => :database

@@ -17,7 +17,7 @@ class Notification < ActiveRecord::Base
   def is_badge
     if self.badge == 0
       errors.add :badge, " must be an integer"
-    end
+    end 
   end
   
   def status_is_preparing?
@@ -39,5 +39,4 @@ class Notification < ActiveRecord::Base
   def add_defaults
     self.status = 1
   end
-  
 end

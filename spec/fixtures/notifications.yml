@@ -5,3 +5,17 @@
 #
 # two:
 #   column: value
+
+notification_1:
+  id: 1
+  app_id: 1
+  dispatched_count: 
+  created_at: 2012-04-28 12:49:58 Z
+  scheduled_count: 
+  sound: sound.wav
+  status: 1
+  alert: urgent 
+  updated_at: 2012-04-28 12:50:04 Z
+  deleted_at: 
+  payload: "{\"aps\":{\"badge\":123,\"alert\":\"urgent\",\"sound\":\"sound.wav\"}}"
+  badge: 123

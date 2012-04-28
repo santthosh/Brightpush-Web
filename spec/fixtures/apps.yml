@@ -158,7 +158,8 @@ app_1:
   production_push_certificate_content_type: application/octet-stream
   crypted_production_push_certificate_password: 3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54
   crypted_production_push_certificate_salt: E4FL5yHQ0xY=
-  created_at: 2012-04-06 09:14:29.000000000 Z
-  updated_at: 2012-04-06 09:14:29.000000000 Z
+  account_id: 1
+  created_at: 2012-04-06 09:14:29
+  updated_at: 2012-04-06 09:14:40   
   deleted_at: 
 

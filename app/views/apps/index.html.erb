@@ -23,7 +23,7 @@
       <td><%= application.created_at.to_s(:short_day) %></td>
       <td><%= link_to 'Show', application %></td>
       <td><%= link_to 'Edit', edit_app_path(application) %></td>
-      <td><%= link_to 'Destroy', application, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Destroy', application, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
   <tr>

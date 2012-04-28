@@ -24,17 +24,17 @@
     <%= f.text_field :key %>
     <%= f.label :Application_Icon %>
     <%= f.file_field :application_icon %>
-    <%= image_tag (@application.application_icon(:thumb))%>
+    <%= image_tag (@application.application_icon(:thumb)) if @application.application_icon_file_name%>
     <%= f.label :Development_push_certificate %>
     <%= f.file_field :development_push_certificate %>
     <i><%= " [Development Push Certificate]" if @application.development_push_certificate_file %></i>
     <%= f.label :Crypted_development_push_certificate_password %>
-    <%= f.password_field :crypted_development_push_certificate_password, value: @application.crypted_development_push_certificate_password, :disabled => true %>
+    <%= f.password_field :crypted_development_push_certificate_password, :value => @application.crypted_development_push_certificate_password, :disabled => true %>
     <%= f.label :Production_push_certificate %>
     <%= f.file_field :production_push_certificate %>
     <i><%= " [Production Push Certificate]" if @application.production_push_certificate_file %></i>
     <%= f.label :Crypted_production_push_certificate_password %>
-    <%= f.password_field :crypted_production_push_certificate_password, value: @application.crypted_production_push_certificate_password, :disabled => true %>
+    <%= f.password_field :crypted_production_push_certificate_password, :value => @application.crypted_production_push_certificate_password, :disabled => true %>
   </fieldset>
 
   <fieldset>
