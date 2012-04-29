@@ -17,7 +17,7 @@
   
   <fieldset id="notify">
     <%= notification.label :Badge %>
-    <%= notification.text_field :badge, :id => "id_badge" %>
+    <%= notification.text_field :badge, :id => "id_badge", :maxlength => 3 %>
     <%= notification.label :Alert %>
     <%= notification.text_field :alert, :id => "id_alert" %>
     <%= notification.label :Sound %>
