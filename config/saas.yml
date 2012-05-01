@@ -16,7 +16,7 @@ defaults: &defaults
     
 development:
   <<: *defaults
-  base_domain: newsstand.dev # Edit /etc/hosts to add subscriptions.dev, test.subscriptions.dev, etc., or use Pow: http://pow.cx
+  base_domain: newsstandalpha.com # Edit /etc/hosts to add subscriptions.dev, test.subscriptions.dev, etc., or use Pow: http://pow.cx
 
 test:
   <<: *defaults
