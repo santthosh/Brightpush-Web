@@ -1,4 +1,6 @@
-class Notification < ActiveRecord::Base
+class Notification < Db
+  
+  set_table_name :com.apple.notifications
   
   PREPARING = 1
   SCHEDULING = 2
