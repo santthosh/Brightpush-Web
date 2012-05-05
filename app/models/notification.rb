@@ -1,5 +1,5 @@
 class Notification < ActiveRecord::Base
-  
+
   PREPARING = 1
   SCHEDULING = 2
   DISPATCHING = 3
