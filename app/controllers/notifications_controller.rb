@@ -26,7 +26,7 @@ class NotificationsController < ApplicationController
     @notifications = Notification.new(params[:notification])
     respond_to do |format|
       if @notifications.save
-		p = Post.new(:message => 'My first SimpleDB post').save
+		p = Post.new(:message => 'My first SimpleDB post', :environment => 'sandbox', :status => 'pending', :application_id => 'com.dinakaran.mobile.ipad', :timeout => '15').save
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
