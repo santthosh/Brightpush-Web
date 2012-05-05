@@ -3,7 +3,7 @@ development:
   encoding: utf8
   database: newsstand_development
   username: root
-  password: root
+  password: password
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -13,20 +13,11 @@ test:
   encoding: utf8
   database: newsstand_test
   username: root
-  password: root
+  password: password
 
 production:
   adapter: mysql2
   encoding: utf8
   database: newsstand_production
   username: root
-  password: root
-
-db:
-  adapter: SimpleDB
-  encoding: utf8
-  database: db/db.SimpleDB
-  pool: 5
-  timeout: 5000
-  access_key_id: AKIAIOJ33KAWISJPCVLQ
-  secret_access_key: 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
+  password: password
