@@ -1,0 +1,4 @@
+class Simplefb < ActiveResource::Base
+  self.site   = "http://localhost:10000" # Proxy host + port
+  self.prefix = "/com.apple.notifications/"       # SDB domain
+end
