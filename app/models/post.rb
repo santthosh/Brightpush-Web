@@ -1,6 +1,7 @@
 class Post < AWS::Record::Base
-		set_domain_name :'com.apple.notifications'
-		string_attr :message
+	set_domain_name :'com.apple.notifications'
+	
+	string_attr :message
     string_attr :environment
     string_attr :scheduler_id
     string_attr :status
