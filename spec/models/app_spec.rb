@@ -19,6 +19,11 @@ describe App do
     @application.should_not be_valid
   end
 
+  it "should not have key blank" do
+    @application = App.new(:name => "application_one", :key => "", :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'))
+    @application.should_not be_valid
+  end
+  
   it "should create the application with different key" do
     @old_application = App.all
     @old_application.size.should == 1
@@ -35,6 +40,11 @@ describe App do
   
   it "should not have invalid application icon file" do
     @application = App.create(:name => 'application_five', :key => 'key_five', :application_icon => File.new(Rails.root + 'spec/fixtures/certificate/textfile.txt'))
+    @application.should_not be_valid
+  end
+  
+  it "should not have development push certificate blank" do
+    @application = App.new(:name => "application_one", :key => "key_one", :development_push_certificate => "")
     @application.should_not be_valid
   end
     
