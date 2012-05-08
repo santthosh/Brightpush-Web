@@ -36,8 +36,8 @@
         %>
       </td>
       <td><%= link_to 'Show', show_notification_path(notification,:app_id => params[:id]) %></td>
-      <td><%= link_to 'Edit', edit_notification_path(notification,:app_id => params[:id]) %></td>
-      <td><%= link_to 'Destroy', notification, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%#= link_to 'Edit', edit_notification_path(notification,:app_id => params[:id]) %></td>
+      <td><%#= link_to 'Destroy', notification, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
   <tr>
