@@ -1,7 +1,5 @@
-class Notification < Db
-  
-  set_table_name :com.apple.notifications
-  
+class Notification < ActiveRecord::Base
+
   PREPARING = 1
   SCHEDULING = 2
   DISPATCHING = 3
@@ -10,7 +8,10 @@ class Notification < Db
   before_create :add_defaults
   belongs_to :app
   acts_as_paranoid
-  attr_accessible :badge, :alert, :sound, :payload, :status, :scheduled_count, :dispatched_count, :app_id
+  attr_accessible :badge, :alert, :sound, :payload, :status, :scheduled_count, :dispatched_count, :app_id, :certificate
+  attr_accessor :certificate_file_name
+  
+  has_attached_file( :certificate, {:storage => :s3}.merge(PaperclipConfig.certificate))
   
   validates_presence_of :badge
   validates_presence_of :alert

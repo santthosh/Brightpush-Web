@@ -24,8 +24,14 @@ class NotificationsController < ApplicationController
   
   def create
     @notifications = Notification.new(params[:notification])
-    respond_to do |format|
+    respond_to do |format| 
+      #application = App.find(params['notification']['app_id'])
+      #style = params[:style] ? params[:style] : 'original'
+      #abort application.crypted_development_push_certificate_password.to_s
+      #OpenSSL::pkcs12 -clcerts -nokeys -in (application.development_push_certificate.file_contents(style)) -passin pass:"tamil4g@123" -out (mehul.pem)
+      
       if @notifications.save
+		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id']).save!
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else

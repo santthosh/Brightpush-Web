@@ -11,7 +11,7 @@ Subscriptions::Application.routes.draw do
   constraints MainSite do
     # Homepage
     root :to => "content#index"
-    
+
     # Account Signup Routes
     match '/signup' => 'accounts#plans', :as => 'plans'
     match '/signup/d/:discount' => 'accounts#plans'
@@ -19,7 +19,7 @@ Subscriptions::Application.routes.draw do
     match '/signup/create/:discount' => 'accounts#create', :as => 'create', :defaults => { :discount => nil }
     match '/signup/:plan/:discount' => 'accounts#new', :as => 'new_account'
     match '/signup/:plan' => 'accounts#new', :as => 'new_account'
-    
+
     # Catch-all that just loads views from app/views/content/* ...
     # e.g, http://yoursite.com/content/about -> app/views/content/about.html.erb
     #
@@ -34,7 +34,7 @@ Subscriptions::Application.routes.draw do
   # Account / User Management Routes
   #
   resources :users
-  resource :account do 
+  resource :account do
     member do
       get :dashboard, :thanks, :plans, :canceled
       match :billing, :paypal, :plan, :plan_paypal, :cancel

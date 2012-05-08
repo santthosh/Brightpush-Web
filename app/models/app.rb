@@ -6,7 +6,7 @@ class App < ActiveRecord::Base
   attr_accessible :account_id, :name, :key, :application_icon, :application_icon_content_type, :development_push_certificate, :development_push_certificate_content_type, :crypted_development_push_certificate_password, :crypted_development_push_certificate_salt, :production_push_certificate, :production_push_certificate_content_type, :crypted_production_push_certificate_password, :crypted_production_push_certificate_salt
   attr_accessor :development_push_certificate_file_name, :production_push_certificate_file_name
   
-  has_attached_file( :application_icon, {:styles => { :thumb => "48x48>" }}.merge(PaperclipConfig.hash) )
+  has_attached_file( :application_icon, {:styles => { :thumb => "48x48>" }}.merge(PaperclipConfig.icon) )
   
   has_attached_file :development_push_certificate,
                     :storage => :database
@@ -16,6 +16,7 @@ class App < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :key
   validates_uniqueness_of :key, :if => :is_deleted_at?
+  validates_presence_of :development_push_certificate_file
   validates_attachment_content_type :application_icon, :content_type => ['image/png','image/jpeg','image/gif' ]
   validates_attachment_content_type :development_push_certificate, :content_type => ['application/x-pkcs12','application/octet-stream']
   validates_presence_of :crypted_development_push_certificate_password, :if => :development_push_certificate?
