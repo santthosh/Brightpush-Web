@@ -1,5 +1,5 @@
 development:
-  aws_access_key_id: 'AKIAIOJ33KAWISJPCVLQ'
+  aws_access_key_id: AKIAIOJ33KAWISJPCVLQ
   aws_secret_access_key: N9vSN/iNN7BCJxyHyCbd/yuprUrVP1RctTz+qMxC
   #salt: your_aws_sdb_proxy_secret_salt_here
   port: 3000
