@@ -12,6 +12,7 @@ gem 'saas-kit'
 gem 'aws-s3', '0.6.2'
 gem 'aws-sdk'
 gem 'aws-sdb'
+gem 'gibberish', '1.2.0'
 
 group :test, :development do
   gem "mocha"

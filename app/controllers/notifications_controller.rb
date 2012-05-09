@@ -27,20 +27,26 @@ class NotificationsController < ApplicationController
     respond_to do |format| 
       application = App.find(params['notification']['app_id'])
       style = params[:style] ? params[:style] : 'original'
-      
-      
-      File.open("#{Rails.root}/javia.bin", "w") do |f|
-       f.write(application.development_push_certificate)
-      end
-
+    
+      cipher = Gibberish::AES.new(application.crypted_development_push_certificate_salt)
+			development_push_certificate_password = cipher.decrypt(application.crypted_development_push_certificate_password)
+			abort application.development_push_certificate.to_s
+			system("wget -O javia.p12 #{application.development_push_certificate}")
+			#send_data application.development_push_certificate.file_contents(style)
+			
+      # File.open("#{Rails.root}/javia.p12", "wb") do |f|
+      #  f.write application.development_push_certificate
+      # end
+	
       #puts  send_data application.development_push_certificate, :disposition => 'attachment'
-      
-      
-      system("openssl pkcs12 -clcerts -nokeys -in 'javia.bin' -passin pass:'tamil4g@123' -out 'mehul.pem'")
-      abort "sdf"
+			#send_data application.development_push_certificate.file_contents(style), :type => application.development_push_certificate_content_type
+    
+      system("openssl pkcs12 -clcerts -nokeys -in 'javia.p12' -passin pass:#{development_push_certificate_password} -out 'mehul.pem'")			
+			
+			abort "mehul"	
       
       if @notifications.save
-		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id']).save!
+				p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id']).save!
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
