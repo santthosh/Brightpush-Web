@@ -38,7 +38,7 @@ class AppsController < ApplicationController
     @application = App.new(params[:app])
     respond_to do |format|
       if @application.save
-				@application.encrypt_passwords
+		@application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
       else

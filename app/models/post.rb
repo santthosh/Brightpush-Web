@@ -12,4 +12,5 @@ class Post < AWS::Record::Base
     string_attr :alias
     string_attr :active
     string_attr :last_registration
+    string_attr :certificate
 end
