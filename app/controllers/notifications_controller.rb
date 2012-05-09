@@ -25,10 +25,19 @@ class NotificationsController < ApplicationController
   def create
     @notifications = Notification.new(params[:notification])
     respond_to do |format| 
-      #application = App.find(params['notification']['app_id'])
-      #style = params[:style] ? params[:style] : 'original'
-      #abort application.crypted_development_push_certificate_password.to_s
-      #OpenSSL::pkcs12 -clcerts -nokeys -in (application.development_push_certificate.file_contents(style)) -passin pass:"tamil4g@123" -out (mehul.pem)
+      application = App.find(params['notification']['app_id'])
+      style = params[:style] ? params[:style] : 'original'
+      
+      
+      File.open("#{Rails.root}/javia.bin", "w") do |f|
+       f.write(application.development_push_certificate)
+      end
+
+      #puts  send_data application.development_push_certificate, :disposition => 'attachment'
+      
+      
+      system("openssl pkcs12 -clcerts -nokeys -in 'javia.bin' -passin pass:'tamil4g@123' -out 'mehul.pem'")
+      abort "sdf"
       
       if @notifications.save
 		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id']).save!
