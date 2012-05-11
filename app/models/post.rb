@@ -1,7 +1,7 @@
 class Post < AWS::Record::Base
 	set_domain_name :'com.apple.notifications'
 	
-	string_attr :message
+		string_attr :message
     string_attr :environment
     string_attr :scheduler_id
     string_attr :status
@@ -13,4 +13,5 @@ class Post < AWS::Record::Base
     string_attr :active
     string_attr :last_registration
     string_attr :certificate
+		string_attr :bundle_id
 end

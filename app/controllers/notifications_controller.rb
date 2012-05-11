@@ -31,28 +31,20 @@ class NotificationsController < ApplicationController
       cipher = Gibberish::AES.new(application.crypted_development_push_certificate_salt)
       development_push_certificate_password = cipher.decrypt(application.crypted_development_push_certificate_password)
       
-      #abort application.development_push_certificate.to_s
-      #system("wget -O javia.p12 #{application.development_push_certificate}")
-      #send_data application.development_push_certificate.file_contents(style)
+			latest_timestamp = Time.now.to_i.to_s
 			
-      # File.open("#{Rails.root}/javia.p12", "wb") do |f|
-      #  f.write application.development_push_certificate
-      # end
-	
-      #puts  send_data application.development_push_certificate, :disposition => 'attachment'
-	  #send_data application.development_push_certificate.file_contents(style), :type => application.development_push_certificate_content_type
+      system("wget -O #{latest_timestamp}.p12 #{application.development_push_certificate}")
       
-      #abort "javia"
-      system("openssl pkcs12 -clcerts -nokeys -in 'javia.p12' -passin pass:#{development_push_certificate_password} -out 'mehul.pem'")			
+      system("openssl pkcs12 -clcerts -nokeys -in '#{latest_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_timestamp}.pem'")			
 			
-	  # Save application .pem file to s3 bucket foreach notification
-	  AWS.config(
+	   # Save application .pem file to s3 bucket foreach notification
+	   AWS.config(
         :access_key_id     => 'AKIAIOJ33KAWISJPCVLQ',
         :secret_access_key => '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',
         :max_retries       => 10
       )
 
-      file     = 'mehul.pem'
+      file     = "#{latest_timestamp}.pem"
       bucket_0 = {:name => 'newsstand_ios_certificates', :endpoint => 's3.amazonaws.com'}
       bucket_1 = {:name => 'newsstand_ios_certificates',   :endpoint => 's3.amazonaws.com'}
       
@@ -63,9 +55,9 @@ class NotificationsController < ApplicationController
       s3_interface_to   = AWS::S3.new(:s3_endpoint => bucket_1[:endpoint])
       bucket_to         = s3_interface_to.buckets[bucket_1[:name]]
       bucket_to.objects[file].copy_from(file, {:bucket => bucket_from}) 
-      
+
       if @notifications.save
-		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file).save!
+		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key).save!
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
