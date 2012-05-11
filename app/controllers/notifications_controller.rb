@@ -31,14 +31,13 @@ class NotificationsController < ApplicationController
       cipher = Gibberish::AES.new(application.crypted_development_push_certificate_salt)
       development_push_certificate_password = cipher.decrypt(application.crypted_development_push_certificate_password)
       
-			latest_timestamp = Time.now.to_i.to_s
-			
+	  latest_timestamp = Time.now.to_i.to_s		
       system("wget -O #{latest_timestamp}.p12 #{application.development_push_certificate}")
       
       system("openssl pkcs12 -clcerts -nokeys -in '#{latest_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_timestamp}.pem'")			
-			
-	   # Save application .pem file to s3 bucket foreach notification
-	   AWS.config(
+
+	  # Save application .pem file to s3 bucket foreach notification
+	  AWS.config(
         :access_key_id     => 'AKIAIOJ33KAWISJPCVLQ',
         :secret_access_key => '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',
         :max_retries       => 10
@@ -55,9 +54,13 @@ class NotificationsController < ApplicationController
       s3_interface_to   = AWS::S3.new(:s3_endpoint => bucket_1[:endpoint])
       bucket_to         = s3_interface_to.buckets[bucket_1[:name]]
       bucket_to.objects[file].copy_from(file, {:bucket => bucket_from}) 
-
+      
       if @notifications.save
 		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key).save!
+        
+        system("rm #{latest_timestamp}.p12")
+        system("rm #{latest_timestamp}.pem")
+        
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else

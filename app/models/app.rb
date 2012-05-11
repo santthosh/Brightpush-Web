@@ -26,8 +26,8 @@ class App < ActiveRecord::Base
     unless crypted_development_push_certificate_password.blank?
       crypted_development_push_certificate_salt = SecureRandom.base64(8)
       #crypted_development_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_development_push_certificate_password + crypted_development_push_certificate_salt)
-			cipher = Gibberish::AES.new(crypted_development_push_certificate_salt)
-			crypted_development_push_certificate_password = cipher.enc(self.crypted_development_push_certificate_password)
+      cipher = Gibberish::AES.new(crypted_development_push_certificate_salt)
+      crypted_development_push_certificate_password = cipher.enc(self.crypted_development_push_certificate_password)
       self.crypted_development_push_certificate_salt = crypted_development_push_certificate_salt
       self.crypted_development_push_certificate_password = crypted_development_push_certificate_password
       self.save(:validate => false)
@@ -36,8 +36,8 @@ class App < ActiveRecord::Base
     unless crypted_production_push_certificate_password.blank?
       crypted_production_push_certificate_salt = SecureRandom.base64(8)
       #crypted_production_push_certificate_password = Digest::SHA2.hexdigest(self.crypted_production_push_certificate_password + crypted_production_push_certificate_salt)
-			cipher = Gibberish::AES.new(crypted_production_push_certificate_salt)
-			crypted_production_push_certificate_password = cipher.enc(self.crypted_production_push_certificate_password)
+      cipher = Gibberish::AES.new(crypted_production_push_certificate_salt)
+      crypted_production_push_certificate_password = cipher.enc(self.crypted_production_push_certificate_password)
       self.crypted_production_push_certificate_salt = crypted_production_push_certificate_salt
       self.crypted_production_push_certificate_password = crypted_production_push_certificate_password
       self.save(:validate => false)
@@ -57,37 +57,37 @@ class App < ActiveRecord::Base
   end
   
   def valid_development_certificate?
-	  begin
-	    if (OpenSSL::PKCS12.new(File.read(self.development_push_certificate.to_file.path), self.crypted_development_push_certificate_password))
-	      return true
-	    end
-	  rescue => e
-	    #logger.error(e)
-	    errors.add(:crypted_development_push_certificate_password, "is wrong.")
-	    return false
-	  end
+    begin
+      if (OpenSSL::PKCS12.new(File.read(self.development_push_certificate.to_file.path), self.crypted_development_push_certificate_password))
+        return true
+      end
+    rescue => e
+      #logger.error(e)
+      errors.add(:crypted_development_push_certificate_password, "is wrong.")
+      return false
+    end
   end
   
   def valid_production_certificate?
-	  begin
-	    if (OpenSSL::PKCS12.new(File.read(self.production_push_certificate.to_file.path), self.crypted_production_push_certificate_password))
-	      return true
-	    end
-	  rescue => e
-	    #logger.error(e)
-	    errors.add(:crypted_production_push_certificate_password, "is wrong.")
-	    return false
-	  end
+    begin
+      if (OpenSSL::PKCS12.new(File.read(self.production_push_certificate.to_file.path), self.crypted_production_push_certificate_password))
+        return true
+      end
+    rescue => e
+      #logger.error(e)
+      errors.add(:crypted_production_push_certificate_password, "is wrong.")
+      return false
+    end
   end
 
   def randomize_file_name
-   if self.development_push_certificate_file_name
-    extension = File.extname(development_push_certificate_file_name).downcase   
-		return self.development_push_certificate.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}")
-   end
-	 if self.production_push_certificate_file_name
-    extension = File.extname(production_push_certificate_file_name).downcase   
-		return self.production_push_certificate.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}") 
-   end
+    if self.development_push_certificate_file_name
+      extension = File.extname(development_push_certificate_file_name).downcase   
+      return self.development_push_certificate.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}")
+    end
+      if self.production_push_certificate_file_name
+        extension = File.extname(production_push_certificate_file_name).downcase   
+      return self.production_push_certificate.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}") 
+    end
   end
 end
