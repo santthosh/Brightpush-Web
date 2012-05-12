@@ -69,7 +69,16 @@ class App < ActiveRecord::Base
   end
   
   def is_deleted_at?
-    App.find_by_key_and_deleted_at(self.key,nil)
+    @app = App.find_by_key_and_deleted_at(self.key,nil)
+    if self.id && @app
+      if @app.id == self.id
+        return false
+      else
+        @app
+      end  
+    else
+      @app
+    end
   end
   
   def valid_development_certificate?
