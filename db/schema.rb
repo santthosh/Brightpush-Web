@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421104625) do
+ActiveRecord::Schema.define(:version => 20120511070859) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -27,11 +27,9 @@ ActiveRecord::Schema.define(:version => 20120421104625) do
     t.integer  "account_id"
     t.string   "name"
     t.string   "key"
-    t.binary   "development_push_certificate_file"
     t.string   "development_push_certificate_content_type"
     t.string   "crypted_development_push_certificate_password"
     t.string   "crypted_development_push_certificate_salt"
-    t.binary   "production_push_certificate_file"
     t.string   "production_push_certificate_content_type"
     t.string   "crypted_production_push_certificate_password"
     t.string   "crypted_production_push_certificate_salt"
@@ -40,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20120421104625) do
     t.datetime "deleted_at"
     t.string   "application_icon_file_name"
     t.string   "application_icon_content_type"
+    t.string   "development_push_certificate_file_name"
+    t.string   "production_push_certificate_file_name"
   end
 
   add_index "apps", ["account_id"], :name => "index_apps_on_account_id"
