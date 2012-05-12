@@ -37,7 +37,7 @@ describe AppsController do
 
       it "should have the right title" do
         get :index
-        response.should have_selector("title", :content => "Accounts | newsstand")
+        response.should have_selector("title", :content => "Accounts | Bright Push")
       end
     end
 
@@ -128,7 +128,7 @@ describe AppsController do
 
       it "should have the right title" do
         get :edit, :id => @attr
-        response.should have_selector("title", :content => "newsstand")
+        response.should have_selector("title", :content => "Bright Push")
       end
 
       it "should have a name field" do

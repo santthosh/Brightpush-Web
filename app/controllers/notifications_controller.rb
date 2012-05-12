@@ -24,7 +24,9 @@ class NotificationsController < ApplicationController
   
   def create
     @notifications = Notification.new(params[:notification])
-    respond_to do |format| 
+    respond_to do |format|
+      
+      #fetch application data of this perticular notification
       application = App.find(params['notification']['app_id'])
       style = params[:style] ? params[:style] : 'original'
     
@@ -44,8 +46,8 @@ class NotificationsController < ApplicationController
       )
 
       file     = "#{latest_timestamp}.pem"
-      bucket_0 = {:name => 'newsstand_ios_certificates', :endpoint => 's3.amazonaws.com'}
-      bucket_1 = {:name => 'newsstand_ios_certificates',   :endpoint => 's3.amazonaws.com'}
+      bucket_0 = {:name => 'brightpush_ios_certificates', :endpoint => 's3.amazonaws.com'}
+      bucket_1 = {:name => 'brightpush_ios_certificates',   :endpoint => 's3.amazonaws.com'}
       
       s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
       bucket_from       = s3_interface_from.buckets[bucket_0[:name]]

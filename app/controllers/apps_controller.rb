@@ -37,9 +37,9 @@ class AppsController < ApplicationController
   def create
     @application = App.new(params[:app])
     respond_to do |format|
-			@application.randomize_file_name if params[:app][:development_push_certificate]
+	  #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.save
-				@application.encrypt_passwords
+		@application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
       else
@@ -59,22 +59,22 @@ class AppsController < ApplicationController
 
   def edit
     @application = App.find(params[:id])
-		unless @application.crypted_development_push_certificate_password.blank?
-			cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
-		  @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
-		end
-		unless @application.crypted_production_push_certificate_password.blank? 
-			cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
-		  @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
-		end
+      unless @application.crypted_development_push_certificate_password.blank?
+        cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
+        @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
+      end
+      unless @application.crypted_production_push_certificate_password.blank? 
+          cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
+        @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
+      end
   end
 
   def update
     @application = App.find(params[:id])
     respond_to do |format|
-		  #@application.randomize_file_name if params[:app][:development_push_certificate]
+	  #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.update_attributes(params[:app])
-				@application.encrypt_passwords
+		@application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully updated.' }
         format.json { head :no_content }
       else
