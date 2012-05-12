@@ -25,9 +25,17 @@ class App < ActiveRecord::Base
     attachment.instance.normalized_development_push_certificate_file_name
   end
 
+  Paperclip.interpolates :normalized_production_push_certificate_file_name do |attachment, style|
+    attachment.instance.normalized_production_push_certificate_file_name
+  end
+  
   def normalized_development_push_certificate_file_name
     "#{self.id}-#{self.development_push_certificate_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}" 
-  end 
+  end
+  
+  def normalized_production_push_certificate_file_name
+    "#{self.id}-#{self.production_push_certificate_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}" 
+  end
   
   def encrypt_passwords
     # encryption for development certificate password with salt
