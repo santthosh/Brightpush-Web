@@ -27,7 +27,7 @@ describe App do
   it "should create the application with different key" do
     @old_application = App.all
     @old_application.size.should == 1
-    @application = App.create(:name => 'application_three', :key => 'key_three')
+    @application = App.create(:name => 'application_three', :key => 'key_three', :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "U2FsdGVkX1+GuNxv8UbzJX+3VOM39fpmln+3DI7wP7E=", :crypted_development_push_certificate_salt => "yKicy9UQTH0=")
     @application.should be_valid
     @new_application = App.all 
     @new_application.size.should == 2
@@ -44,7 +44,7 @@ describe App do
   end
   
   it "should not have development push certificate blank" do
-    @application = App.new(:name => "application_one", :key => "key_one", :development_push_certificate => "")
+    @application = App.new(:name => "application_xx", :key => "key_xx")
     @application.should_not be_valid
   end
     

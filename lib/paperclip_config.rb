@@ -42,4 +42,3 @@ module PaperclipConfig
     }
   end
 end
-
