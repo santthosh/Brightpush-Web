@@ -60,14 +60,6 @@ class App < ActiveRecord::Base
     end
   end
   
-  def check_development_password(str)
-    development_password == Digest::SHA2.hexdigest(str + crypted_development_push_certificate_salt)
-  end
-
-  def check_production_password(str)
-    production_password == Digest::SHA2.hexdigest(str + crypted_production_push_certificate_salt)
-  end
-  
   def is_deleted_at?
     @app = App.find_by_key_and_deleted_at(self.key,nil)
     if self.id && @app

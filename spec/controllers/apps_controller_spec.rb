@@ -37,7 +37,7 @@ describe AppsController do
 
       it "should have the right title" do
         get :index
-        response.should have_selector("title", :content => "Accounts | Bright Push")
+        response.should have_selector("title", :content => "Applications | Bright Push")
       end
     end
 
@@ -91,10 +91,10 @@ describe AppsController do
         @attr = { :name => "application_ten",
 		  :key => "key_ten",
             :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'),
-            :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
-            :crypted_development_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54",
-            :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
-            :crypted_production_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54"}
+            :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
+            :crypted_development_push_certificate_password => "tamil4g@123",
+            :production_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
+            :crypted_production_push_certificate_password => "tamil4g@123"}
        end
 
        it "should create a app" do
@@ -191,7 +191,7 @@ describe AppsController do
             @app.key.should == @attr[:key]
         end
 
-        yers
+        #yers
         end
     end
 

@@ -27,14 +27,14 @@ describe App do
   it "should create the application with different key" do
     @old_application = App.all
     @old_application.size.should == 1
-    @application = App.create(:name => 'application_three', :key => 'key_three', :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "U2FsdGVkX1+GuNxv8UbzJX+3VOM39fpmln+3DI7wP7E=", :crypted_development_push_certificate_salt => "yKicy9UQTH0=")
+    @application = App.create(:name => 'application_three', :key => 'key_three', :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123')
     @application.should be_valid
-    @new_application = App.all 
+    @new_application = App.all
     @new_application.size.should == 2
   end
   
   it "should have valid application icon file" do
-    @application = App.create(:name => 'application_four', :key => 'key_four', :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'))
+    @application = App.create(:name => 'application_four', :key => 'key_four', :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'), :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123')
     @application.should be_valid
   end
   
@@ -49,7 +49,7 @@ describe App do
   end
     
   it "should have valid development push certificate file" do
-    @application = App.create(:name => 'application_six', :key => 'key_six', :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54")
+    @application = App.create(:name => 'application_six', :key => 'key_six', :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123')
     @application.should be_valid
   end
   
@@ -59,7 +59,7 @@ describe App do
   end
   
   it "should have valid production push certificate file" do
-    @application = App.create(:name => 'application_eight', :key => 'key_eight', :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'), :crypted_production_push_certificate_password => "3a50b76a66cb69037eed35f6ba763cedbff6c614b76b03d34322f408e839af54")
+    @application = App.create(:name => 'application_eight', :key => 'key_eight', :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'), :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123')
     @application.should be_valid
   end
   
@@ -68,18 +68,18 @@ describe App do
     @application.should_not be_valid
   end
   
-  it "should have development push certificate password if developement push certificate available" do
+  it "should not have development push certificate password blank if developement push certificate available" do
     @application = App.new(:name => "application_ten", :key => "key_ten", :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "")
     @application.should_not be_valid
   end
   
-  it "should have production push certificate password if production push certificate available" do
+  it "should not have production push certificate password blank if production push certificate available" do
     @application = App.new(:name => "application_eleven", :key => "key_eleven", :production_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'), :crypted_production_push_certificate_password => "")
     @application.should_not be_valid
   end
   
   it "should have valid development push certificate file" do
-    @application = App.create(:name => 'application_twelve', :key => 'key_twelve', :development_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "ec91e003c8f78535a25f39ddc1bc5747c7cc4dda43c0167d4d5961a7a27f4ff4")
+    @application = App.create(:name => 'application_twelve', :key => 'key_twelve', :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123')
     @application.should be_valid
   end
   
@@ -89,7 +89,8 @@ describe App do
   end
   
   it "should have valid production push certificate password" do
-    @application = App.create!(:name => 'application_fourteen', :key => 'key_fourteen', :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => "ec91e003c8f78535a25f39ddc1bc5747c7cc4dda43c0167d4d5961a7a27f4ff4")
+    @application = App.create!(:name => 'application_fourteen', :key => 'key_fourteen', :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_development_push_certificate_password => 'tamil4g@123', :production_push_certificate_file => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'), :crypted_production_push_certificate_password => 'tamil4g@123',
+:crypted_production_push_certificate_salt => 'pZz0IrMb7Qw=')
     @application.should be_valid
   end
   
