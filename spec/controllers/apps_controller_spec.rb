@@ -95,24 +95,24 @@ describe AppsController do
             :crypted_development_push_certificate_password => "tamil4g@123",
             :production_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
             :crypted_production_push_certificate_password => "tamil4g@123"}
-       end
+      end
 
-       it "should create a app" do
-         lambda do
-           post :create, :app => @attr
-         end.should change(App, :count).by(1)
-       end
+      it "should create a app" do
+        lambda do
+          post :create, :app => @attr
+        end.should change(App, :count).by(1)
+      end
 
-       it "should redirect to the app index page" do
-         post :create, :app => @attr
-         response.should redirect_to(apps_url)
-       end
+      it "should redirect to the app index page" do
+        post :create, :app => @attr
+        response.should redirect_to(apps_url)
+      end
 
-        it "should have a flash notice" do
-         post :create, :app => @attr
-         flash[:notice].should =~ /Application was successfully created./i
-       end
-     end
+      it "should have a flash notice" do
+        post :create, :app => @attr
+        flash[:notice].should =~ /Application was successfully created./i
+      end
+    end
     end
 
     describe "GET 'edit'" do
