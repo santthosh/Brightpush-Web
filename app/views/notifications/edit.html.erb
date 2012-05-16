@@ -1,0 +1,35 @@
+<h1>Change account settings</h1>
+
+<%= form_for @notifications, :url => { :action => 'update' }, :html => { :method => :put, :multipart => true } do |f| %>
+
+  <p>
+    Enter the following information for your notification .
+  </p>
+  <% if flash[:err] %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your notification information:</h2>
+      <ul>
+        <% flash[:err].full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset id="notify">
+    <%= f.label :Badge %>
+    <%= f.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <%= f.label :Alert %>
+    <%= f.text_field :alert, :id => "id_alert" %>
+    <%= f.label :Sound %>
+    <%= f.text_field :sound, :id => "id_sound" %>
+    <%= f.label :Payload %>
+    <%= f.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5" %>
+    <%= f.hidden_field :app_id, :value => params[:app_id] %>
+  </fieldset>
+
+  <fieldset>
+    <input type="submit" value="Save Changes" />    
+    <%= link_to :cancel, notifications_path(params[:app_id]) %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,50 @@
+<h1><%= @page_title = 'Notifications' %></h1>
+<table id="notifications" cellpadding=10 cellspacing=10>
+  <tr>
+    <%= link_to('Add a new Notification', add_notification_path(params[:id])) %>
+  </tr>
+<% if @notifications.blank? %>
+  <tr>
+    <th>No Record Found</th>
+  </tr>
+<% else %>
+  <tr>
+    <th>Badge</th>
+    <th>Alert</th>
+    <th>Sound</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @notifications.each do |notification| %>
+    <tr>
+      <td><%= notification.badge %></td>
+      <td><%= notification.alert %></td>
+      <td><%= notification.sound %></td>
+      <td>
+        <%=
+          if notification.status_is_preparing?
+            "Preparing"
+          elsif notification.status_is_scheduling?
+            "Scheduling"
+          elsif notification.status_is_dispatching?
+            "Dispatching"
+          elsif notification.status_is_done?
+            "Done"
+          end 
+        %>
+      </td>
+      <td><%= link_to 'Show', show_notification_path(notification,:app_id => params[:id]) %></td>
+      <td><%#= link_to 'Edit', edit_notification_path(notification,:app_id => params[:id]) %></td>
+      <td><%#= link_to 'Destroy', notification, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= will_paginate(@notifications) %></td>  
+  <tr>  
+<% end %>
+  <tr>
+    <td><%= link_to 'Back to Applications', apps_url %></td>
+  </tr>
+</table>

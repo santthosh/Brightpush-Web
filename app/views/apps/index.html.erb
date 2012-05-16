@@ -1,0 +1,33 @@
+<h1><%= @page_title = 'Applications | Bright Push' %></h1>
+<table id="applications" cellpadding=10 cellspacing=10>
+  <tr>
+    <%= link_to('Add a new Application', new_app_url) %>
+  </tr>
+<% if @applications.blank? %>
+  <tr>
+    <th>No Record Found</th>
+  </tr>
+<% else %>
+  <tr>
+    <th>Name</th>
+    <th>Key</th>
+    <th>Created</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @applications.each do |application| %>
+    <tr>
+      <td><%= link_to application.name, notifications_path(application.id)%></td>
+      <td><%= application.key %></td>
+      <td><%= application.created_at.to_s(:short_day) %></td>
+      <td><%= link_to 'Show', application %></td>
+      <td><%= link_to 'Edit', edit_app_path(application) %></td>
+      <td><%= link_to 'Destroy', application, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= will_paginate(@applications) %></td>  
+  <tr>
+<% end %>
+</table>

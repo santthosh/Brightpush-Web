@@ -1,0 +1,30 @@
+<h1><%= @page_title = 'View notification' %></h1>
+<table id="notification"  cellpadding=10 cellspacing=10>
+  <tr>
+    <th>Application Name: </th>
+    <td><b><%= @notification.app.name %></b></td>
+  </tr>
+  <tr>
+    <th>Badge: </th>
+    <td><%= @notification.badge %></td>
+  </tr>
+  <tr>
+    <th>Alert: </th>
+    <td><%= @notification.alert %></td>
+  </tr>
+  <tr>
+    <th>Sound: </th>
+    <td><%= @notification.sound %></td>
+  </tr>
+  <tr>
+    <th>Status: </th>
+    <td><%= @notification.status %></td>
+  </tr>
+  <tr>
+    <th>Created: </th>
+    <td><%= @notification.created_at.to_s(:short_day) %></td>
+  </tr>
+  <tr>
+    <td><%= link_to :back, notifications_path(params[:app_id]) %></td>
+  </tr>
+</table>

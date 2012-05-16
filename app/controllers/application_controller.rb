@@ -49,6 +49,8 @@ class ApplicationController < ActionController::Base
       return if sub.state == 'trial' && (!Saas::Config.require_payment_info_for_trials || !sub.needs_payment_info?)
       redirect_to billing_account_path
     end
-
-
+    # Checking for authentication
+    def authorized?
+      redirect_to new_user_session_url unless (user_signed_in? && self.action_name == 'index') || admin?
+    end
 end

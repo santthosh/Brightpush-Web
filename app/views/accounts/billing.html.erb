@@ -25,7 +25,7 @@
       <label>Next charge amount:</label>
       <%= number_to_currency @subscription.amount %>
       <br/>
-      <label>Current payment method:</label>
+      <label>Current payment :method =></label>
       <%= @subscription.paypal? ? 'PayPal' : "#{@subscription.card_number} / #{@subscription.card_expiration}" %>
     <% end %>
   <% end %>

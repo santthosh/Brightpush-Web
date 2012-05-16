@@ -1,0 +1,35 @@
+<h1>Create an notification</h1>
+
+<%= form_for(@notification, :url => { :action => 'create' }) do |notification| %>
+  <p>
+    Enter the following information for your notification.
+  </p>
+  <% if flash[:err] %>
+    <div class="errorExplanation">
+      <h2>Errors encountered with your notification information:</h2>
+      <ul>
+        <% flash[:err].full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <fieldset id="notify">
+    <%= notification.label :Badge %>
+    <%= notification.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <%= notification.label :Alert %>
+    <%= notification.text_field :alert, :id => "id_alert" %>
+    <%= notification.label :Sound %>
+    <%= notification.text_field :sound, :id => "id_sound" %>
+    <%= notification.label :Payload %>
+    <%= notification.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5" %>
+    <%= notification.hidden_field :app_id, :value => params[:id] %>
+  </fieldset>
+
+  <fieldset>
+    <input type="submit" value="Create notification" />    
+    <%= link_to :cancel, notifications_path(params[:id]) %>
+  </fieldset>
+
+<% end %>

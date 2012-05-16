@@ -3,7 +3,8 @@ class Account < ActiveRecord::Base
   has_many :users, :dependent => :destroy
   has_one :admin, :class_name => "User", :conditions => { :admin => true }
   accepts_nested_attributes_for :admin
-
+  has_many :apps, :dependent => :destroy
+  
   #
   # Set up the account to own subscriptions. An alternative would be to
   # call 'has_subscription' on the user model, if you only want one user per
@@ -43,9 +44,9 @@ class Account < ActiveRecord::Base
 
   protected
   
-    def valid_domain?
-      conditions = new_record? ? ['full_domain = ?', self.full_domain] : ['full_domain = ? and id <> ?', self.full_domain, self.id]
-      self.errors.add(:domain, 'is not available') if self.full_domain.blank? || self.class.count(:conditions => conditions) > 0
-    end
+  def valid_domain?
+    conditions = new_record? ? ['full_domain = ?', self.full_domain] : ['full_domain = ? and id <> ?', self.full_domain, self.id]
+    self.errors.add(:domain, 'is not available') if self.full_domain.blank? || self.class.count(:conditions => conditions) > 0
+  end
     
 end

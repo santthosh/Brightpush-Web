@@ -11,7 +11,7 @@ Subscriptions::Application.routes.draw do
   constraints MainSite do
     # Homepage
     root :to => "content#index"
-    
+
     # Account Signup Routes
     match '/signup' => 'accounts#plans', :as => 'plans'
     match '/signup/d/:discount' => 'accounts#plans'
@@ -19,7 +19,7 @@ Subscriptions::Application.routes.draw do
     match '/signup/create/:discount' => 'accounts#create', :as => 'create', :defaults => { :discount => nil }
     match '/signup/:plan/:discount' => 'accounts#new', :as => 'new_account'
     match '/signup/:plan' => 'accounts#new', :as => 'new_account'
-    
+
     # Catch-all that just loads views from app/views/content/* ...
     # e.g, http://yoursite.com/content/about -> app/views/content/about.html.erb
     #
@@ -34,12 +34,23 @@ Subscriptions::Application.routes.draw do
   # Account / User Management Routes
   #
   resources :users
-  resource :account do 
+  resource :account do
     member do
       get :dashboard, :thanks, :plans, :canceled
       match :billing, :paypal, :plan, :plan_paypal, :cancel
     end
   end
+  resources :apps do
+    member do
+      get 'development_push_certificates'
+      get 'production_push_certificates'
+    end
+  end
+  resources :notifications
+  match '/index/:id' => 'notifications#index', :as => 'notifications'
+  match 'notification/new/:id' => 'notifications#new', :as => 'add_notification'
+  match 'notification/:app_id/:id/edit' => 'notifications#edit', :as => 'edit_notification'
+  match 'notification/:app_id/:id' => 'notifications#show', :as => 'show_notification'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -49,11 +60,11 @@ Subscriptions::Application.routes.draw do
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  # resources :products
 
   # Sample resource route with options:
   #   resources :products do

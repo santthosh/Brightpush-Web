@@ -7,7 +7,6 @@ class ToDevise < ActiveRecord::Migration
     add_column :users, :confirmation_sent_at, :timestamp
     execute "UPDATE users SET confirmed_at = created_at, confirmation_sent_at = created_at"
     add_column :users, :reset_password_token, :string
-    add_column :users, :remember_token, :string
     add_column :users, :remember_created_at, :timestamp
     
     rename_column :users, :current_login_at, :current_sign_in_at
@@ -69,7 +68,6 @@ class ToDevise < ActiveRecord::Migration
     rename_column :users, :current_sign_in_at, :current_login_at
 
     remove_column :users, :remember_created_at, :timestamp
-    remove_column :users, :remember_token, :string
     remove_column :users, :reset_password_token, :string
     remove_column :users, :confirmation_sent_at, :timestamp
     remove_column :users, :confirmed_at, :timestamp
