@@ -46,6 +46,8 @@ Subscriptions::Application.routes.draw do
       get 'production_push_certificates'
     end
   end
+  match 'apps/new/' => 'apps#new', :as => 'new_app'
+  
   resources :notifications
   match '/index/:id' => 'notifications#index', :as => 'notifications'
   match 'notification/new/:id' => 'notifications#new', :as => 'add_notification'

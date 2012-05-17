@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511070859) do
+ActiveRecord::Schema.define(:version => 20120517151526) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120511070859) do
     t.string   "application_icon_content_type"
     t.string   "development_push_certificate_file_name"
     t.string   "production_push_certificate_file_name"
+    t.string   "application_type"
   end
 
   add_index "apps", ["account_id"], :name => "index_apps_on_account_id"

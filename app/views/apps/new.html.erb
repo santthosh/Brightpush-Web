@@ -1,43 +1,46 @@
 <h1>Create an application</h1>
 
-<%= form_for(@application, :html => { :multipart => true }) do |application| %>
-  <p>
-    Enter the following information for your application .
-  </p>
-  
-  <% if @application.errors.any? %>
-    <div class="errorExplanation">
-      <h2>Errors encountered with your application information:</h2>
-      <ul>
-        <% @application.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <fieldset>
-    <%= application.label :name %>
-    <%= application.text_field :name %>
-    <%= application.label :Bundle_ID %>
-    <%= application.text_field :key %>
-    <%= application.label :Application_Icon %>
-    <%= application.file_field :application_icon %>
-    <%= application.label :Development_push_certificate %>
-    <%= application.file_field :development_push_certificate %>
-    <%= application.label :Crypted_development_push_certificate_password %>
-    <%= application.password_field :crypted_development_push_certificate_password, :disabled => true %>
-    <%= application.label :Production_push_certificate %>
-    <%= application.file_field :production_push_certificate %>
-    <%= application.label :Crypted_production_push_certificate_password %>
-    <%= application.password_field :crypted_production_push_certificate_password, :disabled => true %>
-    <%= application.hidden_field :account_id, :value => current_account.id %>
-  </fieldset>
-
-  <fieldset>
-    <input type="submit" value="Create my application" />
-    
-    <%= link_to :cancel, :action => 'index' %>
-  </fieldset>
-
+<% if @application.errors.any? %>
+  <div class="errorExplanation">
+    <h2>Errors encountered with your application information:</h2>
+    <ul>
+      <% @application.errors.full_messages.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
+
+<%= form_tag :controller => :apps, :action => :new do %>
+  <fieldset>
+    <b>Application Type</b>
+    <%= select_tag :application_type, options_for_select([["iOS", "ios"], ["Android", "android"]], params['application_type']), :onchange =>"this.form.submit()" -%>
+  </fieldset>
+<% end %>
+
+<% if params['application_type'] == 'ios' %>
+  <%= form_for(@application, :html => { :multipart => true }) do |application| %>
+    <fieldset>
+      <%= application.label :name %>
+      <%= application.text_field :name %>
+      <%= application.label :Bundle_ID %>
+      <%= application.text_field :key %>
+      <%= application.label :Application_Icon %>
+      <%= application.file_field :application_icon %>
+      <%= application.label :Development_push_certificate %>
+      <%= application.file_field :development_push_certificate %>
+      <%= application.label :Crypted_development_push_certificate_password %>
+      <%= application.password_field :crypted_development_push_certificate_password, :disabled => true %>
+      <%= application.label :Production_push_certificate %>
+      <%= application.file_field :production_push_certificate %>
+      <%= application.label :Crypted_production_push_certificate_password %>
+      <%= application.password_field :crypted_production_push_certificate_password, :disabled => true %>
+      <%= application.hidden_field :account_id, :value => current_account.id %>
+    </fieldset>  
+    <fieldset>
+      <input type="submit" value="Create my application" />
+      <%= link_to :cancel, :action => 'index' %>
+    </fieldset>
+  <% end %>  
+<% end %>
+
