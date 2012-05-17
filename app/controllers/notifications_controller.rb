@@ -40,8 +40,8 @@ class NotificationsController < ApplicationController
 
 	  # Save application .pem file to s3 bucket foreach notification
 	  AWS.config(
-        :access_key_id     => 'AKIAIOJ33KAWISJPCVLQ',
-        :secret_access_key => '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',
+        :access_key_id     => APP_CONFIG['aws_access_key_id']
+        :secret_access_key => APP_CONFIG['aws_secret_access_key']
         :max_retries       => 10
       )
 
