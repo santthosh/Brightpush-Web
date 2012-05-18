@@ -43,6 +43,7 @@ class AppsController < ApplicationController
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
       else
+		@app_type = params[:app][:application_type]
         format.html { render :action => "new" }
         format.json { render :json => @application.errors, :status => :unprocessable_entity }
       end

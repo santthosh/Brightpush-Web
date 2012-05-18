@@ -14,19 +14,26 @@
 <%= form_tag :controller => :apps, :action => :new do %>
   <fieldset>
     <b>Application Type</b>
-    <%= select_tag :application_type, options_for_select([["iOS", "ios"], ["Android", "android"]], params['application_type']), :onchange =>"this.form.submit()" -%>
+    <%= select_tag :app_type, options_for_select([["iOS", "ios"], ["Android", "android"]], params['app_type'] ||= @app_type), :onchange =>"this.form.submit()" -%>
   </fieldset>
 <% end %>
 
-<% if params['application_type'] == 'ios' %>
-  <%= form_for(@application, :html => { :multipart => true }) do |application| %>
-    <fieldset>
-      <%= application.label :name %>
-      <%= application.text_field :name %>
+<%= form_for(@application, :html => { :multipart => true }) do |application| %>
+  <fieldset>
+    <%= application.label :name %>
+    <%= application.text_field :name %>
+    <% if params['app_type'] == 'android' %>
+      <%= application.label :Android_Package %>
+    <% else %>
       <%= application.label :Bundle_ID %>
-      <%= application.text_field :key %>
-      <%= application.label :Application_Icon %>
-      <%= application.file_field :application_icon %>
+    <% end %>  
+    <%= application.text_field :key %>
+    <%= application.label :Application_Icon %>
+    <%= application.file_field :application_icon %>
+    <% if params['app_type'] == 'android' %>
+      <%= application.label :C2DM_Authorization_Token %>
+      <%= application.text_area :c2dm_token, :rows=>5, :cols=>40 %>
+    <% else %>
       <%= application.label :Development_push_certificate %>
       <%= application.file_field :development_push_certificate %>
       <%= application.label :Crypted_development_push_certificate_password %>
@@ -35,12 +42,12 @@
       <%= application.file_field :production_push_certificate %>
       <%= application.label :Crypted_production_push_certificate_password %>
       <%= application.password_field :crypted_production_push_certificate_password, :disabled => true %>
-      <%= application.hidden_field :account_id, :value => current_account.id %>
-    </fieldset>  
-    <fieldset>
-      <input type="submit" value="Create my application" />
-      <%= link_to :cancel, :action => 'index' %>
-    </fieldset>
-  <% end %>  
+    <% end %>
+    <%= application.hidden_field :application_type, :value => params['app_type'] ||= 'ios' %>
+    <%= application.hidden_field :account_id, :value => current_account.id %>
+  </fieldset>  
+  <fieldset>
+    <input type="submit" value="Create my application" />
+    <%= link_to :cancel, :action => 'index' %>
+  </fieldset>
 <% end %>
-
