@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518154101) do
+ActiveRecord::Schema.define(:version => 20120519160258) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(:version => 20120518154101) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "extra_key"
+    t.string   "extra_value"
   end
 
   add_index "notifications", ["app_id"], :name => "index_notifications_on_app_id"

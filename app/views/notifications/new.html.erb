@@ -8,7 +8,7 @@
     <div class="errorExplanation">
       <h2>Errors encountered with your notification information:</h2>
       <ul>
-        <% flash[:err].full_messages.each do |m| %>
+        <% flash[:err].each do |m| %>
           <li><%= m %></li>
         <% end %>
       </ul>
@@ -16,15 +16,25 @@
   <% end %>
   
   <fieldset id="notify">
-    <%= notification.label :Badge %>
-    <%= notification.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <% if @application.application_type == 'ios'%>
+      <%= notification.label :Badge %>
+      <%= notification.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <% end %>  
     <%= notification.label :Alert %>
     <%= notification.text_field :alert, :id => "id_alert" %>
-    <%= notification.label :Sound %>
-    <%= notification.text_field :sound, :id => "id_sound" %>
+    <% if @application.application_type == 'ios'%>
+      <%= notification.label :Sound %>
+      <%= notification.text_field :sound, :id => "id_sound" %>
+    <% else %>
+      <%= notification.label :Extra_Key %>
+      <%= notification.text_field :extra_key, :id => "id_extra_key" %>
+      <%= notification.label :Extra_Value %>
+      <%= notification.text_field :extra_value, :id => "id_extra_value" %>
+    <% end %>
     <%= notification.label :Payload %>
     <%= notification.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5" %>
     <%= notification.hidden_field :app_id, :value => params[:id] %>
+    <%= notification.hidden_field :app_type, :id => "app_type", :value => @payload_value %>
   </fieldset>
 
   <fieldset>

@@ -16,6 +16,12 @@ class NotificationsController < ApplicationController
   
   def new
     @notification = Notification.new(:id => params[:id])
+    @application = App.find(params[:id])
+    if @application.application_type == 'android'
+	  @payload_value = 'android'  
+    else
+	  @payload_value = 'aps'
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @notifications }
@@ -25,23 +31,25 @@ class NotificationsController < ApplicationController
   def create
     @notifications = Notification.new(params[:notification])
     respond_to do |format|
-      
-      #fetch application data of this perticular notification
-      application = App.find(params['notification']['app_id'])
+    
+    #fetch application data of this perticular notification
+    application = App.find(params['notification']['app_id'])
+    
+    if params['notification']['app_type'] == 'aps'  
       style = params[:style] ? params[:style] : 'original'
     
       cipher = Gibberish::AES.new(application.crypted_development_push_certificate_salt)
       development_push_certificate_password = cipher.decrypt(application.crypted_development_push_certificate_password)
       
-	  latest_timestamp = Time.now.to_i.to_s		
+	  latest_timestamp = Time.now.to_i.to_s
       system("wget -O #{latest_timestamp}.p12 #{application.development_push_certificate}")
       
-      system("openssl pkcs12 -clcerts -nokeys -in '#{latest_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_timestamp}.pem'")			
+      system("openssl pkcs12 -clcerts -nokeys -in '#{latest_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_timestamp}.pem'")
 
 	  # Save application .pem file to s3 bucket foreach notification
 	  AWS.config(
-        :access_key_id     => APP_CONFIG['aws_access_key_id']
-        :secret_access_key => APP_CONFIG['aws_secret_access_key']
+        :access_key_id => 'AKIAIIXLC4YTMEO4BMNA',
+		:secret_access_key => '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',
         :max_retries       => 10
       )
 
@@ -55,18 +63,27 @@ class NotificationsController < ApplicationController
       
       s3_interface_to   = AWS::S3.new(:s3_endpoint => bucket_1[:endpoint])
       bucket_to         = s3_interface_to.buckets[bucket_1[:name]]
-      bucket_to.objects[file].copy_from(file, {:bucket => bucket_from}) 
+      bucket_to.objects[file].copy_from(file, {:bucket => bucket_from})
+	  c2dm_token = ""
+    else
+	  file = ""
+	  c2dm_token = application.c2dm_token if application.c2dm_token
+    end
       
       if @notifications.save
-		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key).save!
+		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :c2dm_token => c2dm_token).save!
         
-        system("rm #{latest_timestamp}.p12")
-        system("rm #{latest_timestamp}.pem")
+        if params['notification']['app_type'] == 'aps'
+		  system("rm #{latest_timestamp}.p12")
+		  system("rm #{latest_timestamp}.pem")
+		end
         
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
-        flash[:err] = @notifications.errors
+		#abort @notifications.errors.messages.inspect
+        flash[:err] = @notifications.errors.messages
+        
         format.html { redirect_to add_notification_path(@notifications.app_id)}
         format.json { render :json => @notifications.errors, :status => :unprocessable_entity }
       end
@@ -83,6 +100,12 @@ class NotificationsController < ApplicationController
 
   def edit
     @notifications = Notification.find(params[:id])
+    @application = App.find(params[:app_id])
+    if @application.application_type == 'android'
+	  @payload_value = 'android'  
+    else
+	  @payload_value = 'aps'
+    end
   end
 
   def update
