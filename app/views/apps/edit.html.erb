@@ -1,42 +1,53 @@
 <h1>Change account settings</h1>
 
+<% if @application.errors.any? %>
+  <div class="errorExplanation">
+    <h2>Errors encountered with your application information:</h2>
+    <ul>
+      <% @application.errors.full_messages.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag :controller => :apps, :action => :new do %>
+  <fieldset>
+    <b>Application Type : </b>
+    <%=  @app_type -%>
+    <br><br>
+  </fieldset>
+<% end %>  
+
 <%= form_for @application, :url => { :action => 'update' }, :html => { :method => :put, :multipart => true } do |f| %>
-
-  <p>
-    Enter the following information for your application .
-  </p>
-
-  <% if @application.errors.any? %>
-    <div class="errorExplanation">
-      <h2>Errors encountered with your application information:</h2>
-      <ul>
-        <% @application.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <fieldset>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.label :key %>
+    <% if @app_type == 'android' %>
+      <%= f.label :Android_Package %>
+    <% else %>
+      <%= f.label :Bundle_ID %>
+    <% end %>  
     <%= f.text_field :key %>
     <%= f.label :Application_Icon %>
     <%= f.file_field :application_icon %>
     <%= image_tag (@application.application_icon(:thumb)) if @application.application_icon_file_name%>
-    <%= f.label :Development_push_certificate %>
-    <%= f.file_field :development_push_certificate %>
-    <i><%= " [Development Push Certificate]" if @application.development_push_certificate_file_name %></i>
-    <%= f.label :Crypted_development_push_certificate_password %>
-    <%= f.password_field :crypted_development_push_certificate_password, :value => @development_push_certificate_password %>
-    <%= f.label :Production_push_certificate %>
-    <%= f.file_field :production_push_certificate %>
-    <i><%= " [Production Push Certificate]" if @application.production_push_certificate_file_name %></i>
-    <%= f.label :Crypted_production_push_certificate_password %>
-    <%= f.password_field :crypted_production_push_certificate_password, :value => @production_push_certificate_password %>
+    <% if @app_type == 'android' %>
+      <%= f.label :C2DM_Authorization_Token %>
+      <%= f.text_area :c2dm_token, :rows=>5, :cols=>40, :value => @application.c2dm_token %>
+    <% else %>
+      <%= f.label :Development_push_certificate %>
+      <%= f.file_field :development_push_certificate %>
+      <i><%= " [Development Push Certificate]" if @application.development_push_certificate_file_name %></i>
+      <%= f.label :Crypted_development_push_certificate_password %>
+      <%= f.password_field :crypted_development_push_certificate_password, :value => @development_push_certificate_password %>
+      <%= f.label :Production_push_certificate %>
+      <%= f.file_field :production_push_certificate %>
+      <i><%= " [Production Push Certificate]" if @application.production_push_certificate_file_name %></i>
+      <%= f.label :Crypted_production_push_certificate_password %>
+      <%= f.password_field :crypted_production_push_certificate_password, :value => @production_push_certificate_password %>
+    <% end %>
   </fieldset>
-
   <fieldset>
     <%= submit_or_cancel :action => 'index' %>
   </fieldset>
