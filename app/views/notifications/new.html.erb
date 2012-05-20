@@ -9,7 +9,7 @@
       <h2>Errors encountered with your notification information:</h2>
       <ul>
         <% flash[:err].each do |m| %>
-          <li><%= m %></li>
+          <li><%= m[0] %> <%= m[1].slice!(0) %></li>
         <% end %>
       </ul>
     </div>
@@ -19,7 +19,7 @@
     <% if @application.application_type == 'ios'%>
       <%= notification.label :Badge %>
       <%= notification.text_field :badge, :id => "id_badge", :maxlength => 3 %>
-    <% end %>  
+    <% end %>
     <%= notification.label :Alert %>
     <%= notification.text_field :alert, :id => "id_alert" %>
     <% if @application.application_type == 'ios'%>
@@ -38,7 +38,7 @@
   </fieldset>
 
   <fieldset>
-    <input type="submit" value="Create notification" />    
+    <input type="submit" value="Send notification" />    
     <%= link_to :cancel, notifications_path(params[:id]) %>
   </fieldset>
 

@@ -11,6 +11,7 @@
   <tr>
     <th>Name</th>
     <th>Key</th>
+    <th>Application Type</th>
     <th>Created</th>
     <th></th>
     <th></th>
@@ -20,6 +21,7 @@
     <tr>
       <td><%= link_to application.name, notifications_path(application.id)%></td>
       <td><%= application.key %></td>
+      <td><b><%= application.application_type %></b></td>
       <td><%= application.created_at.to_s(:short_day) %></td>
       <td><%= link_to 'Show', application %></td>
       <td><%= link_to 'Edit', edit_app_path(application) %></td>

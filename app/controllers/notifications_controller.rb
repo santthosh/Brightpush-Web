@@ -8,6 +8,7 @@ class NotificationsController < ApplicationController
   
   def index
     @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]],:per_page =>5, :page => params[:page] )
+    @application = App.find(params[:id])
     respond_to do |format|
       format.html # index.html.erb  
       format.json { render :json => @notification }
@@ -35,15 +36,19 @@ class NotificationsController < ApplicationController
     #fetch application data of this perticular notification
     application = App.find(params['notification']['app_id'])
     
-    if params['notification']['app_type'] == 'aps'  
+    if params['notification']['app_type'] == 'aps'
+      #define paperclip file type
       style = params[:style] ? params[:style] : 'original'
     
+	  #development password decryption for converting .p12 dile to .pem file
       cipher = Gibberish::AES.new(application.crypted_development_push_certificate_salt)
       development_push_certificate_password = cipher.decrypt(application.crypted_development_push_certificate_password)
       
+      #fetch .p12 file from bucket and rename it to latest timestamp
 	  latest_timestamp = Time.now.to_i.to_s
       system("wget -O #{latest_timestamp}.p12 #{application.development_push_certificate}")
       
+      #convert .p12 file to .pem file
       system("openssl pkcs12 -clcerts -nokeys -in '#{latest_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_timestamp}.pem'")
 
 	  # Save application .pem file to s3 bucket foreach notification
@@ -52,7 +57,8 @@ class NotificationsController < ApplicationController
 		:secret_access_key => '5D5clw6fxK76Ac+IcHHDL5RgZpN6+yU6TWJTBfUK',
         :max_retries       => 10
       )
-
+	  
+	  #save .pem file to s3 bucket
       file     = "#{latest_timestamp}.pem"
       bucket_0 = {:name => 'brightpush_ios_certificates', :endpoint => 's3.amazonaws.com'}
       bucket_1 = {:name => 'brightpush_ios_certificates',   :endpoint => 's3.amazonaws.com'}
@@ -66,13 +72,16 @@ class NotificationsController < ApplicationController
       bucket_to.objects[file].copy_from(file, {:bucket => bucket_from})
 	  c2dm_token = ""
     else
+	  #if its andoid application then assign variable for c2dm token
 	  file = ""
 	  c2dm_token = application.c2dm_token if application.c2dm_token
     end
       
       if @notifications.save
+		#Simple DB database entry
 		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :c2dm_token => c2dm_token).save!
         
+        #remove certificate file from root
         if params['notification']['app_type'] == 'aps'
 		  system("rm #{latest_timestamp}.p12")
 		  system("rm #{latest_timestamp}.pem")
@@ -81,6 +90,13 @@ class NotificationsController < ApplicationController
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully created.' }
         format.json { head :no_content }
       else
+		
+		#remove certificate file from root
+        if params['notification']['app_type'] == 'aps'
+		  system("rm #{latest_timestamp}.p12")
+		  system("rm #{latest_timestamp}.pem")
+        end
+        
 		#abort @notifications.errors.messages.inspect
         flash[:err] = @notifications.errors.messages
         
@@ -92,6 +108,7 @@ class NotificationsController < ApplicationController
 
   def show
     @notification = Notification.find(params[:id])
+    @application = App.find(params[:app_id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @notifications }

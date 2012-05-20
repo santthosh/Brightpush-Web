@@ -5,23 +5,39 @@
   </tr>
 <% if @notifications.blank? %>
   <tr>
-    <th>No Record Found</th>
+    <td>No Record Found</td>
   </tr>
 <% else %>
   <tr>
-    <th>Badge</th>
-    <th>Alert</th>
-    <th>Sound</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <% if @application.application_type == 'ios'%>
+      <td>Badge</td>
+    <% end %>
+    <td>Alert</td>
+    <% if @application.application_type == 'ios'%>
+      <td>Sound</td>
+    <% end %>
+    <% if @application.application_type == 'android'%>
+      <td>Extra Key</td>
+      <td>Extra Value</td>
+    <% end %>  
+    <td>Status</td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <% @notifications.each do |notification| %>
     <tr>
-      <td><%= notification.badge %></td>
+      <% if @application.application_type == 'ios'%>
+        <td><%= notification.badge %></td>
+      <% end %>  
       <td><%= notification.alert %></td>
-      <td><%= notification.sound %></td>
+      <% if @application.application_type == 'ios'%>
+        <td><%= notification.sound %></td>
+      <% end %>
+      <% if @application.application_type == 'android'%>
+        <td><%= notification.extra_key %></td>
+        <td><%= notification.extra_value %></td>
+      <% end %>
       <td>
         <%=
           if notification.status_is_preparing?
