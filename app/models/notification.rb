@@ -48,8 +48,8 @@ class Notification < ActiveRecord::Base
     application.application_type == 'ios'
   end
 	
-	def random_string_timestamp(size = 8)
-	  chars = (('a'..'z').to_a + ('0'..'9').to_a + Time.now.to_a) - %w(i o 0 1 l 0)
-	  (1..size).collect{|a| chars[rand(chars.size)] }.join
-	end
+  def random_string_timestamp(size = 8)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a + Time.now.to_a) - %w(i o 0 1 l 0)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
+  end
 end
