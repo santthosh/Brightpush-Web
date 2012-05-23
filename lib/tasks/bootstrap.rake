@@ -17,7 +17,7 @@ namespace :saas do
           end
     end
 
-    SaasAdmin.create(:email => 'admin@newsstand.io', :password => 'password', :password_confirmation => 'password')
+    SaasAdmin.create(:email => 'admin@brightpush.io', :password => 'password', :password_confirmation => 'password')
 
     account = Account.create(:name => 'Test Account', :domain => 'test', :plan => SubscriptionPlan.first, :admin_attributes => { :name => 'Test', :password => 'tester', :password_confirmation => 'tester', :email => 'test@example.com' })
     

@@ -1,4 +1,4 @@
 AWS.config({
-    :access_key_id => 'AKIAIOJ33KAWISJPCVLQ',
-    :secret_access_key => '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',
+    :access_key_id => 'AKIAIERRYQXDX7KCTHPQ',
+    :secret_access_key => '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',
 })

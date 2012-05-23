@@ -43,6 +43,7 @@ class AppsController < ApplicationController
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
       else
+		@app_type = params[:app][:application_type]
         format.html { render :action => "new" }
         format.json { render :json => @application.errors, :status => :unprocessable_entity }
       end
@@ -59,14 +60,15 @@ class AppsController < ApplicationController
 
   def edit
     @application = App.find(params[:id])
-      unless @application.crypted_development_push_certificate_password.blank?
-        cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
-        @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
-      end
-      unless @application.crypted_production_push_certificate_password.blank? 
-          cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
-        @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
-      end
+    @app_type = @application.application_type
+	unless @application.crypted_development_push_certificate_password.blank?
+	  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
+	  @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
+	end
+	unless @application.crypted_production_push_certificate_password.blank? 
+		cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
+	  @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
+	end
   end
 
   def update
@@ -78,6 +80,8 @@ class AppsController < ApplicationController
         format.html { redirect_to apps_url, :notice => 'Application was successfully updated.' }
         format.json { head :no_content }
       else
+		@development_push_certificate_password = @application.crypted_development_push_certificate_password
+		@production_push_certificate_password = @application.crypted_production_push_certificate_password
         format.html { render :action => "edit" }
         format.json { render :json => @application.errors, :status => :unprocessable_entity }
       end

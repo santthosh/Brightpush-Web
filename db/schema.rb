@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511070859) do
+ActiveRecord::Schema.define(:version => 20120519160258) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20120511070859) do
     t.string   "application_icon_content_type"
     t.string   "development_push_certificate_file_name"
     t.string   "production_push_certificate_file_name"
+    t.string   "application_type"
+    t.text     "c2dm_token"
   end
 
   add_index "apps", ["account_id"], :name => "index_apps_on_account_id"
@@ -57,6 +59,8 @@ ActiveRecord::Schema.define(:version => 20120511070859) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "extra_key"
+    t.string   "extra_value"
   end
 
   add_index "notifications", ["app_id"], :name => "index_notifications_on_app_id"

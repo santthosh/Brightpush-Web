@@ -4,21 +4,47 @@
     <th>Application Name: </th>
     <td><b><%= @notification.app.name %></b></td>
   </tr>
-  <tr>
-    <th>Badge: </th>
-    <td><%= @notification.badge %></td>
-  </tr>
+  <% if @application.application_type == 'ios'%>
+    <tr>
+      <th>Badge: </th>
+      <td><%= @notification.badge %></td>
+    </tr>
+  <% end %>  
   <tr>
     <th>Alert: </th>
     <td><%= @notification.alert %></td>
   </tr>
-  <tr>
-    <th>Sound: </th>
-    <td><%= @notification.sound %></td>
-  </tr>
+  <% if @application.application_type == 'ios'%>
+    <tr>
+      <th>Sound: </th>
+      <td><%= @notification.sound %></td>
+    </tr>
+  <% end %>
+  <% if @application.application_type == 'android'%>
+    <tr>
+      <th>Extra Key: </th>
+      <td><%= @notification.extra_key %></td>
+    </tr>
+    <tr>
+      <th>Extra Value: </th>
+      <td><%= @notification.extra_value%></td>
+    </tr>
+  <% end %>  
   <tr>
     <th>Status: </th>
-    <td><%= @notification.status %></td>
+    <td>
+      <%=
+        if @notification.status_is_preparing?
+          "Preparing"
+        elsif @notification.status_is_scheduling?
+          "Scheduling"
+        elsif @notification.status_is_dispatching?
+          "Dispatching"
+        elsif @notification.status_is_done?
+          "Done"
+        end 
+      %>
+    </td>
   </tr>
   <tr>
     <th>Created: </th>

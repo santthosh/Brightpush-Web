@@ -26,22 +26,43 @@ if (autobadge) {
 }
 
 var get_payload = function() {
-  payload = {"aps": {}}
   
-  var badge = $("#id_badge").val();
-  if (badge) {
-  payload["aps"]["badge"] = get_badge_value(badge);
-  }
+  if($("#app_type").val() == 'android')
+  {
+    payload = {"android": {}}
+    
+    var id_alert = $("#id_alert").val();
+    if (id_alert) {
+    payload["android"]["alert"] = id_alert;
+    }
+    
+    var extra_key = $("#id_extra_key").val();
+    var extra_value = $("#id_extra_value").val();
+    if (extra_key) {
+    payload["android"]["extra"] = {}
+    payload["android"]["extra"][extra_key] = extra_value;
+    }
   
-  var id_alert = $("#id_alert").val();
-  if (id_alert) {
-  payload["aps"]["alert"] = id_alert;
   }
-  
-  var sound = $("#id_sound").val();
-  if (sound) {
-  payload["aps"]["sound"] = sound;
-  }
+  else
+  {
+    payload = {"aps": {}}
+    
+    var badge = $("#id_badge").val();
+    if (badge) {
+    payload["aps"]["badge"] = get_badge_value(badge);
+    }
+    
+    var id_alert = $("#id_alert").val();
+    if (id_alert) {
+    payload["aps"]["alert"] = id_alert;
+    }
+    
+    var sound = $("#id_sound").val();
+    if (sound) {
+    payload["aps"]["sound"] = sound;
+    }
+  }  
   
   write_it(payload, "#id_payload");
 }

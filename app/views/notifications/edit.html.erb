@@ -17,15 +17,25 @@
   <% end %>
 
   <fieldset id="notify">
-    <%= f.label :Badge %>
-    <%= f.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <% if @application.application_type == 'ios'%>
+      <%= f.label :Badge %>
+      <%= f.text_field :badge, :id => "id_badge", :maxlength => 3 %>
+    <% end %>  
     <%= f.label :Alert %>
     <%= f.text_field :alert, :id => "id_alert" %>
-    <%= f.label :Sound %>
-    <%= f.text_field :sound, :id => "id_sound" %>
+    <% if @application.application_type == 'ios'%>
+      <%= f.label :Sound %>
+      <%= f.text_field :sound, :id => "id_sound" %>
+    <% else %>
+      <%= f.label :Extra_Key %>
+      <%= f.text_field :extra_key, :id => "id_extra_key" %>
+      <%= f.label :Extra_Value %>
+      <%= f.text_field :extra_value, :id => "id_extra_value" %>
+    <% end %>
     <%= f.label :Payload %>
     <%= f.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5" %>
     <%= f.hidden_field :app_id, :value => params[:app_id] %>
+    <%= f.hidden_field :app_type, :id => "app_type", :value => @payload_value %>
   </fieldset>
 
   <fieldset>
