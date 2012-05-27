@@ -19,9 +19,9 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(:id => params[:id])
     @application = App.find(params[:id])
     if @application.application_type == 'android'
-			@payload_value = 'android'  
+	  @payload_value = 'android'  
     else
-		 @payload_value = 'aps'
+	  @payload_value = 'aps'
     end
     respond_to do |format|
       format.html # new.html.erb
@@ -94,7 +94,7 @@ class NotificationsController < ApplicationController
 		end
 		
 		#Simple DB database entry
-		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :c2dm_token => file_c2dm_token).save!
+		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :environment => params['notification']['environment'], :c2dm_token => file_c2dm_token).save!
 			
 		#remove certificate file from root
 		if params['notification']['app_type'] == 'aps'

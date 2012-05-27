@@ -12,28 +12,24 @@
 		<!-- head -->
 		<div class="gt-hd clearfix">
 			<!-- logo -->
+			<%
+				if current_user
+						path = apps_path
+				else
+						path = root_path
+				end		
+			%>
 			<div class="gt-logo">
-				<%#= link_to image_tag "logo.png" %>
+				<%= link_to (image_tag "brightpush.png"), path %> 
 			</div>
 			<!-- / logo -->
               
 			<!-- navigation -->
-			<div class="gt-nav">
+			<div class="gt-nav" style="float:right">
 				<ul>
-                <% if controller.controller_path.starts_with?('saas_admin') %>
-                  <li><%= link_to('Subscriptions', saas_admin_subscriptions_path) %></li>
-                  <li><%= link_to('Accounts', saas_admin_accounts_path) %></li>
-                  <li><%= link_to('Plans', saas_admin_subscription_plans_path) %></li>
-                  <li><%= link_to('Discounts', saas_admin_subscription_discounts_path) %></li>
-                  <li><%= link_to('Affiliates', saas_admin_subscription_affiliates_path) %></li>
-                  <li><%= link_to("Log out #{current_saas_admin.email}", destroy_saas_admin_session_path) %></li>
-                <% elsif current_user %>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/users">Users</a></li>
-                  <li><a href="/apps">Applications</a></li>
-                  <%= content_tag(:li, link_to("Account", account_url)) if admin? %>
-                  <li><%= link_to("Log out #{current_user.name}", destroy_user_session_path) %></li>
-          <% end %>
+					<% if current_user %>
+						<li><%= link_to("Log out #{current_user.name}", destroy_user_session_path) %></li>
+					<% end %>	
 				</ul>
 			</div>
 			<!-- / navigation -->
@@ -45,8 +41,7 @@
 		<div class="gt-bd gt-cols clearfix">
 			
 			<!-- main content -->
-			<div class="gt-content">
-				
+			<div class="gt-content">				
 				<%= flash_notices %>
 				<%= yield %>
 				
@@ -64,7 +59,7 @@
 		
 		<!-- footer -->
 		<div class="gt-footer">
-			<p>Copyright &copy; 2012 brightapp.com - <a href="http://www.brightapp.com" target="_blank">brightapp.com</a></p>
+			<p>Copyright &copy; brightpush 2012 </p>
 		</div>
 		<!-- /footer -->
 	</body>
