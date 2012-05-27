@@ -80,6 +80,7 @@ GEM
     gibberish (1.2.0)
     has_scope (0.5.1)
     hike (1.2.1)
+    hominid (3.0.4)
     httparty (0.8.2)
       multi_json
       multi_xml
@@ -192,6 +193,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   gibberish (= 1.2.0)
+  hominid (= 3.0.4)
   jquery-rails
   mocha
   mysql2
