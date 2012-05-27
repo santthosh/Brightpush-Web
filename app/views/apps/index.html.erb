@@ -1,35 +1,26 @@
 <h1><%= @page_title = 'Applications' %></h1>
-<table id="applications" cellpadding=10 cellspacing=10>
-  <tr>
-    <%= link_to('Add a new Application', new_app_url) %>
-  </tr>
-<% if @applications.blank? %>
-  <tr>
-    <th>No Record Found</th>
-  </tr>
-<% else %>
-  <tr>
-    <th>Name</th>
-    <th>Key</th>
-    <th>Application Type</th>
-    <th>Created</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% @applications.each do |application| %>
+<div class="home_subscribe">
+  <table id="applications" width="100%" cellpadding=10 cellspacing=10>
+  <% if @applications.blank? %>
     <tr>
-      <td><%= link_to application.name, notifications_path(application.id)%></td>
-      <td><%= application.key %></td>
-      <td><b><%= application.application_type %></b></td>
-      <td><%= application.created_at.to_s(:short_day) %></td>
-      <td><%= link_to 'Show', application %></td>
-      <td><%= link_to 'Edit', edit_app_path(application) %></td>
-      <td><%= link_to 'Destroy', application, :confirm => 'Are you sure?', :method => :delete %></td>
+      <th>No Record Found</th>
     </tr>
+  <% else %>
+    <% @applications.each do |application| %>
+      <tr>
+        <td width="10%"><%= image_tag (application.application_icon(:thumb)) if application.application_icon_file_name%></td>
+        <td width="60%" align="left" valign="top"><font size="5"><%= application.name %></font><br><%= application.key %></td>
+        <td width="20%" align="right" valign="top"><%= button_to 'Send Broadcast', add_notification_path(application.id), :style => "margin-top: 0px" %><br><%= link_to 'History', notifications_path(application.id) %></td>
+      </tr>
+      <tr>
+        <td colspan=3>
+          <hr>
+        </td>
+      </tr>  
+    <% end %>
+    <tr>
+      <td><%= will_paginate(@applications) %></td>  
+    <tr>
   <% end %>
-  <tr>
-    <td><%= will_paginate(@applications) %></td>  
-  <tr>
-<% end %>
-</table>
+  </table>
+</div>  
