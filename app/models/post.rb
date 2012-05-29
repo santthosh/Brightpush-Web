@@ -1,5 +1,16 @@
 class Post < AWS::Record::Base
-	set_domain_name :'com.apple.notifications'
+	
+	if request.host == 'brightpush.in'
+      domain_name = "in.brighpush.notifications"
+    elsif request.host == 'brightpushalpha.in'
+      domain_name = "in.brighpushalpha.notifications"
+    elsif request.host == 'brightpushbeta.in'
+      domain_name = "in.brighpushbeta.notifications"
+    else
+      domain_name = "in.localhost.notifications"
+	end
+	
+	set_domain_name :domain_name
 	
 	string_attr :message
     string_attr :environment
