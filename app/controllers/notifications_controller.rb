@@ -61,8 +61,8 @@ class NotificationsController < ApplicationController
 	  
 		  #save .pem file to s3 bucket
 		  file     = "#{latest_pem_timestamp}.pem"
-		  bucket_0 = {:name => 'brightpush_ios_certificates', :endpoint => 's3.amazonaws.com'}
-		  bucket_1 = {:name => 'brightpush_ios_certificates',   :endpoint => 's3.amazonaws.com'}
+		  bucket_0 = {:name => $certificate_pem, :endpoint => 's3.amazonaws.com'}
+		  bucket_1 = {:name => $certificate_pem,   :endpoint => 's3.amazonaws.com'}
 		  
 		  s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
 		  bucket_from       = s3_interface_from.buckets[bucket_0[:name]]
@@ -81,8 +81,8 @@ class NotificationsController < ApplicationController
 		  file_c2dm_token = "#{latest_c2dm_timestamp}.txt" if application.c2dm_token
 		  
 		  #save c2dm token .txt file to s3 bucket
-		  bucket_0 = {:name => 'brightpush_c2dm_token', :endpoint => 's3.amazonaws.com'}
-		  bucket_1 = {:name => 'brightpush_c2dm_token',   :endpoint => 's3.amazonaws.com'}
+		  bucket_0 = {:name => "#{$c2dm_token}", :endpoint => 's3.amazonaws.com'}
+		  bucket_1 = {:name => "#{$c2dm_token}",   :endpoint => 's3.amazonaws.com'}
 		  
 		  s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
 		  bucket_from       = s3_interface_from.buckets[bucket_0[:name]]

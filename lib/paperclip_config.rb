@@ -1,7 +1,7 @@
 module PaperclipConfig
   def self.icon
     {
-      :bucket => "brightpush_#{Rails.env}_application_icons",
+      :bucket => "#{$application_icons}",
       :s3_credentials => {
         :access_key_id => APP_CONFIG['aws_access_key_id'],
         :secret_access_key => APP_CONFIG['aws_secret_access_key']
@@ -11,7 +11,7 @@ module PaperclipConfig
   end
   def self.development_certificate
     {
-      :bucket => "brightpush_development_ios_certificates_pkcs12",
+      :bucket => "#{$development_certificate_pkcs12}",
       :s3_credentials => {
         :access_key_id => APP_CONFIG['aws_access_key_id'],
         :secret_access_key => APP_CONFIG['aws_secret_access_key']
@@ -22,7 +22,7 @@ module PaperclipConfig
   end
   def self.production_certificate
     {
-      :bucket => "brightpush_production_ios_certificates_pkcs12",
+      :bucket => "#{$production_certificate_pkcs12}",
       :s3_credentials => {
         :access_key_id => APP_CONFIG['aws_access_key_id'],
         :secret_access_key => APP_CONFIG['aws_secret_access_key']
@@ -33,7 +33,7 @@ module PaperclipConfig
   end
   def self.certificate
     {
-      :bucket => "brightpush_ios_certificates",
+      :bucket => "#{$certificate_pem}",
       :s3_credentials => {
         :access_key_id => APP_CONFIG['aws_access_key_id'],
         :secret_access_key => APP_CONFIG['aws_secret_access_key']
