@@ -1,6 +1,6 @@
 class ToDevise < ActiveRecord::Migration
   def self.up
-    rename_column :users, :crypted_password, :encrypted_password
+    rename_column :users, :ecrypted_password, :encrypted_password
     
     add_column :users, :confirmation_token, :string
     add_column :users, :confirmed_at, :timestamp
