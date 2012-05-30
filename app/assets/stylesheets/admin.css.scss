@@ -1,38 +1,68 @@
-body.subscription_admin table td, body.subscription_admin table th {
-	padding-right: 1em;
+@mixin rounded-corners($radius: 20px) {
+   -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
 }
 
-body.subscription_admin table th {
-	font-weight: bold;
+@mixin box-shadow {
+  -moz-box-shadow: 0px 0px 4px #999;
+  -webkit-box-shadow: 0px 0px 4px #999;
+  box-shadow: 0px 0px 4px #999;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#999999')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#999999');
 }
 
-h2 {
-	margin-top: 10px;
+.webfont-questrial {
+  font-family: 'Questrial', sans-serif;
 }
 
-/* home page box design (subscribe page)*/
-input[type=submit] {
-	margin-top: 1em;
-}
-.home_subscribe
-{
-	width: 70%;
-	border: 1px solid #AAAAAA;
-	clear: both;
-	color: #666666;
-	font-size: 14px;
-	padding: 10px;
-	text-align: center;
+.content .home-subscribe-container {
+  width: 800px;
+  margin: 0px auto;
+  color: #666666;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #e4efc8;
+  padding:40px;
+  
+  @include rounded-corners();
+  @include box-shadow();
 }
 
-/*notification page listing*/
-.gray-bdr {
-    border: 1px solid #313031;
+.content .home-subscribe-container .message-text {
+  font-size:22px;
+  line-height:28px;
+  color:#406c21;
 }
-.vgg {
-    background-color: #CCCCCC;
-    color: #000000;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-siz: 12px;
-	height: 30px;
+
+.content .home-subscribe-container .form {
+  margin:30px 0px;
+}
+
+.content .home-subscribe-container .input-boxes input {
+  font-size:18px;
+  padding:10px;
+  width:350px;
+  margin-right:15px;
+  border:1px solid #ccc;
+  
+  @include rounded-corners(8px);
+}
+
+.content .home-subscribe-container .go-button {
+  margin-top:15px;
+  width:194px;
+  height:37px;
+  background-image: image-url("content/go-button-bg.png");
+  border:none;
+  font-size:17px;
+  color:#fff;
+  cursor:pointer;
+}
+
+.content .home-subscribe-container .go-button:hover {
+  background-image: image-url("content/go-button-bg-hover.png");
 }
