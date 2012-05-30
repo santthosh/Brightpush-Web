@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_affiliate_cookie
   before_filter :set_mailer_url_options
   before_filter :collect_billing_info
+  before_filter :initialize_bucket_name
 
   helper_method :current_account, :admin?
 
@@ -53,4 +54,36 @@ class ApplicationController < ActionController::Base
     def authorized?
       redirect_to new_user_session_url unless (user_signed_in? && self.action_name == 'index') || admin?
     end
+    
+    def initialize_bucket_name
+      if request.host == 'brightpush.in'
+        $domain_name = "brightpush_application_icons"
+        $application_icons = "brightpush_application_icons"
+        $development_certificate_pkcs12 = "brightpush_development_ios_certificate_pkcs12"
+        $production_certificate_pkcs12 = "brightpush_production_ios_certificate_pkcs12"
+        $certificate_pem = "brightpush_ios_certificates_pem"
+        $c2dm_token = "brightpush_c2dm_token_txt"
+      elsif request.host == 'brightpushalpha.in'
+        $domain_name = "in.brighpushalpha.notifications"
+        $application_icons = "alpha_brightpush_application_icons"
+        $development_certificate_pkcs12 = "alpha_brightpush_development_ios_certificate_pkcs12"
+        $production_certificate_pkcs12 = "alpha_brightpush_production_ios_certificate_pkcs12"
+        $certificate_pem = "alpha_brightpush_ios_certificates_pem"
+        $c2dm_token = "alpha_brightpush_c2dm_token_txt"
+      elsif request.host == 'brightpushbeta.in'
+        $domain_name = "in.brighpushbeta.notifications"
+        $application_icons = "beta_brightpush_application_icons"
+        $development_certificate_pkcs12 = "beta_brightpush_development_ios_certificate_pkcs12"
+        $production_certificate_pkcs12 = "beta_brightpush_production_ios_certificate_pkcs12"
+        $certificate_pem = "beta_brightpush_ios_certificates_pem"
+        $c2dm_token = "beta_brightpush_c2dm_token_txt"
+      else
+        $domain_name = "in.localhost.notifications"
+        $application_icons = "local_brightpush_application_icons"
+        $development_certificate_pkcs12 = "local_brightpush_development_ios_certificate_pkcs12"
+        $production_certificate_pkcs12 = "local_brightpush_production_ios_certificate_pkcs12"
+        $certificate_pem = "local_brightpush_ios_certificates_pem"
+        $c2dm_token = "local_brightpush_c2dm_token_txt"
+      end  
+	end
 end
