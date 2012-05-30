@@ -14,6 +14,7 @@ gem 'aws-sdk'
 gem 'aws-sdb'
 gem 'gibberish', '1.2.0'
 gem 'hominid', '3.0.4'
+gem 'sass-rails'
 
 group :test, :development do
   gem "mocha"
