@@ -5,6 +5,13 @@
   border-radius: $radius;
 }
 
+@mixin rounded-corners-top($radius: 20px) {
+   -moz-border-radius: $radius $radius 0px 0px;
+  -webkit-border-radius: $radius $radius 0px 0px;
+  -khtml-border-radius: $radius $radius 0px 0px;
+  border-radius: $radius $radius 0px 0px;
+}
+
 @mixin box-shadow {
   -moz-box-shadow: 0px 0px 4px #999;
   -webkit-box-shadow: 0px 0px 4px #999;
@@ -128,4 +135,17 @@
 
 .devise.sessions .login-container .login-button:hover {
   background-image: image-url("shared/button-bg-hover.png");
+}
+
+// Apps Controller
+
+.apps .applications-container {
+  width:900px;
+}
+
+.apps .applications-container .applications-tab {
+  float:right;
+  background-color:#395c22;
+  
+  @include rounded-corners-top();
 }
