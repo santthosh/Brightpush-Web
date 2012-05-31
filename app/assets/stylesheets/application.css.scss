@@ -4,6 +4,10 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 */
 
+body {
+  background-color: #406c21;
+}
+
 .header-container {
   background-color:#6CAA00;
   background-image: image-url("layouts/application/header-container-background.png");
