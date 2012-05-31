@@ -44,7 +44,7 @@
 		
 		<div class="main-content-container">
 		  <div class="main-content">
-		    <%= flash_notices %>
+		    <%= flash_notices if !@do_not_display_flash_messages_in_layout %>
         <%= yield %>
 		  </div>
   		<div class="spacer-div"></div>

@@ -15,6 +15,16 @@
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#999999');
 }
 
+@mixin box-shadow-inset1 {
+  -moz-box-shadow: 0px 0px 5px #aaa inset;
+  -webkit-box-shadow: 0px 0px 5px #aaa inset;
+  box-shadow: 0px 0px 5px #aaa inset;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa');
+}
+
 .webfont-questrial {
   font-family: 'Questrial', sans-serif;
 }
@@ -54,32 +64,38 @@
 
 .content .home-subscribe-container .go-button {
   margin-top:15px;
-  width:194px;
-  height:37px;
-  background-image: image-url("content/go-button-bg.png");
-  border:none;
+  width:195px;
+  height:39px;
+  background-image: image-url("shared/button-bg.png");
+  border:0px;
   font-size:17px;
   color:#fff;
   cursor:pointer;
+  background-color:transparent;
 }
 
 .content .home-subscribe-container .go-button:hover {
-  background-image: image-url("content/go-button-bg-hover.png");
+  background-image: image-url("shared/button-bg-hover.png");
 }
 
 // Login page
 
 .devise.sessions .login-container {
-  width: 800px;
+  width: 788px;
+  height:306px;
   margin: 0px auto;
   color: #666666;
   font-size: 14px;
   padding: 10px;
-  background-color: #e4efc8;
   padding:40px;
-  
-  @include rounded-corners();
-  @include box-shadow();
+  background-image:image-url("sessions/login-bg.png");
+  background-repeat:none;
+}
+
+.devise.sessions .login-container .alert {
+  text-align:center;
+  color:red;
+  margin:24px 0px;
 }
 
 .devise.sessions .login-container .input-boxes {
@@ -94,20 +110,22 @@
   border:1px solid #ccc;
   
   @include rounded-corners(8px);
+  @include box-shadow-inset1();
 }
 
 .devise.sessions .login-container .login-button {
   margin-top:15px;
-  width:194px;
-  height:37px;
-  background-image: image-url("content/go-button-bg.png");
+  width:195px;
+  height:39px;
+  background-image: image-url("shared/button-bg.png");
   border:none;
   font-size:17px;
   color:#fff;
   cursor:pointer;
   text-align:center;
+  background-color:transparent;
 }
 
 .devise.sessions .login-container .login-button:hover {
-  background-image: image-url("content/go-button-bg-hover.png");
+  background-image: image-url("shared/button-bg-hover.png");
 }
