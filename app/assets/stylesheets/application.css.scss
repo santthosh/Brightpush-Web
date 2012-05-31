@@ -114,7 +114,9 @@ body {
 
 // Flash message classes
 
-#notice {
+#notice, #alert {
+  width: 700px;
+  background-color:#6CAA00;
   margin:10px auto 20px;
   padding:5px;
   text-align:center;

@@ -1,5 +1,5 @@
 <div class="login-container">
-  <h1 class="text-align-center">Login</h1>
+  <h1 class="text-align-center" style="font-size:32px;">Login</h1>
   
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <%= f.hidden_field :account_id, :value => current_account.id rescue nil%>
