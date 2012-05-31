@@ -1,5 +1,11 @@
+<% 
+  @do_not_display_flash_messages_in_layout = true 
+%>
+
 <div class="login-container">
-  <h1 class="text-align-center" style="font-size:32px;">Login</h1>
+  <h1 class="text-align-center" style="font-size:32px; text-shadow: 0px 0px 5px #fff;">Login</h1>
+  
+  <p class="alert"><%= flash[:alert] %></p>
   
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <%= f.hidden_field :account_id, :value => current_account.id rescue nil%>
