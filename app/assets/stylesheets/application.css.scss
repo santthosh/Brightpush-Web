@@ -1,0 +1,134 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*/
+
+@mixin rounded-corners($radius: 20px) {
+   -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+body {
+  background-color: #406c21;
+}
+
+.header-container {
+  background-color:#6CAA00;
+  background-image: image-url("layouts/application/header-container-background.png");
+}
+
+.header {
+  width:1200px;
+  margin:0px auto;
+  background-image: image-url("layouts/application/header-background.png");
+  position:relative;
+  height:121px;
+  overflow:hidden;
+}
+
+.header .left {
+  position:absolute;
+  width:97px;
+  height:153px;
+  background-image: image-url("layouts/application/header-left.png");
+}
+
+.header .right {
+  position:absolute;
+  width:97px;
+  height:153px;
+  background-image: image-url("layouts/application/header-right.png");
+  right:0px;
+}
+
+.header .banner {
+  position:absolute;
+  width:1009px;
+  height:109px;
+  background-image: image-url("layouts/application/header-banner.png");
+  top:12px;
+  left:95px;
+}
+
+.header .banner .logo {
+  position:absolute;
+  top:6px;
+  left:30px;
+}
+
+.header .banner .top-links {
+  position:absolute;
+  right:40px;
+  top:45px;
+}
+
+.header .banner .top-links a {
+  color:#996633;
+}
+
+.header-shadow {
+  width:1200px;
+  margin:0px auto;
+  height:20px;
+  background-image: image-url("layouts/application/header-shadow.png");
+}
+
+.main-content-container {
+  background-color:#b8d762;
+  padding:20px;
+}
+
+.main-content-container .main-content {
+  width:1200px;
+  margin:0px auto;
+}
+
+.spacer-div {
+  height:20px;
+}
+
+.footer-container {
+  background-color:#406c21;
+  color:#aaa;
+}
+
+.footer-container .footer {
+  width:1200px;
+  margin:0px auto;
+  padding:20px 0px;
+}
+
+.footer-container .text {
+  float:left;
+  margin-left:20px;
+  line-height:38px;
+}
+
+.footer-container .social-icons {
+  float:right;
+  margin-right:20px;
+}
+
+// Flash message classes
+
+#notice, #alert {
+  width: 700px;
+  background-color:#6CAA00;
+  margin:10px auto 20px;
+  padding:5px;
+  text-align:center;
+  @include rounded-corners(8px);
+}
+
+// Common classes
+
+.text-align-center {
+  text-align:center;
+}
+
+.clearfix {
+  clear:both;
+}
