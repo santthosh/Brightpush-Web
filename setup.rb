@@ -3,6 +3,7 @@ require 'aws/s3'
 
 system("rake db:create")
 system("rake db:migrate")
+system("rake db:migrate test")
 system("rake saas:bootstrap")
 
 AWS::S3::Base.establish_connection!(
