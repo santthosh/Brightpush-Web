@@ -1,38 +1,24 @@
+<% content_for :head do %>
+  <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+<% end %>
+
+<% content_for :header_links do %>
+    <%= link_to('Login', '/users/sign_in') %>
+<% end %>
+
 <% unless current_user %>
-  <table width="72%">
-      <tr>
-        <td align="right">
-          <p>
-            <%= link_to('Login', '/users/sign_in') %>
-          </p>
-        <td> 
-      </tr>
-  </table>    
-  <div class="home_subscribe">
-    <table width="50%">
-      <tr>
-        <td>
-          <%= form_tag subscriber_save_path %>
-            <table cellpadding=10 cellspacing=10>
-              <tr>
-                <td colspan=3 align="left">
-                  Welcome to BrightPush! We are currently busy working on next generation content delivery engine for the web, and have some exiting things under out sleeve.<br><br>Now seriously, why not just signup below and we will let you now one we are up and running!
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <%= text_field "name", "", :placeholder => "Name"%>
-                </td>
-                <td>
-                  <%= text_field "email", "", :placeholder => "Email"%>
-                </td>
-                <td>
-                  <input type="submit" value="Go!" style="margin-top:0px"/>  
-                </td>
-              </tr>
-            </table>
-        <td> 
-      </tr>
-    </table>
+  <div class="home-subscribe-container">
+    <div class="message-text webfont-questrial">
+      Welcome to BrightPush! We are currently busy working on next generation content delivery engine for the web, and have some exciting things under out sleeve.<br><br>Now seriously, why not just signup below and we will let you now one we are up and running!
+    </div>
+    
+    <%= form_tag subscriber_save_path, :class => "form" do %>
+      <div class="input-boxes">
+        <%= text_field "name", "", :placeholder => "Name"%>
+        <%= text_field "email", "", :placeholder => "Email"%>
+      </div>
+      
+      <input type="submit" value="Go!" class="go-button"/>  
+    <% end %>
   </div>
 <% end %>

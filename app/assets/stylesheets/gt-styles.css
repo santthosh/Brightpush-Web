@@ -215,7 +215,7 @@ tt {
 	background-color: #cc0000;
 	padding: .5em;
 	color: #fff;
-}
+}notice
 .gt-notice-box {
 	border: 3px solid #aaa;
 	padding: 1em;
@@ -226,6 +226,7 @@ tt {
 	padding: .5em;
 	color: #fff;
 	width: 700px;
+	margin:0px auto;
 }
 /* @end */
 
