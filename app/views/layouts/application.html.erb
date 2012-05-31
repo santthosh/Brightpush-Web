@@ -23,8 +23,8 @@
                 path = root_path
             end   
           %>
-          <div class="gt-logo">
-            <% link_to (image_tag "brightpush.png"), path %> 
+          <div class="logo">
+            <%= link_to (image_tag "layouts/shared/logo.png"), path %> 
           </div>
           <!-- / logo -->
 		      
@@ -53,7 +53,20 @@
 		<!-- footer -->
 		<div class="footer-container">
 		  <div class="footer">
-        <p>Copyright &copy; brightpush 2012 </p>
+		    <div class="text">
+          Copyright &copy; BrightPush.in 2012
+        </div>
+        
+        <div class="social-icons">
+          <a href="#">
+            <%= image_tag("layouts/application/footer-facebook-icon.png")%>
+          </a>
+          <a href="#">
+            <%= image_tag("layouts/application/footer-twitter-icon.png")%>
+          </a>
+        </div>
+        
+        <div class="clearfix"></div>
 			</div>
 		</div>
 		<!-- /footer -->

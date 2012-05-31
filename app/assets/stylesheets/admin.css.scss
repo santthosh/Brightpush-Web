@@ -66,3 +66,48 @@
 .content .home-subscribe-container .go-button:hover {
   background-image: image-url("content/go-button-bg-hover.png");
 }
+
+// Login page
+
+.devise.sessions .login-container {
+  width: 800px;
+  margin: 0px auto;
+  color: #666666;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #e4efc8;
+  padding:40px;
+  
+  @include rounded-corners();
+  @include box-shadow();
+}
+
+.devise.sessions .login-container .input-boxes {
+  text-align:center;
+}
+
+.devise.sessions .login-container .input-boxes input {
+  font-size:18px;
+  padding:10px;
+  width:350px;
+  margin-right:15px;
+  border:1px solid #ccc;
+  
+  @include rounded-corners(8px);
+}
+
+.devise.sessions .login-container .login-button {
+  margin-top:15px;
+  width:194px;
+  height:37px;
+  background-image: image-url("content/go-button-bg.png");
+  border:none;
+  font-size:17px;
+  color:#fff;
+  cursor:pointer;
+  text-align:center;
+}
+
+.devise.sessions .login-container .login-button:hover {
+  background-image: image-url("content/go-button-bg-hover.png");
+}

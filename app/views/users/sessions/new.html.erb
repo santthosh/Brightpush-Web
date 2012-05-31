@@ -1,13 +1,17 @@
-<div class="home_subscribe">
-  <h2>Login</h2>
+<div class="login-container">
+  <h1 class="text-align-center">Login</h1>
   
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <%= f.hidden_field :account_id, :value => current_account.id rescue nil%>
   
-    <%= f.text_field :email, :placeholder => "Email" %></p>
+    <div class="input-boxes">
+      <%= f.text_field :email, :placeholder => "Email" %></p>
+    
+      <%= f.password_field :password, :placeholder => "Password" %></p>
+    </div>
   
-    <%= f.password_field :password, :placeholder => "Password" %></p>
-  
-    <p><%= f.submit "Login" %></p>
+    <div class="text-align-center">
+      <%= f.submit "Login", :class => "login-button" %>
+    </div>
   <% end %>
 </div>  
