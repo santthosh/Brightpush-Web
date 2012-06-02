@@ -5,6 +5,13 @@
   border-radius: $radius;
 }
 
+@mixin rounded-corners-top($radius: 20px) {
+   -moz-border-radius: $radius $radius 0px 0px;
+  -webkit-border-radius: $radius $radius 0px 0px;
+  -khtml-border-radius: $radius $radius 0px 0px;
+  border-radius: $radius $radius 0px 0px;
+}
+
 @mixin box-shadow {
   -moz-box-shadow: 0px 0px 4px #999;
   -webkit-box-shadow: 0px 0px 4px #999;
@@ -128,4 +135,76 @@
 
 .devise.sessions .login-container .login-button:hover {
   background-image: image-url("shared/button-bg-hover.png");
+}
+
+// Apps Controller
+
+.apps .applications-container {
+  width:900px;
+  margin:0px auto;
+}
+
+.apps .applications-container .applications-tab {
+  float:right;
+  background-color:#395c22;
+  padding:8px 15px 16px 15px;
+  color:#fff;
+  font-size:14px;
+  
+  @include rounded-corners-top(10px);
+}
+
+.apps .applications-container .applications {
+  border:2px solid #859066;
+  background-color:#e7f1cc;
+  position:relative;
+  top:-11px;
+  
+  @include rounded-corners(10px);
+}
+
+.apps .applications-container .applications .application {
+  padding:20px;
+  border-bottom:1px solid #696d5c;
+}
+
+.apps .applications-container .applications .application:last-child {
+  border-bottom:none;
+}
+
+.apps .applications-container .applications .application .app-icon {
+  float:left;
+  width:72px;
+  height:72px;
+}
+
+.apps .applications-container .applications .application .content {
+  float:left;
+  margin-left:20px;
+  width:470px;
+}
+
+.apps .applications-container .applications .application .content .app-name {
+  font-size:23px;
+  margin:8px 0px;
+}
+
+.apps .applications-container .applications .application .actions {
+  float:left;
+  margin-left:20px;
+}
+
+.apps .applications-container .applications .application .actions .send-broadcast-button {
+  width:252px;
+  height:50px;
+  border:none;
+  background-color:transparent;
+  background-image:image-url("apps/send-broadcast-button.png");
+  cursor:pointer;
+  font-size:18px;
+  color:#99662f;
+}
+
+.apps .applications-container .applications .application .actions .send-broadcast-button:hover {
+  background-image:image-url("apps/send-broadcast-button-hover.png");
 }
