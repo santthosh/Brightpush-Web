@@ -1,0 +1,30 @@
+<div class="application">
+  <div class="app-icon">
+    <% if application.application_icon_file_name.present? %>
+      <%= image_tag(application.application_icon(:thumb)) %>
+    <% else %>
+      <%= image_tag("apps/app-icon-blank.png") %>
+    <% end %>
+  </div>
+  
+  <div class="content">
+    <div class="app-name">
+      <%= application.name %>
+    </div>
+    <h5>
+      <%= application.key %>
+    </h5>
+  </div>
+  
+  <div class="actions">
+    <div>
+      <%= button_to 'Send Broadcast', add_notification_path(application.id), :class => "send-broadcast-button" %>
+    </div>
+    <div class="pull-right">
+      <%= link_to 'History', notifications_path(application.id) %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  
+  <div class="clearfix"></div>
+</div>

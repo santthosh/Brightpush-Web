@@ -2,19 +2,11 @@
   <div class="applications-tab">
     Applications
   </div>
+  <div class="clearfix"></div>
   
   <div class="applications">
     <% applications.each do |application| %>
-      <tr>
-        <td width="10%"><%= image_tag (application.application_icon(:thumb)) if application.application_icon_file_name%></td>
-        <td width="60%" align="left" valign="top"><font size="5"><%= application.name %></font><br><%= application.key %></td>
-        <td width="20%" align="right" valign="top"><%= button_to 'Send Broadcast', add_notification_path(application.id), :style => "margin-top: 0px" %><br><%= link_to 'History', notifications_path(application.id) %></td>
-      </tr>
-      <tr>
-        <td colspan=3>
-          <hr>
-        </td>
-      </tr>  
+      <%= render "application", :application => application %>  
     <% end %>
   </div>
 </div>
