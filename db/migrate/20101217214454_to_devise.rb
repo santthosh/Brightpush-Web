@@ -73,7 +73,7 @@ class ToDevise < ActiveRecord::Migration
     remove_column :users, :confirmed_at, :timestamp
     remove_column :users, :confirmation_token, :string
 
-    rename_column :users, :encrypted_password, :crypted_password
+    #rename_column :users, :encrypted_password, :crypted_password
 
     drop_table :admins
   end

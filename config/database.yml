@@ -1,7 +1,7 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: newsstand_development
+  database: brightpush_development
   username: root
   password: root
 
@@ -11,13 +11,13 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: newsstand_test
+  database: brightpush_test
   username: root
   password: root
 
 production:
   adapter: mysql2
   encoding: utf8
-  database: newsstand_production
+  database: brightpush_production
   username: root
   password: root

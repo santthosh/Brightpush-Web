@@ -1,17 +1,24 @@
-<p>
-  Welcome to bright push!
-</p>
+<% content_for :head do %>
+  <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+<% end %>
+
+<% content_for :header_links do %>
+    <%= link_to('Login', '/users/sign_in') %>
+<% end %>
 
 <% unless current_user %>
-<p>
-  <%= link_to('Sign up', plans_path) %>
-</p>
-
-<p>
-  <%= link_to('Users Sign in', '/users/sign_in') %>
-</p>
-
-<p>
-  <%= link_to('Admin Sign in', '/saas_admin') %>
-</p>
+  <div class="home-subscribe-container">
+    <div class="message-text webfont-questrial">
+      Welcome to BrightPush! We are currently busy working on next generation content delivery engine for the web, and have some exciting things under out sleeve.<br><br>Now seriously, why not just signup below and we will let you now one we are up and running!
+    </div>
+    
+    <%= form_tag subscriber_save_path, :class => "form" do %>
+      <div class="input-boxes">
+        <%= text_field "name", "", :placeholder => "Name"%>
+        <%= text_field "email", "", :placeholder => "Email"%>
+      </div>
+      
+      <input type="submit" value="Go!" class="go-button"/>  
+    <% end %>
+  </div>
 <% end %>

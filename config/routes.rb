@@ -23,6 +23,7 @@ Subscriptions::Application.routes.draw do
     # Catch-all that just loads views from app/views/content/* ...
     # e.g, http://yoursite.com/content/about -> app/views/content/about.html.erb
     #
+    match '/subscriber_save' => 'content#subscriber_save', :as => 'subscriber_save'
     match '/content/:action' => 'content'
   end
 

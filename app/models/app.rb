@@ -5,7 +5,7 @@ class App < ActiveRecord::Base
   acts_as_paranoid
   attr_accessible :account_id, :name, :key, :application_icon, :application_icon_content_type, :development_push_certificate, :development_push_certificate_content_type, :crypted_development_push_certificate_password, :crypted_development_push_certificate_salt, :production_push_certificate, :production_push_certificate_content_type, :crypted_production_push_certificate_password, :crypted_production_push_certificate_salt, :application_type, :c2dm_token
 
-  has_attached_file( :application_icon, {:styles => { :thumb => "48x48>" }}.merge(PaperclipConfig.icon) )
+  has_attached_file( :application_icon, {:styles => { :thumb => "72x72>" }}.merge(PaperclipConfig.icon) )
   has_attached_file( :development_push_certificate, {}.merge(PaperclipConfig.development_certificate) )
   has_attached_file( :production_push_certificate, {}.merge(PaperclipConfig.production_certificate) )	  
   

@@ -19,9 +19,9 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(:id => params[:id])
     @application = App.find(params[:id])
     if @application.application_type == 'android'
-			@payload_value = 'android'  
+	  @payload_value = 'android'  
     else
-		 @payload_value = 'aps'
+	  @payload_value = 'aps'
     end
     respond_to do |format|
       format.html # new.html.erb
@@ -61,8 +61,8 @@ class NotificationsController < ApplicationController
 	  
 		  #save .pem file to s3 bucket
 		  file     = "#{latest_pem_timestamp}.pem"
-		  bucket_0 = {:name => 'brightpush_ios_certificates', :endpoint => 's3.amazonaws.com'}
-		  bucket_1 = {:name => 'brightpush_ios_certificates',   :endpoint => 's3.amazonaws.com'}
+		  bucket_0 = {:name => $certificate_pem, :endpoint => 's3.amazonaws.com'}
+		  bucket_1 = {:name => $certificate_pem,   :endpoint => 's3.amazonaws.com'}
 		  
 		  s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
 		  bucket_from       = s3_interface_from.buckets[bucket_0[:name]]
@@ -81,8 +81,8 @@ class NotificationsController < ApplicationController
 		  file_c2dm_token = "#{latest_c2dm_timestamp}.txt" if application.c2dm_token
 		  
 		  #save c2dm token .txt file to s3 bucket
-		  bucket_0 = {:name => 'brightpush_c2dm_token', :endpoint => 's3.amazonaws.com'}
-		  bucket_1 = {:name => 'brightpush_c2dm_token',   :endpoint => 's3.amazonaws.com'}
+		  bucket_0 = {:name => "#{$c2dm_token}", :endpoint => 's3.amazonaws.com'}
+		  bucket_1 = {:name => "#{$c2dm_token}",   :endpoint => 's3.amazonaws.com'}
 		  
 		  s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
 		  bucket_from       = s3_interface_from.buckets[bucket_0[:name]]
@@ -94,7 +94,7 @@ class NotificationsController < ApplicationController
 		end
 		
 		#Simple DB database entry
-		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :c2dm_token => file_c2dm_token).save!
+		p = Post.new(:message => params['notification']['payload'], :status => 'pending', :application_id => params['notification']['app_id'], :certificate => file, :bundle_id => application.key, :application_type => application.application_type, :environment => params['notification']['environment'], :c2dm_token => file_c2dm_token).save!
 			
 		#remove certificate file from root
 		if params['notification']['app_type'] == 'aps'
