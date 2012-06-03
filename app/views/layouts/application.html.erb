@@ -4,67 +4,70 @@
 		<title><%= @page_title ? "#{@page_title} | #{ Saas::Config.app_name }" : Saas::Config.app_name %></title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <%= csrf_meta_tag %>
-		<%= stylesheet_link_tag 'reset-fonts.css', 'gt-styles.css', 'admin.css' %>
+		<%= stylesheet_link_tag 'reset-fonts.css', 'gt-styles.css', 'application.css', 'admin.css' %>
     <%= javascript_include_tag 'application' %>
 		<%= yield :head %>
 	</head>
 	<body class="<%= controller.controller_path.gsub('/', ' ') %>">
-		<!-- head -->
-		<div class="gt-hd clearfix">
-			<!-- logo -->
-			<div class="gt-logo">
-				<%#= link_to image_tag "logo.png" %>
-			</div>
-			<!-- / logo -->
-              
-			<!-- navigation -->
-			<div class="gt-nav">
-				<ul>
-                <% if controller.controller_path.starts_with?('saas_admin') %>
-                  <li><%= link_to('Subscriptions', saas_admin_subscriptions_path) %></li>
-                  <li><%= link_to('Accounts', saas_admin_accounts_path) %></li>
-                  <li><%= link_to('Plans', saas_admin_subscription_plans_path) %></li>
-                  <li><%= link_to('Discounts', saas_admin_subscription_discounts_path) %></li>
-                  <li><%= link_to('Affiliates', saas_admin_subscription_affiliates_path) %></li>
-                  <li><%= link_to("Log out #{current_saas_admin.email}", destroy_saas_admin_session_path) %></li>
-                <% elsif current_user %>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/users">Users</a></li>
-                  <li><a href="/apps">Applications</a></li>
-                  <%= content_tag(:li, link_to("Account", account_url)) if admin? %>
-                  <li><%= link_to("Log out #{current_user.name}", destroy_user_session_path) %></li>
-          <% end %>
-				</ul>
-			</div>
-			<!-- / navigation -->
-			
+		<!-- header -->
+		<div class="header-container">
+		  <div class="header">
+		    <div class="left"></div>
+		    <div class="right"></div>
+		    <div class="banner">
+		      <!-- logo -->
+          <%
+            if current_user
+                path = apps_path
+            else
+                path = root_path
+            end   
+          %>
+          <div class="logo">
+            <%= link_to (image_tag "layouts/shared/logo.png"), path %> 
+          </div>
+          <!-- / logo -->
+		      
+		      <div class="top-links">
+		        <% if content_for?(:header_links) %>
+		          <%= yield :header_links %>
+		        <% else %>
+		          <% if current_user %>
+                <%= link_to("Log out #{current_user.name}", destroy_user_session_path) %>
+              <% end %>
+            <% end %>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="header-shadow"></div>
 		</div>
-		<!-- / head -->
 		
-		<!-- body -->
-		<div class="gt-bd gt-cols clearfix">
-			
-			<!-- main content -->
-			<div class="gt-content">
-				
-				<%= flash_notices %>
-				<%= yield %>
-				
-			</div>
-			<!-- / main content -->
-			
-			<!-- sidebar -->
-			<div class="gt-sidebar">
-				<%= yield :sidebar %>
-			</div>
-			<!-- / sidebar -->
-			
+		<div class="main-content-container">
+		  <div class="main-content">
+		    <%= flash_notices if !@do_not_display_flash_messages_in_layout %>
+        <%= yield %>
+		  </div>
+  		<div class="spacer-div"></div>
 		</div>
-		<!-- / body -->
 		
 		<!-- footer -->
-		<div class="gt-footer">
-			<p>Copyright &copy; 2012 brightapp.com - <a href="http://www.brightapp.com" target="_blank">brightapp.com</a></p>
+		<div class="footer-container">
+		  <div class="footer">
+		    <div class="text">
+          Copyright &copy; BrightPush.in 2012
+        </div>
+        
+        <div class="social-icons">
+          <a href="#">
+            <%= image_tag("layouts/application/footer-facebook-icon.png")%>
+          </a>
+          <a href="#">
+            <%= image_tag("layouts/application/footer-twitter-icon.png")%>
+          </a>
+        </div>
+        
+        <div class="clearfix"></div>
+			</div>
 		</div>
 		<!-- /footer -->
 	</body>

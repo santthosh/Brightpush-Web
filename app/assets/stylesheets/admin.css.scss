@@ -1,0 +1,210 @@
+@mixin rounded-corners($radius: 20px) {
+   -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin rounded-corners-top($radius: 20px) {
+   -moz-border-radius: $radius $radius 0px 0px;
+  -webkit-border-radius: $radius $radius 0px 0px;
+  -khtml-border-radius: $radius $radius 0px 0px;
+  border-radius: $radius $radius 0px 0px;
+}
+
+@mixin box-shadow {
+  -moz-box-shadow: 0px 0px 4px #999;
+  -webkit-box-shadow: 0px 0px 4px #999;
+  box-shadow: 0px 0px 4px #999;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#999999')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#999999');
+}
+
+@mixin box-shadow-inset1 {
+  -moz-box-shadow: 0px 0px 5px #aaa inset;
+  -webkit-box-shadow: 0px 0px 5px #aaa inset;
+  box-shadow: 0px 0px 5px #aaa inset;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa');
+}
+
+.webfont-questrial {
+  font-family: 'Questrial', sans-serif;
+}
+
+.content .home-subscribe-container {
+  width: 800px;
+  margin: 0px auto;
+  color: #666666;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #e4efc8;
+  padding:40px;
+  
+  @include rounded-corners();
+  @include box-shadow();
+}
+
+.content .home-subscribe-container .message-text {
+  font-size:22px;
+  line-height:28px;
+  color:#406c21;
+}
+
+.content .home-subscribe-container .form {
+  margin:30px 0px;
+}
+
+.content .home-subscribe-container .input-boxes input {
+  font-size:18px;
+  padding:10px;
+  width:350px;
+  margin-right:15px;
+  border:1px solid #ccc;
+  
+  @include rounded-corners(8px);
+}
+
+.content .home-subscribe-container .go-button {
+  margin-top:15px;
+  width:195px;
+  height:39px;
+  background-image: image-url("shared/button-bg.png");
+  border:0px;
+  font-size:17px;
+  color:#fff;
+  cursor:pointer;
+  background-color:transparent;
+}
+
+.content .home-subscribe-container .go-button:hover {
+  background-image: image-url("shared/button-bg-hover.png");
+}
+
+// Login page
+
+.devise.sessions .login-container {
+  width: 788px;
+  height:306px;
+  margin: 0px auto;
+  color: #666666;
+  font-size: 14px;
+  padding: 10px;
+  padding:40px;
+  background-image:image-url("sessions/login-bg.png");
+  background-repeat:none;
+}
+
+.devise.sessions .login-container .alert {
+  text-align:center;
+  color:red;
+  margin:24px 0px;
+}
+
+.devise.sessions .login-container .input-boxes {
+  text-align:center;
+}
+
+.devise.sessions .login-container .input-boxes input {
+  font-size:18px;
+  padding:10px;
+  width:350px;
+  margin-right:15px;
+  border:1px solid #ccc;
+  
+  @include rounded-corners(8px);
+  @include box-shadow-inset1();
+}
+
+.devise.sessions .login-container .login-button {
+  margin-top:15px;
+  width:195px;
+  height:39px;
+  background-image: image-url("shared/button-bg.png");
+  border:none;
+  font-size:17px;
+  color:#fff;
+  cursor:pointer;
+  text-align:center;
+  background-color:transparent;
+}
+
+.devise.sessions .login-container .login-button:hover {
+  background-image: image-url("shared/button-bg-hover.png");
+}
+
+// Apps Controller
+
+.apps .applications-container {
+  width:900px;
+  margin:0px auto;
+}
+
+.apps .applications-container .applications-tab {
+  float:right;
+  background-color:#395c22;
+  padding:8px 15px 16px 15px;
+  color:#fff;
+  font-size:14px;
+  
+  @include rounded-corners-top(10px);
+}
+
+.apps .applications-container .applications {
+  border:2px solid #859066;
+  background-color:#e7f1cc;
+  position:relative;
+  top:-11px;
+  
+  @include rounded-corners(10px);
+}
+
+.apps .applications-container .applications .application {
+  padding:20px;
+  border-bottom:1px solid #696d5c;
+}
+
+.apps .applications-container .applications .application:last-child {
+  border-bottom:none;
+}
+
+.apps .applications-container .applications .application .app-icon {
+  float:left;
+  width:72px;
+  height:72px;
+}
+
+.apps .applications-container .applications .application .content {
+  float:left;
+  margin-left:20px;
+  width:470px;
+}
+
+.apps .applications-container .applications .application .content .app-name {
+  font-size:23px;
+  margin:8px 0px;
+}
+
+.apps .applications-container .applications .application .actions {
+  float:left;
+  margin-left:20px;
+}
+
+.apps .applications-container .applications .application .actions .send-broadcast-button {
+  width:252px;
+  height:50px;
+  border:none;
+  background-color:transparent;
+  background-image:image-url("apps/send-broadcast-button.png");
+  cursor:pointer;
+  font-size:18px;
+  color:#99662f;
+}
+
+.apps .applications-container .applications .application .actions .send-broadcast-button:hover {
+  background-image:image-url("apps/send-broadcast-button-hover.png");
+}

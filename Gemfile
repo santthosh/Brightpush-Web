@@ -13,10 +13,14 @@ gem 'aws-s3', '0.6.2'
 gem 'aws-sdk'
 gem 'aws-sdb'
 gem 'gibberish', '1.2.0'
+gem 'hominid', '3.0.4'
+gem 'sass-rails'
+gem 'devise', '2.0'
 
 group :test, :development do
   gem "mocha"
   gem "rspec-rails", "~>2"
+  gem "simplecov"
   gem "webrat"
   gem "factory_girl_rails"
   gem "faker"

@@ -1,66 +1,76 @@
 <h1><%= @page_title = 'Notifications' %></h1>
-<table id="notifications" cellpadding=10 cellspacing=10>
+<table id="notifications" cellpadding=10 cellspacing=10 width=75%>
   <tr>
-    <%= link_to('Add a new Notification', add_notification_path(params[:id])) %>
+    <td width="10%"><%= image_tag (@application.application_icon(:thumb)) if @application.application_icon_file_name%></td>
+    <td width="60%" align="left" valign="top"><font size="5"><%= @application.name %></font><br><%= @application.key %></td>
+    <td width="20%" align="right" valign="top"><font size="4">Broadcasts</font><br><br><%= link_to('Add New', add_notification_path(params[:id])) %></td>
   </tr>
 <% if @notifications.blank? %>
   <tr>
-    <td>No Record Found</td>
+    <td colspan=3>No Record Found</td>
   </tr>
 <% else %>
   <tr>
-    <% if @application.application_type == 'ios'%>
-      <td>Badge</td>
-    <% end %>
-    <td>Alert</td>
-    <% if @application.application_type == 'ios'%>
-      <td>Sound</td>
-    <% end %>
-    <% if @application.application_type == 'android'%>
-      <td>Extra Key</td>
-      <td>Extra Value</td>
-    <% end %>  
-    <td>Status</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <% @notifications.each do |notification| %>
-    <tr>
-      <% if @application.application_type == 'ios'%>
-        <td><%= notification.badge %></td>
-      <% end %>  
-      <td><%= notification.alert %></td>
-      <% if @application.application_type == 'ios'%>
-        <td><%= notification.sound %></td>
-      <% end %>
-      <% if @application.application_type == 'android'%>
-        <td><%= notification.extra_key %></td>
-        <td><%= notification.extra_value %></td>
-      <% end %>
-      <td>
-        <%=
-          if notification.status_is_preparing?
-            "Preparing"
-          elsif notification.status_is_scheduling?
-            "Scheduling"
-          elsif notification.status_is_dispatching?
-            "Dispatching"
-          elsif notification.status_is_done?
-            "Done"
-          end 
-        %>
-      </td>
-      <td><%= link_to 'Show', show_notification_path(notification,:app_id => params[:id]) %></td>
-      <td><%#= link_to 'Edit', edit_notification_path(notification,:app_id => params[:id]) %></td>
-      <td><%#= link_to 'Destroy', notification, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
+    <td colspan=3>
+      <table width=100% cellpadding=5>     
+        <tr>
+          <% if @application.application_type == 'ios'%>
+            <td class="vgg" width="15%">&nbsp;<b>Badge</b></td>
+          <% end %>
+          <td class="vgg" width="20%">&nbsp;<b>Alert</b></td>
+          <% if @application.application_type == 'ios'%>
+            <td class="vgg" width="20%">&nbsp;<b>Sound</b></td>
+          <% end %>
+          <% if @application.application_type == 'android'%>
+            <td class="vgg" width="20%">&nbsp;<b>Extra Key</b></td>
+            <td class="vgg" width="20%">&nbsp;<b>Extra Value</b></td>
+          <% end %>
+          <td class="vgg" width="25%">&nbsp;<b>Date</b></td>
+          <td class="vgg" width="20%">&nbsp;<b>Status</b></td>
+        </tr>
+        <% i=0 %>
+        <% @notifications.each do |notification| %>
+          <%
+            if i%2 == 0
+              bg = '#EEEEEE'
+            else
+              bg = '#FFFFFF'
+            end
+            i +=1 
+          %>
+          <tr bgcolor=<%=bg%>>
+            <% if @application.application_type == 'ios'%>
+              <td>&nbsp;<%= notification.badge %></td>
+            <% end %>  
+            <td height="30px">&nbsp;<%= notification.alert %></td>
+            <% if @application.application_type == 'ios'%>
+              <td>&nbsp;<%= notification.sound %></td>
+            <% end %>
+            <% if @application.application_type == 'android'%>
+              <td>&nbsp;<%= notification.extra_key %></td>
+              <td>&nbsp;<%= notification.extra_value %></td>
+            <% end %>
+            <td>&nbsp;<%= notification.created_at.strftime("%d %b %Y %H:%M %p")
+ %></td>
+            <td>&nbsp;
+              <%=
+                if notification.status_is_preparing?
+                  "Processing"
+                elsif notification.status_is_scheduling?
+                  "Scheduling"
+                elsif notification.status_is_dispatching?
+                  "Dispatching"
+                elsif notification.status_is_done?
+                  "Done"
+                end 
+              %>
+            </td>
+          </tr>
+        <% end %>
+      </table>  
   <tr>
+    <td colspan=2>&nbsp;</td>
     <td><%= will_paginate(@notifications) %></td>  
   <tr>  
 <% end %>
-  <tr>
-    <td><%= link_to 'Back to Applications', apps_url %></td>
-  </tr>
 </table>
