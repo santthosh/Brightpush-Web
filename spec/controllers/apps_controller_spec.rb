@@ -175,8 +175,8 @@ describe AppsController do
     describe "success" do
         before(:each) do
              sign_in @admin
-             @attr = {:name => "application_elven",
-				  :key => "key_elven",
+             @attr = {:name => "application_first",
+				  :key => "key_first",
             	  :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'),
 	              :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
           	      :crypted_development_push_certificate_password => "tamil4g@123",
@@ -184,12 +184,12 @@ describe AppsController do
           	      :crypted_production_push_certificate_password => "tamil4g@123"}
         end
 
-#        it "should change the app's attributes" do
-#		  put :update, :id => @app, :app => @attr
-#		  @app.reload
-#		  @app.name.should == @attr[:name]
-#		  @app.key.should == @attr[:key]
-#        end
+        it "should change the app's attributes" do
+		  put :update, :id => @app, :app => @attr
+		  @app.reload
+		  @app.name.should == @attr[:name]
+		  @app.key.should == @attr[:key]
+        end
         #yers
         end
     end
