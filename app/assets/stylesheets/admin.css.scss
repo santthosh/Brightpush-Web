@@ -297,6 +297,7 @@
   border:2px solid #8b9d5f;
   background-color:#d7e9ad;
   padding:20px;
+  min-height:200px;
   
   @include rounded-corners(10px);
 }
@@ -347,4 +348,28 @@
   
   @include linear-gradient-top-down(#eeeeee, #fafafa);
   @include box-shadow();
+}
+
+.notifications .notifications-history-container {
+  width:900px;
+  margin:0px auto;
+}
+
+.notifications .notifications-history-container table {
+  width:100%;
+}
+
+.notifications .notifications-history-container table thead th {
+  background-color:#4b6d30;
+  padding:5px;
+  color:#fff;
+  font-size:14px;
+  text-align:center;
+}
+
+.notifications .notifications-history-container table tr td {
+  padding:5px;
+  color:#565b47;
+  font-size:14px;
+  text-align:center;
 }

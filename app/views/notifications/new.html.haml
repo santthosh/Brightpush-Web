@@ -1,3 +1,5 @@
+- @page_title = "New Notification"
+
 .new-notification-container
   = render "header_application", :application => @application
   
@@ -5,9 +7,9 @@
     .side-bar
       %ul
         %li.active
-          = link_to "New", new_notification_path(@application)
+          = link_to "New", add_notification_path(@application.id)
         %li
-          = link_to "History", notifications_path(@application)
+          = link_to "History", notifications_path(@application.id)
     .middle-container
       - if flash[:err]
         .errorExplanation
