@@ -1,0 +1,17 @@
+.header-application-container
+  .app-icon
+    - if application.application_icon_file_name.present?
+      = image_tag(application.application_icon(:thumb))
+    - else
+      = image_tag("apps/app-icon-blank.png")
+  
+  .content
+    .app-name
+      = application.name
+    %h5
+      = application.key
+      
+  .title
+    Broadcast
+    
+  .clearfix

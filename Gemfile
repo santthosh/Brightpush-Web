@@ -16,6 +16,7 @@ gem 'gibberish', '1.2.0'
 gem 'hominid', '3.0.4'
 gem 'sass-rails'
 gem 'devise', '2.0'
+gem 'haml'
 
 group :test, :development do
   gem "mocha"
