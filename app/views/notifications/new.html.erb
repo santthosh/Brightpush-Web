@@ -85,7 +85,7 @@
                 <input type="submit" value="Send Broadcast" />
               </td>
             </tr>
-            <%= notification.hidden_field :app_id, :value => params[:id] %>
+            <%= notification.hidden_field :app_id, :value => @application.id %>
             <%= notification.hidden_field :app_type, :id => "app_type", :value => @payload_value %>
           </table>
         <% end %>
