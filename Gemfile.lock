@@ -78,6 +78,7 @@ GEM
     faker (1.0.1)
       i18n (~> 0.4)
     gibberish (1.2.0)
+    haml (3.1.5)
     has_scope (0.5.1)
     hike (1.2.1)
     hominid (3.0.4)
@@ -199,6 +200,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   gibberish (= 1.2.0)
+  haml
   hominid (= 3.0.4)
   jquery-rails
   mocha
