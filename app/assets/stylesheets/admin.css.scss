@@ -12,6 +12,13 @@
   border-radius: $radius $radius 0px 0px;
 }
 
+@mixin rounded-corners-left($radius: 20px) {
+   -moz-border-radius: $radius 0px  0px $radius;
+  -webkit-border-radius: $radius 0px  0px $radius;
+  -khtml-border-radius: $radius 0px  0px $radius;
+  border-radius: $radius 0px  0px $radius;
+}
+
 @mixin box-shadow {
   -moz-box-shadow: 0px 0px 4px #999;
   -webkit-box-shadow: 0px 0px 4px #999;
@@ -30,6 +37,14 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa')";
   /* For IE 5.5 - 7 */
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=360, Color='#aaaaaa');
+}
+
+@mixin linear-gradient-top-down($color1:#cccccc, $color2:#ffffff) {
+  background: $color1; /* for non-css3 browsers */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$color1', endColorstr='$color2'); /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from($color1), to($color2)); /* for webkit browsers */
+  background: -moz-linear-gradient(top,  $color1,  $color2); /* for firefox 3.6+ */ 
 }
 
 .webfont-questrial {
@@ -207,4 +222,129 @@
 
 .apps .applications-container .applications .application .actions .send-broadcast-button:hover {
   background-image:image-url("apps/send-broadcast-button-hover.png");
+}
+
+// Notifications controller
+
+.notifications .new-notification-container {
+  width:900px;
+  margin:0px auto;
+}
+
+.notifications .header-application-container .app-icon {
+  float:left;
+  width:72px;
+  height:72px;
+}
+
+.notifications .header-application-container .content {
+  float:left;
+  margin-left:20px;
+  width:470px;
+}
+
+.notifications .header-application-container .content .app-name {
+  font-size:23px;
+  margin:8px 0px;
+}
+
+.notifications .header-application-container .title {
+  font-size:23px;
+  color:#000;
+  float:right;
+  margin-top:20px;
+}
+
+.notifications .content-container {
+  margin-top:30px;
+  position:relative;
+}
+
+.notifications .content-container .side-bar {
+  width:110px;
+  float:left;
+}
+
+.notifications .content-container .side-bar ul {
+  margin:0px;
+  margin-top:35px;
+}
+
+.notifications .content-container .side-bar li {
+  list-style:none;
+  padding:10px 20px;
+  background-color:#6f913a;
+  margin-left:0px;
+  margin-bottom:8px;
+  
+  @include rounded-corners-left(15px);
+}
+
+.notifications .content-container .side-bar li.active {
+  background-color:#395c22;
+}
+  
+.notifications .content-container .side-bar li a {
+  color:#fff;
+  font-size:18px;
+  line-height:22px;
+  text-decoration:none;
+}
+
+.notifications .content-container .middle-container {
+  width:740px;
+  float:left;
+  border:2px solid #8b9d5f;
+  background-color:#d7e9ad;
+  padding:20px;
+  
+  @include rounded-corners(10px);
+}
+
+.notifications .new-notification-container .first-column {
+  width:150px;
+  text-align:right;
+  float:left;
+  clear:both;
+  margin:5px 20px;
+  line-height:22px;
+}
+
+.notifications .new-notification-container .second-column {
+  float:left;
+  margin:5px 0px;
+}
+
+.notifications .new-notification-container .second-column input[type=submit] {
+  background-color:#fecf65;
+  padding:3px 10px;
+  border:1px solid #c89031;
+  cursor:pointer;
+  
+  @include box-shadow();
+}
+
+.notifications .new-notification-container .errorExplanation {
+  background-color: #EEEEEE;
+  border: 1px solid #CCCCCC;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 500px;
+}
+
+.notifications .new-notification-container .errorExplanation h2 {
+  font-size:18px;
+}
+
+.notifications .new-notification-container .sticky-note {
+  position:absolute;
+  width:150px;
+  height:100px;
+  margin:15px 20px;
+  right:15px;
+  top:20px;
+  padding:10px;
+  
+  @include linear-gradient-top-down(#eeeeee, #fafafa);
+  @include box-shadow();
 }

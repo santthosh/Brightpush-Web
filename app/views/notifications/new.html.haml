@@ -1,0 +1,63 @@
+.new-notification-container
+  = render "header_application", :application => @application
+  
+  .content-container
+    .side-bar
+      %ul
+        %li.active
+          = link_to "New", new_notification_path(@application)
+        %li
+          = link_to "History", notifications_path(@application)
+    .middle-container
+      - if flash[:err]
+        .errorExplanation
+          %h2 Errors encountered with your notification information:
+          %ul
+            - flash[:err].each do |m|
+              %li
+                = m[0]
+                = m[1].slice!(0)
+      = form_for(@notification, :url => { :action => 'create' }) do |notification|
+        .first-column
+          %b Environment
+        .second-column
+          = notification.radio_button :environment, "production", :checked => true
+          Production
+          = notification.radio_button :environment, "sandbox"
+          Sandbox
+        - if @application.application_type == 'ios'    
+          .first-column
+            %b Badge
+          .second-column
+            = notification.text_field :badge, :id => "id_badge", :maxlength => 3
+        .first-column
+          %b Alert
+        .second-column
+          = notification.text_field :alert, :id => "id_alert"
+        - if @application.application_type == 'ios'
+          .first-column
+            %b Sound
+          .second-column
+            = notification.text_field :sound, :id => "id_sound"
+        - else
+          .first-column
+            %b Extra Key
+          .second-column
+            = notification.text_field :extra_key, :id => "id_extra_key"
+        .first-column 
+          %b Extra Value
+        .second-column
+          = notification.text_field :extra_value, :id => "id_extra_value"
+        .first-column
+          %b Payload
+        .second-column
+          = notification.text_area :payload, :id => "id_payload", :value => '{"aps": {}}', :rows => "5"
+        .first-column
+          &nbsp;
+        .second-column
+          %input{:type=>"submit", :value=>"Send Broadcast"}
+        = notification.hidden_field :app_id, :value => params[:id]
+        = notification.hidden_field :app_type, :id => "app_type", :value => @payload_value
+    .sticky-note
+      This will send a message to every active installation of your application!
+    .clearfix
