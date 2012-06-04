@@ -1,0 +1,66 @@
+- @page_title = 'Notifications'
+
+.notifications-history-container
+  = render "header_application", :application => @application
+
+  .content-container
+    .side-bar
+      %ul
+        %li
+          = link_to "New", add_notification_path(@application.id)
+        %li.active
+          = link_to "History", notifications_path(@application.id)
+    .middle-container
+      %table#notifications
+        - if @notifications.blank?
+          %tr
+            %td{:style => "text-align:center;"}
+              %p &nbsp;
+              No Records Found
+              %p &nbsp;
+              %p &nbsp;
+              %p &nbsp;
+        - else
+          %thead
+            - if @application.application_type == 'ios'
+              %th Badge
+            %th Alert
+            - if @application.application_type == 'ios'
+              %th Sound
+            - if @application.application_type == 'android'
+              %th Extra Key
+              %th Extra Value
+            %th Date
+            %th Status
+
+          - i = 0
+          - @notifications.each do |notification|
+            - if i%2 == 0
+              - bg = '#d5e7ab'
+            - else
+              - bg = '#bdda7d'
+            - i +=1 
+
+            %tr{:bgcolor => bg }
+              - if @application.application_type == 'ios'
+                %td= notification.badge
+              %td= notification.alert
+              - if @application.application_type == 'ios'
+                %td= notification.sound
+              - if @application.application_type == 'android'
+                %td= notification.extra_key
+                %td= notification.extra_value
+              %td= notification.created_at.strftime("%d %b %Y %H:%M %p")
+              - status = ""
+              - if notification.status_is_preparing?
+                - status = "Processing"
+              - elsif notification.status_is_scheduling?
+                - status = "Scheduling"
+              - elsif notification.status_is_dispatching?
+                - status = "Dispatching"
+              - elsif notification.status_is_done?
+                - status = "Done"
+              %td= status
+          %tr
+            %td= will_paginate(@notifications)  
+    .clearfix
