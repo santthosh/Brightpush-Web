@@ -7,12 +7,16 @@ set :stages, ["development","staging", "production"]
 set :default_stage, "development"
 set :bundle_without, [:darwin, :development, :test]
 
+set :rvm_type, :user
+set :rvm_ruby_string, 'ruby-1.9.2-p318@brightpush'
+
 set :scm, :git
 set :scm_passphrase, ""
 set :application, "brightpush-web"
 set :deploy_to, "/var/www/brightpush-web"
 set :repository,  "git@bright.unfuddle.com:bright/brightpush-web.git"
 set :user, "ubuntu"
+set :rails_env, "development"
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -29,6 +33,8 @@ set :user, "ubuntu"
    end
  end
  
+ before 'deploy', 'rvm:install_ruby'
+ 
  after 'deploy:update_code', 'deploy:symlink_db'
  namespace :deploy do
   desc "Symlinks the database.yml"
@@ -36,7 +42,6 @@ set :user, "ubuntu"
     # run "cp #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
     puts "\n\n=== Creating Production Log! ===\n\n"
     run "touch #{File.join(shared_path, 'log', 'development.log')}"
-    run "cd #{release_path} && echo \"gem 'devise-encryptable'\" >> Gemfile"
     run "cd #{release_path} && bundle update"
     run "cd #{release_path} && bundle install"
     run "cd #{release_path} && rake db:create:all"
