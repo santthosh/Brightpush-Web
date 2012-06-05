@@ -2,6 +2,7 @@ require 'capistrano/ext/multistage'
 require "rvm/capistrano"
 require "bundler/capistrano"
 
+set :bundle_without, [:darwin, :development, :test]
 set :normalize_asset_timestamps, false
 set :stages, ["development","staging", "production"]
 set :default_stage, "development"
@@ -12,11 +13,6 @@ set :application, "brightpush-web"
 set :deploy_to, "/var/www/brightpush-web"
 set :repository,  "git@bright.unfuddle.com:bright/brightpush-web.git"
 set :user, "ubuntu"
-
-role :web, "brightpushalpha.in"                          # Your HTTP server, Apache/etc
-role :app, "brightpushalpha.in"                          # This may be the same as your `Web` server
-role :db,  "brightpushalpha.in", :primary => true        # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"

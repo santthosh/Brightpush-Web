@@ -25,6 +25,10 @@ group :development do
 end
 
 group :test, :development do
+  group :darwin do
+  	gem 'rb-fsevent', :require => false
+  	gem 'guard-pow', :require => false
+  end
   gem "mocha"
   gem "rspec-rails", "~>2"
   gem "simplecov"
