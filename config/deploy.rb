@@ -42,9 +42,8 @@ set :rails_env, "development"
     # run "cp #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
     puts "\n\n=== Creating Production Log! ===\n\n"
     run "touch #{File.join(shared_path, 'log', 'development.log')}"
-    run "cd #{release_path} && bundle update"
     run "cd #{release_path} && bundle install"
-    run "cd #{release_path} && rake db:create:all"
-    run "cd #{release_path} && rake db:migrate"
+    run "cd #{release_path} && rake db:create --trace"
+    run "cd #{release_path} && rake db:migrate --trace"
   end
  end
