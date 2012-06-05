@@ -2,10 +2,10 @@ require 'capistrano/ext/multistage'
 require "rvm/capistrano"
 require "bundler/capistrano"
 
-set :bundle_without, [:darwin, :development, :test]
 set :normalize_asset_timestamps, false
 set :stages, ["development","staging", "production"]
 set :default_stage, "development"
+set :bundle_without, [:darwin, :development, :test]
 
 set :scm, :git
 set :scm_passphrase, ""
