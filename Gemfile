@@ -18,6 +18,11 @@ gem 'sass-rails'
 gem 'devise', '2.0'
 gem 'haml'
 
+group :development do
+  gem 'capistrano', '2.8.0'
+  gem 'capistrano-ext', '1.2.1'
+end
+
 group :test, :development do
   gem "mocha"
   gem "rspec-rails", "~>2"
