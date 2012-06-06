@@ -16,7 +16,7 @@ set :application, "brightpush-web"
 set :deploy_to, "/var/www/brightpush-web"
 set :repository,  "git@bright.unfuddle.com:bright/brightpush-web.git"
 set :user, "ubuntu"
-set :rails_env, "development"
+set :rails_env,"development"
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
