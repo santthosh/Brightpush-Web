@@ -5,6 +5,9 @@ class ContentController < ApplicationController
   skip_before_filter :authenticate_user!
   
   def index
+    if current_user
+      redirect_to apps_url
+    end
   end
   
   def subscriber_save
