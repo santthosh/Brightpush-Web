@@ -58,7 +58,7 @@
           &nbsp;
         .second-column
           %input{:type=>"submit", :value=>"Send Broadcast"}
-        = notification.hidden_field :app_id, :value => params[:id]
+        = notification.hidden_field :app_id, :value => @application.id
         = notification.hidden_field :app_type, :id => "app_type", :value => @payload_value
     .sticky-note
       This will send a message to every active installation of your application!
