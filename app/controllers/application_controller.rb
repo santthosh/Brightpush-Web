@@ -56,34 +56,11 @@ class ApplicationController < ActionController::Base
     end
     
     def initialize_bucket_name
-      if request.host == 'brightpush.in'
-        $domain_name = "brightpush_application_icons"
-        $application_icons = "brightpush_application_icons"
-        $development_certificate_pkcs12 = "brightpush_development_ios_certificate_pkcs12"
-        $production_certificate_pkcs12 = "brightpush_production_ios_certificate_pkcs12"
-        $certificate_pem = "brightpush_ios_certificates_pem"
-        $c2dm_token = "brightpush_c2dm_token_txt"
-      elsif request.host == 'brightpushalpha.in'
-        $domain_name = "in.brighpushalpha.notifications"
-        $application_icons = "alpha_brightpush_application_icons"
-        $development_certificate_pkcs12 = "alpha_brightpush_development_ios_certificate_pkcs12"
-        $production_certificate_pkcs12 = "alpha_brightpush_production_ios_certificate_pkcs12"
-        $certificate_pem = "alpha_brightpush_ios_certificates_pem"
-        $c2dm_token = "alpha_brightpush_c2dm_token_txt"
-      elsif request.host == 'brightpushbeta.in'
-        $domain_name = "in.brighpushbeta.notifications"
-        $application_icons = "beta_brightpush_application_icons"
-        $development_certificate_pkcs12 = "beta_brightpush_development_ios_certificate_pkcs12"
-        $production_certificate_pkcs12 = "beta_brightpush_production_ios_certificate_pkcs12"
-        $certificate_pem = "beta_brightpush_ios_certificates_pem"
-        $c2dm_token = "beta_brightpush_c2dm_token_txt"
-      else
-        $domain_name = "in.localhost.notifications"
-        $application_icons = "local_brightpush_application_icons"
-        $development_certificate_pkcs12 = "local_brightpush_development_ios_certificate_pkcs12"
-        $production_certificate_pkcs12 = "local_brightpush_production_ios_certificate_pkcs12"
-        $certificate_pem = "local_brightpush_ios_certificates_pem"
-        $c2dm_token = "local_brightpush_c2dm_token_txt"
-      end  
+      $domain_name = Rails.application.config.notifications_domain_name
+      $application_icons = Rails.application.config.application_icons_s3_bucket
+      $development_certificate_pkcs12 = Rails.application.config.sandbox_certificate_pkcs12_s3_bucket
+      $production_certificate_pkcs12 = Rails.application.config.production_certificate_pkcs12_s3_bucket
+      $certificate_pem = Rails.application.config.certificate_pem_s3_bucket
+      $c2dm_token = Rails.application.config.c2dm_token_s3_bucket
 	end
 end
