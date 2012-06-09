@@ -1,12 +1,3 @@
-Rails.Application.configure do
-  config.notifications_domain_name = "in.brighpushalpha.notifications"
-  config.application_icons_s3_bucket = "alpha_brightpush_application_icons"
-  config.sandbox_certificate_pkcs12_s3_bucket = "alpha_brightpush_development_ios_certificate_pkcs12"
-  config.production_certificate_pkcs12_s3_bucket = "alpha_brightpush_production_ios_certificate_pkcs12"
-  config.certificate_pem_s3_bucket = "alpha_brightpush_ios_certificates_pem"
-  config.c2dm_token_s3_bucket = "alpha_brightpush_c2dm_token_txt"
-end
-
 Subscriptions::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -32,5 +23,12 @@ Subscriptions::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Paperclip.options[:command_path] = "/usr/bin/convert"
+  
+  config.notifications_domain_name = "in.brighpushalpha.notifications"
+  config.application_icons_s3_bucket = "alpha_brightpush_application_icons"
+  config.sandbox_certificate_pkcs12_s3_bucket = "alpha_brightpush_development_ios_certificate_pkcs12"
+  config.production_certificate_pkcs12_s3_bucket = "alpha_brightpush_production_ios_certificate_pkcs12"
+  config.certificate_pem_s3_bucket = "alpha_brightpush_ios_certificates_pem"
+  config.c2dm_token_s3_bucket = "alpha_brightpush_c2dm_token_txt"
 end
 
