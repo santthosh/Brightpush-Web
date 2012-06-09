@@ -6,6 +6,15 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+Rails.Application.configure do
+  config.notifications_domain_name = "in.localhost.notifications"
+  config.application_icons_s3_bucket = "local_brightpush_application_icons"
+  config.sandbox_certificate_pkcs12_s3_bucket = "local_brightpush_development_ios_certificate_pkcs12"
+  config.production_certificate_pkcs12_s3_bucket = "local_brightpush_production_ios_certificate_pkcs12"
+  config.certificate_pem_s3_bucket = "local_brightpush_ios_certificates_pem"
+  config.c2dm_token_s3_bucket = "local_brightpush_c2dm_token_txt"
+end
+
 module Subscriptions
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
