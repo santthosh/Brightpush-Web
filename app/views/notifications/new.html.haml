@@ -24,9 +24,9 @@
           %b Environment
         .second-column
           = notification.radio_button :environment, "production", :checked => true
-          Production
+          = notification.label :environment_production, "Production"
           = notification.radio_button :environment, "sandbox"
-          Sandbox
+          = notification.label :environment_sandbox, "Sandbox"
         - if @application.application_type == 'ios'    
           .first-column
             %b Badge

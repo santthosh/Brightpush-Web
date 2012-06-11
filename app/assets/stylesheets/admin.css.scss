@@ -47,6 +47,16 @@
   background: -moz-linear-gradient(top,  $color1,  $color2); /* for firefox 3.6+ */ 
 }
 
+@mixin text-boxes {
+  font-size:18px;
+  padding:10px;
+  margin-right:15px;
+  border:1px solid #ccc;
+  
+  @include rounded-corners(8px);
+  @include box-shadow-inset1();
+}
+
 .webfont-questrial {
   font-family: 'Questrial', sans-serif;
 }
@@ -308,12 +318,23 @@
   float:left;
   clear:both;
   margin:5px 20px;
-  line-height:22px;
+  line-height:50px;
 }
 
 .notifications .new-notification-container .second-column {
   float:left;
   margin:5px 0px;
+  line-height:50px;
+}
+
+.notifications .new-notification-container .second-column input[type=text] {
+  @include text-boxes();
+  width:320px;
+}
+
+.notifications .new-notification-container .second-column textarea {
+  @include text-boxes();
+  width:320px;
 }
 
 .notifications .new-notification-container .second-column input[type=submit] {
