@@ -24,7 +24,7 @@ Subscriptions::Application.configure do
 
   # Paperclip.options[:command_path] = "/usr/bin/convert"
   
-  config.notifications_domain_name = "in.brighpushalpha.notifications"
+  config.notifications_domain_name = "in.brightpushalpha.notifications"
   config.application_icons_s3_bucket = "alpha_brightpush_application_icons"
   config.sandbox_certificate_pkcs12_s3_bucket = "alpha_brightpush_development_ios_certificate_pkcs12"
   config.production_certificate_pkcs12_s3_bucket = "alpha_brightpush_production_ios_certificate_pkcs12"

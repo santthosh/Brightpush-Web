@@ -33,7 +33,7 @@ Subscriptions::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   
-  config.notifications_domain_name = "in.brighpushbeta.notifications"
+  config.notifications_domain_name = "in.brightpushbeta.notifications"
   config.application_icons_s3_bucket = "beta_brightpush_application_icons"
   config.sandbox_certificate_pkcs12_s3_bucket = "beta_brightpush_development_ios_certificate_pkcs12"
   config.production_certificate_pkcs12_s3_bucket = "beta_brightpush_production_ios_certificate_pkcs12"
