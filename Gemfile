@@ -17,9 +17,10 @@ gem 'hominid', '3.0.4'
 gem 'sass-rails'
 gem 'devise', '2.0'
 gem 'rmagick'
+gem 'haml'
+gem 'haml-rails'
 
 group :development do
-  gem 'haml'
   gem 'capistrano', '2.8.0'
   gem 'capistrano-ext', '1.2.1'
   gem 'rvm-capistrano'

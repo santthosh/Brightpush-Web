@@ -1,3 +1,5 @@
+
+
 Subscriptions::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -52,6 +54,13 @@ Subscriptions::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { :host => "newsstand.io" }
+  config.action_mailer.default_url_options = { :host => "brightpush.in" }
+  
+  config.notifications_domain_name = "in.brightpush.notifications"
+  config.application_icons_s3_bucket = "brightpush_application_icons"
+  config.sandbox_certificate_pkcs12_s3_bucket = "brightpush_development_ios_certificate_pkcs12"
+  config.production_certificate_pkcs12_s3_bucket = "brightpush_production_ios_certificate_pkcs12"
+  config.certificate_pem_s3_bucket = "brightpush_ios_certificates_pem"
+  config.c2dm_token_s3_bucket = "brightpush_c2dm_token_txt"
 
 end

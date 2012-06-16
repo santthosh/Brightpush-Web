@@ -284,12 +284,6 @@ a:hover {
 /* End hide from IE-mac */
 /* @end */
 
-form label {
-	display: block;
-	font-weight: bold;
-	margin: .5em 0 .2em;
-}
-
 #submit_or_cancel {
 	margin-top: 1em;
 }
