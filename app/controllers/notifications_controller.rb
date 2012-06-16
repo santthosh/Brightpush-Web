@@ -49,7 +49,7 @@ class NotificationsController < ApplicationController
 		  system("wget -O #{latest_pem_timestamp}.p12 #{@application.development_push_certificate}")
 		  
 		  #convert .p12 file to .pem file
-		  system("openssl pkcs12 -clcerts -nokeys -in '#{latest_pem_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_pem_timestamp}.pem'")
+		  system("openssl pkcs12 -in '#{latest_pem_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_pem_timestamp}.pem' -nodes -clcerts")
 
 		  # Save application .pem file to s3 bucket foreach notification
 		  AWS.config(
