@@ -13,9 +13,7 @@ class Notification < ActiveRecord::Base
   
   has_attached_file( :certificate, {:storage => :s3}.merge(PaperclipConfig.certificate))
   
-  validates_presence_of :badge, :if => :ios_application?
   validates_presence_of :alert
-  validate :is_badge, :if => :ios_application?
   
   def is_badge
     if self.badge == 0
