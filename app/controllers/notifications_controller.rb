@@ -65,7 +65,7 @@ class NotificationsController < ApplicationController
 		  
 		  s3_interface_from = AWS::S3.new(:s3_endpoint => bucket_0[:endpoint])
 		  bucket_from       = s3_interface_from.buckets[bucket_0[:name]]
-		  bucket_from.objects[file].write(open(file))
+		  bucket_from.objects[file].write(open(file), :acl => :bucket_owner_full_control, :content_type => "application/octet-stream")
 		  
 		  s3_interface_to   = AWS::S3.new(:s3_endpoint => bucket_1[:endpoint])
 		  bucket_to         = s3_interface_to.buckets[bucket_1[:name]]
