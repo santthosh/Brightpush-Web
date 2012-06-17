@@ -33,10 +33,15 @@ Subscriptions::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   
+  # Initialise domain name and bucket names
   config.notifications_domain_name = "in.brightpushbeta.notifications"
   config.application_icons_s3_bucket = "beta_brightpush_application_icons"
   config.sandbox_certificate_pkcs12_s3_bucket = "beta_brightpush_development_ios_certificate_pkcs12"
   config.production_certificate_pkcs12_s3_bucket = "beta_brightpush_production_ios_certificate_pkcs12"
   config.certificate_pem_s3_bucket = "beta_brightpush_ios_certificates_pem"
   config.c2dm_token_s3_bucket = "beta_brightpush_c2dm_token_txt"
+
+  # Assign Amazon Security Credentials
+  config.access_key_id = 'AKIAIERRYQXDX7KCTHPQ'
+  config.secret_access_key = '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'
 end

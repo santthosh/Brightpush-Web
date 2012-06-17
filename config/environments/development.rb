@@ -24,11 +24,16 @@ Subscriptions::Application.configure do
 
   # Paperclip.options[:command_path] = "/usr/bin/convert"
   
+  # Initialise domain name and bucket names
   config.notifications_domain_name = "in.brightpushalpha.notifications"
   config.application_icons_s3_bucket = "alpha_brightpush_application_icons"
   config.sandbox_certificate_pkcs12_s3_bucket = "alpha_brightpush_development_ios_certificate_pkcs12"
   config.production_certificate_pkcs12_s3_bucket = "alpha_brightpush_production_ios_certificate_pkcs12"
   config.certificate_pem_s3_bucket = "alpha_brightpush_ios_certificates_pem"
   config.c2dm_token_s3_bucket = "alpha_brightpush_c2dm_token_txt"
+
+  # Assign Amazon Security Credentials
+  config.access_key_id = 'AKIAIERRYQXDX7KCTHPQ'
+  config.secret_access_key = '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'
 end
 
