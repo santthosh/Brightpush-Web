@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
   #before_filter :check_user_limit, :only => :create
   
   def index
-    @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]],:per_page =>5, :page => params[:page] )
+    @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]], :order => 'created_at DESC', :per_page =>15, :page => params[:page] )
     @application = App.find(params[:id])
     respond_to do |format|
       format.html # index.html.erb  
