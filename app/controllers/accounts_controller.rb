@@ -152,6 +152,9 @@ class AccountsController < ApplicationController
   end
 
   def dashboard
+    if current_user
+      redirect_to apps_url
+    end
   end
 
   protected
