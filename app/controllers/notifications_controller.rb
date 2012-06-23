@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
-  before_filter :check_user_rights, :only => [:index, :new, :show]
+  #before_filter :check_user_rights, :only => [:index, :new, :show]
 
   
   def index
