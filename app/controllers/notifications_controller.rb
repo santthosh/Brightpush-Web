@@ -170,9 +170,11 @@ class NotificationsController < ApplicationController
   private
   
   def check_user_rights(acc_id)
-  	unless acc_id == current_account.id
+  	if acc_id != current_account.id
       flash[:notice] = "You can't access this page"
       redirect_to apps_path
+    else
+      return true  
     end
   end	
 end
