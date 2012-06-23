@@ -36,14 +36,18 @@ class AppsController < ApplicationController
 
   def create
     @application = App.new(params[:app])
+    unless @application.account_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
+    end
     respond_to do |format|
-	  #@application.randomize_file_name if params[:app][:development_push_certificate]
+      #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.save
-		@application.encrypt_passwords
+  	    @application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
       else
-		@app_type = params[:app][:application_type]
+  	    @app_type = params[:app][:application_type]
         format.html { render :action => "new" }
         format.json { render :json => @application.errors, :status => :unprocessable_entity }
       end
@@ -52,6 +56,10 @@ class AppsController < ApplicationController
 
   def show
     @application = App.find(params[:id])
+    unless @application.account_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @application }
@@ -60,28 +68,36 @@ class AppsController < ApplicationController
 
   def edit
     @application = App.find(params[:id])
+    unless @application.account_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
+    end
     @app_type = @application.application_type
-	unless @application.crypted_development_push_certificate_password.blank?
-	  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
-	  @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
-	end
-	unless @application.crypted_production_push_certificate_password.blank? 
-		cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
-	  @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
-	end
+  	unless @application.crypted_development_push_certificate_password.blank?
+  	  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
+  	  @development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password) rescue nil
+  	end
+  	unless @application.crypted_production_push_certificate_password.blank? 
+  		cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
+  	  @production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password) rescue nil
+  	end
   end
 
   def update
     @application = App.find(params[:id])
+    unless @application.account_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
+    end
     respond_to do |format|
 	  #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.update_attributes(params[:app])
-		@application.encrypt_passwords
+		    @application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully updated.' }
         format.json { head :no_content }
       else
-		@development_push_certificate_password = @application.crypted_development_push_certificate_password
-		@production_push_certificate_password = @application.crypted_production_push_certificate_password
+    		@development_push_certificate_password = @application.crypted_development_push_certificate_password
+    		@production_push_certificate_password = @application.crypted_production_push_certificate_password
         format.html { render :action => "edit" }
         format.json { render :json => @application.errors, :status => :unprocessable_entity }
       end
@@ -90,6 +106,10 @@ class AppsController < ApplicationController
 
   def destroy
     @application = App.find(params[:id])
+    unless @application.account_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
+    end
     if @application.application_icon
       @application.application_icon.destroy
       @application.application_icon.clear
