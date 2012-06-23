@@ -5,11 +5,12 @@ class NotificationsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
+  before_filter :check_user_rights, :only => [:index, :new, :show]
+
   
   def index
     @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]], :order => 'created_at DESC', :per_page =>15, :page => params[:page] )
     @application = App.find(params[:id])
-    check_user_rights(@application.account_id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @notification }
@@ -19,7 +20,6 @@ class NotificationsController < ApplicationController
   def new
     @notification = Notification.new(:id => params[:id])
     @application = App.find(params[:id])
-    check_user_rights(@application.account_id)
     if @application.application_type == 'android'
 	  @payload_value = 'android'
     else
@@ -35,7 +35,6 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(params[:notification])
     #fetch application data of this perticular notification
     @application = App.find(params['notification']['app_id'])
-    check_user_rights(@application.account_id)
     respond_to do |format|
 	  if @notification.save
 		if params['notification']['app_type'] == 'aps'
@@ -124,7 +123,6 @@ class NotificationsController < ApplicationController
   def show
     @notification = Notification.find(params[:id])
     @application = App.find(params[:app_id])
-    check_user_rights(@application.account_id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @notifications }
@@ -134,7 +132,6 @@ class NotificationsController < ApplicationController
   def edit
     @notifications = Notification.find(params[:id])
     @application = App.find(params[:app_id])
-    check_user_rights(@application.account_id)
     if @application.application_type == 'android'
 	  @payload_value = 'android'  
     else
@@ -144,7 +141,6 @@ class NotificationsController < ApplicationController
 
   def update
     @notifications = Notification.find(params[:id])
-    check_user_rights(@notifications.app.account_id)
     respond_to do |format|
       if @notifications.update_attributes(params[:notification])
         format.html { redirect_to notifications_path(@notifications.app_id), :notice => 'Notification was successfully updated.' }
@@ -159,7 +155,6 @@ class NotificationsController < ApplicationController
   
   def destroy
     @notifications = Notification.find(params[:id])
-    check_user_rights(@notifications.app.account_id)
     @notifications.destroy
     respond_to do |format|
       format.html { redirect_to notifications_url(@notifications.app_id) }
@@ -169,10 +164,11 @@ class NotificationsController < ApplicationController
 
   private
   
-  def check_user_rights(acc_id)
-  	unless acc_id == current_account.id
+  def check_user_rights
+    @application = App.find(params[:id])
+    unless @application.account_id == current_account.id
       flash[:notice] = "You can't access this page"
-      return redirect_to apps_path
+      redirect_to apps_path
     end
-  end	
+  end
 end
