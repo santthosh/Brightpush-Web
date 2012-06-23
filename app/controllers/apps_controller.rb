@@ -36,10 +36,7 @@ class AppsController < ApplicationController
 
   def create
     @application = App.new(params[:app])
-    unless @application.account_id == current_account.id
-      flash[:notice] = "You can't access this page"
-      redirect_to apps_path
-    end
+    check_user_rights(@application.account_id)
     respond_to do |format|
       #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.save
@@ -56,10 +53,7 @@ class AppsController < ApplicationController
 
   def show
     @application = App.find(params[:id])
-    unless @application.account_id == current_account.id
-      flash[:notice] = "You can't access this page"
-      redirect_to apps_path
-    end
+    check_user_rights(@application.account_id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @application }
@@ -68,10 +62,7 @@ class AppsController < ApplicationController
 
   def edit
     @application = App.find(params[:id])
-    unless @application.account_id == current_account.id
-      flash[:notice] = "You can't access this page"
-      redirect_to apps_path
-    end
+    check_user_rights(@application.account_id)
     @app_type = @application.application_type
   	unless @application.crypted_development_push_certificate_password.blank?
   	  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
@@ -85,10 +76,7 @@ class AppsController < ApplicationController
 
   def update
     @application = App.find(params[:id])
-    unless @application.account_id == current_account.id
-      flash[:notice] = "You can't access this page"
-      redirect_to apps_path
-    end
+    check_user_rights(@application.account_id)
     respond_to do |format|
 	  #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.update_attributes(params[:app])
@@ -106,10 +94,7 @@ class AppsController < ApplicationController
 
   def destroy
     @application = App.find(params[:id])
-    unless @application.account_id == current_account.id
-      flash[:notice] = "You can't access this page"
-      redirect_to apps_path
-    end
+    check_user_rights(@application.account_id)
     if @application.application_icon
       @application.application_icon.destroy
       @application.application_icon.clear
@@ -118,6 +103,15 @@ class AppsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to apps_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  
+  def check_user_rights(acc_id)
+    unless acc_id == current_account.id
+      flash[:notice] = "You can't access this page"
+      redirect_to apps_path
     end
   end
 end
