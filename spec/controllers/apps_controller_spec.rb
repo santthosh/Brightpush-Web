@@ -32,7 +32,7 @@ describe AppsController do
         get :index, :format => :html
         response.should be_success
         response.should render_template('index')
-        @apps.size.should == 1
+        @apps.size.should == 2
       end
 
       it "should have the right title" do
@@ -63,7 +63,7 @@ describe AppsController do
           :crypted_development_push_certificate_password => "",
           :production_push_certificate_file =>	"",
           :crypted_production_push_certificate_password => ""}
-       end
+        end
 
        it "should have the right title" do
          post :create, :app => @attr
@@ -143,6 +143,20 @@ describe AppsController do
 
     end
 
+    describe "GET 'edit'" do
+      describe "failure" do
+        before(:each) do
+         sign_in @admin
+          @attr = App.find(2)
+        end
+
+        it "should be redirect to application list page" do
+          get :edit, :id => @attr
+          response.should redirect_to(apps_url)
+        end
+      end  
+    end
+
 
    describe "PUT 'update'" do
      before(:each) do
@@ -172,23 +186,37 @@ describe AppsController do
         end
     end
 
+    describe "PUT 'update'" do
+      describe "failure" do
+        before(:each) do
+         sign_in @admin
+          @attr = App.find(2)
+        end
+
+        it "should be redirect to application list page" do
+          put :update, :id => @attr
+          response.should redirect_to(apps_url)
+        end
+      end  
+    end
+
     describe "success" do
         before(:each) do
              sign_in @admin
              @attr = {:name => "application_first",
-				  :key => "key_first",
+				        :key => "key_first",
             	  :application_icon_file => File.new(Rails.root + 'spec/fixtures/certificate/message.png'),
 	              :development_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/DevelopmentPush.p12'),
-          	      :crypted_development_push_certificate_password => "tamil4g@123",
+          	    :crypted_development_push_certificate_password => "tamil4g@123",
 	              :production_push_certificate => File.new(Rails.root + 'spec/fixtures/certificate/ProductionPush.p12'),
-          	      :crypted_production_push_certificate_password => "tamil4g@123"}
+          	    :crypted_production_push_certificate_password => "tamil4g@123"}
         end
 
         it "should change the app's attributes" do
-		  put :update, :id => @app, :app => @attr
-		  @app.reload
-		  @app.name.should == @attr[:name]
-		  @app.key.should == @attr[:key]
+          put :update, :id => @app, :app => @attr
+          @app.reload
+          @app.name.should == @attr[:name]
+          @app.key.should == @attr[:key]
         end
         #yers
         end
@@ -215,6 +243,20 @@ describe AppsController do
         response.should have_selector("td", :content => @app.name)
       end
    end
+
+   describe "GET 'show'" do
+      describe "failure" do
+        before(:each) do
+         sign_in @admin
+          @attr = App.find(2)
+        end
+
+        it "should be redirect to application list page" do
+          get :update, :id => @attr
+          response.should redirect_to(apps_url)
+        end
+      end  
+    end
 
  end
 end

@@ -24,3 +24,22 @@ app_1:
   application_icon_content_type: image/png
   development_push_certificate_file_name: tamil4g Production Push.p12
   production_push_certificate_file_name: tamil4g Production Push.p12
+
+app_2:
+  id: 2
+  account_id: 2
+  name: application_second
+  key: key_second
+  development_push_certificate_content_type: application/x-pkcs12
+  crypted_development_push_certificate_password: ! 'U2FsdGVkX1+GuNxv8UbzJX+3VOM39fpmln+3DI7wP7E='
+  crypted_development_push_certificate_salt: yKicy9UQTH0=
+  production_push_certificate_content_type: application/x-pkcs12
+  crypted_production_push_certificate_password: ! 'U2FsdGVkX1/qw92Rs997um+Xi6xktOh5wHCVQfqrrUg='
+  crypted_production_push_certificate_salt: pZz0IrMb7Qw=
+  created_at: 2012-05-13 17:45:41
+  updated_at: 2012-05-13 17:45:49
+  deleted_at: null 
+  application_icon_file_name: Screenshot at 2012-03-28 21:46:43.png
+  application_icon_content_type: image/png
+  development_push_certificate_file_name: tamil4g Production Push.p12
+  production_push_certificate_file_name: tamil4g Production Push.p12  
