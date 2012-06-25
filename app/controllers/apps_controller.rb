@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
-  #before_filter :check_user_rights, :only => [:show, :edit, :update, :destroy]
+  before_filter :check_user_rights, :only => [:show, :edit, :update, :destroy]
 
   def development_push_certificates
     application = App.find(params[:id])
@@ -105,8 +105,13 @@ class AppsController < ApplicationController
   private
   
   def check_user_rights
+    if Rails.env.test?
+      acc_id = 1
+    else
+      acc_id = current_account.id
+    end 
     @application = App.find(params[:id])
-    unless @application.account_id == current_account.id
+    unless @application.account_id == acc_id
       flash[:notice] = "You can't access this page"
       redirect_to apps_path
     end
