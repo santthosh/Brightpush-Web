@@ -19,6 +19,7 @@ gem 'devise', '2.0'
 gem 'rmagick'
 gem 'haml'
 gem 'haml-rails'
+gem 'logglier'
 
 group :development do
   gem 'capistrano', '2.8.0'

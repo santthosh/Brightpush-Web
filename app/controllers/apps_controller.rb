@@ -1,5 +1,7 @@
 class AppsController < ApplicationController
 
+  require 'logglier'
+
   inherit_resources
   
   before_filter :authenticate_user!
@@ -21,6 +23,8 @@ class AppsController < ApplicationController
 
   def index
     @applications = App.paginate(:per_page => 5, :page => params[:page]).find_all_by_account_id(current_account.id)
+    log = Logglier.new("https://logs.loggly.com/inputs/6cac9fd6-e54a-4c05-abaf-1c427414cb96")
+    log.info("this is loggly test")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @applications }
