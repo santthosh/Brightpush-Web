@@ -23,8 +23,6 @@ class AppsController < ApplicationController
 
   def index
     @applications = App.paginate(:per_page => 5, :page => params[:page]).find_all_by_account_id(current_account.id)
-    log = Logglier.new("https://logs.loggly.com/inputs/6cac9fd6-e54a-4c05-abaf-1c427414cb96")
-    log.info("this is loggly test")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @applications }
@@ -44,6 +42,8 @@ class AppsController < ApplicationController
     respond_to do |format|
       #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.save
+        loggly_txt = "[#{Rails.env}] - Application '#{@application.name}' created by #{current_user.email}"
+        loggly_event(loggly_txt)
   	    @application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully created.' }
         format.json { head :no_content }
@@ -57,6 +57,8 @@ class AppsController < ApplicationController
 
   def show
     @application = App.find(params[:id])
+    loggly_txt = "[#{Rails.env}] - Application '#{@application.name}' seen by #{current_user.email}"
+    loggly_event(loggly_txt)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @application }
@@ -81,6 +83,8 @@ class AppsController < ApplicationController
     respond_to do |format|
 	  #@application.randomize_file_name if params[:app][:development_push_certificate]
       if @application.update_attributes(params[:app])
+        loggly_txt = "[#{Rails.env}] - Application '#{@application.name}' updated by #{current_user.email}"
+        loggly_event(loggly_txt)
 		    @application.encrypt_passwords
         format.html { redirect_to apps_url, :notice => 'Application was successfully updated.' }
         format.json { head :no_content }
@@ -100,6 +104,8 @@ class AppsController < ApplicationController
       @application.application_icon.clear
     end
     @application.destroy
+    loggly_txt = "[#{Rails.env}] - Application '#{@application.name}' deleted by #{current_user.email}"
+    loggly_event(loggly_txt)
     respond_to do |format|
       format.html { redirect_to apps_url }
       format.json { head :no_content }

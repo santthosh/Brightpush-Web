@@ -63,4 +63,9 @@ class ApplicationController < ActionController::Base
       $certificate_pem = Rails.application.config.certificate_pem_s3_bucket
       $c2dm_token = Rails.application.config.c2dm_token_s3_bucket
 	end
+
+  def loggly_event(text)
+    log = Logglier.new("https://logs.loggly.com/inputs/6cac9fd6-e54a-4c05-abaf-1c427414cb96")
+    log.info(text)
+  end
 end
