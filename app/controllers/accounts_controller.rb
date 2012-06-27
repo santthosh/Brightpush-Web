@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
   def create
     @account.affiliate = SubscriptionAffiliate.find_by_token(cookies[:affiliate]) unless cookies[:affiliate].blank?
     if @account.save
-      loggly_txt = "[#{Rails.env}] - New Account '#{@account.name}' created with domain name '#{@account.full_domain}' by '#{@account.users.first.email}'"
+      loggly_txt = "[#{Rails.env}] - New Account '#{@account.name}' created with domain name '#{@account.full_domain}'"
       loggly_event(loggly_txt)
       flash[:domain] = @account.domain
       redirect_to thanks_url
