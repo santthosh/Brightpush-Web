@@ -16,12 +16,12 @@ defaults: &defaults
     
 development:
   <<: *defaults
-  base_domain: brightpushalpha.com # Edit /etc/hosts to add subscriptions.dev, test.subscriptions.dev, etc., or use Pow: http://pow.cx
+  base_domain: brightpushalpha.in # Edit /etc/hosts to add subscriptions.dev, test.subscriptions.dev, etc., or use Pow: http://pow.cx
 
 test:
   <<: *defaults
   from_email: support@brightpushbeta.com
-  base_domain: brightpushbeta.com
+  base_domain: brightpushbeta.in
 
 production:
   <<: *defaults
@@ -33,3 +33,4 @@ production:
       :login: demo
       :password: password
       :signature: signature
+  base_domain: brightpush.in    
