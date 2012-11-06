@@ -1,7 +1,7 @@
 defaults: &defaults
   app_name: Brightpush
-  from_email: support@brightpush.io
-  base_domain: brightpush.io
+  from_email: support@brightpush.in
+  base_domain: brightpush.in
 
   gateway: bogus
   credentials:
