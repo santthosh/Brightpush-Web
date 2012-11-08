@@ -1,4 +1,4 @@
-set :branch, "develop"
+set :branch, "master"
 # This IP 50.112.125.184 is CNAME'D to brightpushalpha.in
 role :web, "54.245.107.56"                          # Your HTTP server, Apache/etc
 role :app, "54.245.107.56"                          # This may be the same as your `Web` server
