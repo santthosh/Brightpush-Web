@@ -44,7 +44,7 @@ set :rails_env,"development"
     run "touch #{File.join(shared_path, 'log', "#{rails_env}.log")}"
     run "cd #{release_path} && bundle install"
     #run "cd #{release_path} && rake db:create --trace"
-    run "cd #{release_path} && rake db:migrate --trace"
+    #run "cd #{release_path} && rake db:migrate --trace"
   end
  end
  
