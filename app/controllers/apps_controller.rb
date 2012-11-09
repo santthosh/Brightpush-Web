@@ -8,6 +8,7 @@ class AppsController < ApplicationController
   before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
   before_filter :check_user_rights, :only => [:show, :edit, :update, :destroy]
+  before_filter :initialize_bucket_name
 
   def development_push_certificates
     application = App.find(params[:id])
@@ -125,5 +126,14 @@ class AppsController < ApplicationController
       flash[:notice] = "You can't access this page"
       redirect_to apps_path
     end
+  end
+  
+  def initialize_bucket_name
+    $domain_name = Rails.application.config.notifications_domain_name
+    $application_icons = Rails.application.config.application_icons_s3_bucket
+    $development_certificate_pkcs12 = Rails.application.config.sandbox_certificate_pkcs12_s3_bucket
+    $production_certificate_pkcs12 = Rails.application.config.production_certificate_pkcs12_s3_bucket
+    $certificate_pem = Rails.application.config.certificate_pem_s3_bucket
+    $c2dm_token = Rails.application.config.c2dm_token_s3_bucket
   end
 end
