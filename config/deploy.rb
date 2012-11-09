@@ -41,7 +41,7 @@ set :rails_env,"development"
   task :symlink_db, :roles => :app do
     run "cp #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
     puts "\n\n=== Creating Production Log! ===\n\n"
-    run "touch #{File.join(shared_path, 'log', 'development.log')}"
+    run "touch #{File.join(shared_path, 'log', "#{rails_env}.log")}"
     run "cd #{release_path} && bundle install"
     run "cd #{release_path} && rake db:create --trace"
     run "cd #{release_path} && rake db:migrate --trace"

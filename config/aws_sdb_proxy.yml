@@ -1,17 +1,30 @@
 development:
   aws_access_key_id: AKIAIERRYQXDX7KCTHPQ
   aws_secret_access_key: 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
+  application_icons: alpha_brightpush_application_icons
+  development_certificate_pkcs12: alpha_brightpush_development_ios_certificate_pkcs12
+  production_certificate_pkcs12: alpha_brightpush_production_ios_certificate_pkcs12
+  certificate_pem: alpha_brightpush_ios_certificates_pem
   #salt: your_aws_sdb_proxy_secret_salt_here
   port: 3000
 
 test:
   aws_access_key_id: AKIAIERRYQXDX7KCTHPQ
   aws_secret_access_key: r/d8gsBxu1OdRV7Sx8uKWaXU8v2r0asjZho16tUz
+  application_icons: beta_brightpush_application_icons
+  development_certificate_pkcs12: beta_brightpush_development_ios_certificate_pkcs12
+  production_certificate_pkcs12: beta_brightpush_production_ios_certificate_pkcs12
+  certificate_pem: beta_brightpush_ios_certificates_pem
   #salt: your_aws_sdb_proxy_secret_salt_here
   port: 3000
 
 production:
   aws_access_key_id: AKIAIERRYQXDX7KCTHPQ
   aws_secret_access_key: r/d8gsBxu1OdRV7Sx8uKWaXU8v2r0asjZho16tUz
+  application_icons: brightpush_application_icons
+  development_certificate_pkcs12: brightpush_development_ios_certificate_pkcs12
+  production_certificate_pkcs12: brightpush_production_ios_certificate_pkcs12
+  certificate_pem: brightpush_ios_certificates_pem
   #salt: your_aws_sdb_proxy_secret_salt_here
   port: 3000
+
