@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
   before_filter :authorized?
   #before_filter :check_user_limit, :only => :create
   before_filter :check_user_rights, :only => [:index, :new, :show]
-
+  before_filter :initialize_bucket_name
   
   def index
     @notifications = Notification.paginate(:conditions => ["app_id = ?", params[:id]], :order => 'created_at DESC', :per_page =>15, :page => params[:page] )
@@ -167,6 +167,15 @@ class NotificationsController < ApplicationController
       format.html { redirect_to notifications_url(@notification.app_id) }
       format.json { head :no_content }
     end
+  end
+  
+  def initialize_bucket_name
+    $domain_name = Rails.application.config.notifications_domain_name
+    $application_icons = Rails.application.config.application_icons_s3_bucket
+    $development_certificate_pkcs12 = Rails.application.config.sandbox_certificate_pkcs12_s3_bucket
+    $production_certificate_pkcs12 = Rails.application.config.production_certificate_pkcs12_s3_bucket
+    $certificate_pem = Rails.application.config.certificate_pem_s3_bucket
+    $c2dm_token = Rails.application.config.c2dm_token_s3_bucket
   end
 
   private
