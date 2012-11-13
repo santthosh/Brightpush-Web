@@ -1,6 +1,6 @@
 class Post < AWS::Record::Base
 	
-	set_domain_name $domain_name
+	set_domain_name Rails.application.config.notifications_domain_name
 	
 	string_attr :message
 	string_attr :environment
