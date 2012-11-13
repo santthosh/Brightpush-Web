@@ -40,6 +40,7 @@ set :rails_env,"development"
   desc "Symlinks the database.yml"
   task :symlink_db, :roles => :app do
     run "cp #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    run "cp #{deploy_to}/shared/paperclip_config.rb #{release_path}/lib/paperclip_config.rb"
     puts "\n\n=== Creating Production Log! ===\n\n"
     run "touch #{File.join(shared_path, 'log', "#{rails_env}.log")}"
     run "cd #{release_path} && bundle install"
