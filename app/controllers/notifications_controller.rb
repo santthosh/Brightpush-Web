@@ -37,23 +37,33 @@ class NotificationsController < ApplicationController
     @application = App.find(params['notification']['app_id'])
     respond_to do |format|
 		  if @notification.save
-		  	loggly_txt = "[#{Rails.env}] - Notification Alert:'#{@notification.alert}' created by #{current_user.email}"
-		  	loggly_event(loggly_txt)
 				if params['notification']['app_type'] == 'aps'
 				  #define paperclip file type
 				  style = params[:style] ? params[:style] : 'original'
 			  
-				  #development password decryption for converting .p12 dile to .pem file
-				  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
-				  development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password)
-				  
-				  #fetch .p12 file from bucket and rename it to random string + latest timestamp
-				  latest_pem_timestamp = @notification.random_string_timestamp(15)
-				  system("wget -O #{latest_pem_timestamp}.p12 #{@application.development_push_certificate}")
-				  
-				  #convert .p12 file to .pem file
-				  system("openssl pkcs12 -in '#{latest_pem_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_pem_timestamp}.pem' -nodes -clcerts")
+			    latest_pem_timestamp = @notification.random_string_timestamp(15)
+			    if(params['notification']['environment'].casecmp("sandbox") == 0) 
+			      #development password decryption for converting .p12 dile to .pem file
+  				  cipher = Gibberish::AES.new(@application.crypted_development_push_certificate_salt)
+  				  development_push_certificate_password = cipher.decrypt(@application.crypted_development_push_certificate_password)
 
+  				  #fetch .p12 file from bucket and rename it to random string + latest timestamp
+  				  system("wget -O #{latest_pem_timestamp}.p12 #{@application.development_push_certificate}")
+
+  				  #convert .p12 file to .pem file
+  				  system("openssl pkcs12 -in '#{latest_pem_timestamp}.p12' -passin pass:'#{development_push_certificate_password}' -out '#{latest_pem_timestamp}.pem' -nodes -clcerts")
+			    else
+			      #production password decryption for converting .p12 dile to .pem file
+  				  cipher = Gibberish::AES.new(@application.crypted_production_push_certificate_salt)
+  				  production_push_certificate_password = cipher.decrypt(@application.crypted_production_push_certificate_password)
+
+  				  #fetch .p12 file from bucket and rename it to random string + latest timestamp
+  				  system("wget -O #{latest_pem_timestamp}.p12 #{@application.production_push_certificate}")
+
+  				  #convert .p12 file to .pem file
+  				  system("openssl pkcs12 -in '#{latest_pem_timestamp}.p12' -passin pass:'#{production_push_certificate_password}' -out '#{latest_pem_timestamp}.pem' -nodes -clcerts")
+			    end
+				  
 				  # Save application .pem file to s3 bucket foreach notification
 				  AWS.config(
 					  :access_key_id => Rails.application.config.access_key_id,
