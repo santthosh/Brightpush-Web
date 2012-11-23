@@ -1,7 +1,5 @@
 class AppsController < ApplicationController
 
-  require 'logglier'
-
   inherit_resources
   
   before_filter :authenticate_user!
