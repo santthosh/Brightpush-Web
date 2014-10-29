@@ -42,6 +42,6 @@ Subscriptions::Application.configure do
   config.c2dm_token_s3_bucket = "beta_brightpush_c2dm_token_txt"
 
   # Assign Amazon Security Credentials
-  config.access_key_id = 'AKIAIERRYQXDX7KCTHPQ'
-  config.secret_access_key = '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'
+  config.access_key_id = '<AWS Key>'
+  config.secret_access_key = '<AWS Key>'
 end
